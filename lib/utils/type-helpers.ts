@@ -12,7 +12,7 @@ export function isString(obj: any): boolean {
 }
 
 export function getTypeName(obj: any) : string {
-    return obj.constructor.Name;
+    return obj.constructor.name;
 }
 
 export function getFirstAnchestor(obj: any) : any | undefined {
