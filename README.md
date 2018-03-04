@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adospace/ovuse.svg?branch=master)](https://travis-ci.org/adospace/ovuse)
+
 # ovuse
 Ovuse (formerly known as Layouts) is a WPF-inspired javascript UI framework that let you write web application that runs on any modern browsers.
 
