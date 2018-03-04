@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from '../lib/index'
+/* import { capitalizeFirstLetter } from '../lib/index'
 import { expect } from 'chai';
 import 'mocha';
 
@@ -9,4 +9,4 @@ describe('Hello function', () => {
     expect(result).to.equal('Test!');
   });
 
-});
+}); */

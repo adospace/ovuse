@@ -1,15 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
-* @Method: Capitalize first letter
-* @Param {string}
-* @Return {string}
-*/
-function capitalizeFirstLetter(str) {
-    if (str == null)
-        throw new Error("'str' can't be null");
-    if (str.length == 0)
-        return str;
-    return str[0].toUpperCase() + str.slice(1);
-}
-exports.capitalizeFirstLetter = capitalizeFirstLetter;
+var dependency_object_1 = require("./dependency-object");
+exports.DependencyObject = dependency_object_1.DependencyObject;
+var dependency_property_1 = require("./dependency-property");
+exports.DependencyProperty = dependency_property_1.DependencyProperty;
+var binding_1 = require("./binding");
+exports.Binding = binding_1.Binding;
+var property_path_1 = require("./property-path");
+exports.PropertyPath = property_path_1.PropertyPath;
+var property_map_1 = require("./property-map");
+exports.PropertyMap = property_map_1.PropertyMap;
