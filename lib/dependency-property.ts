@@ -1,6 +1,6 @@
 
-import { DependencyObject } from '.'
-import { getTypeName } from './utils'
+import { DependencyObject, componentName } from '.'
+
 export class DependencyProperty {
     private _defaultValue: any;
     constructor(public name: string, 
@@ -26,7 +26,7 @@ export class DependencyProperty {
     //get default value of this property for passed object
     getDefaultValue(depObject: DependencyObject) {
         //var typeName = depObject["typeName"];
-        var typeName = getTypeName(depObject);
+        var typeName = componentName(depObject);
         
         if (typeName in this._defaultValueMap)
             return this._defaultValueMap[typeName];

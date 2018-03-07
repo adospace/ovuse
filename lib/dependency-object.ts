@@ -1,7 +1,7 @@
 
-import { DependencyProperty, Binding, PropertyMap } from '.'
+import { DependencyProperty, Binding, PropertyMap, component, componentName } from '.'
 import { ISupportDependencyPropertyChange, ISupportPropertyChange, IConverter } from './contracts'
-import { isString, hasProperty, getTypeName, getFirstAnchestor } from './utils'
+import { isString, hasProperty, getFirstAnchestor } from './utils'
 
 export class DependencyObject {
     ///Map of properties for each dependency object
@@ -18,17 +18,17 @@ export class DependencyObject {
     }
 
     ///Get the dependency property registered with this type of object (or undefined if property doesn't exist on object)
-    static getProperty(typeName: string, name: string): DependencyProperty | undefined {
+    static getProperty(typeName: string, name: string): DependencyProperty | null {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
-            return undefined;
+            return null;
 
         return DependencyObject.globalPropertyMap[typeName].getProperty(name);
     }
 
     ///Get only dependency properties registered with this type of object
-    static getProperties(typeName: string): DependencyProperty[] | undefined {
+    static getProperties(typeName: string): DependencyProperty[] | null {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
-            return undefined;
+            return null;
 
         return DependencyObject.globalPropertyMap[typeName].all();
     }
@@ -39,7 +39,7 @@ export class DependencyObject {
             throw new Error("obj == undefined");
 
         //var typeName = <string>obj["typeName"];
-        var typeName = getTypeName(obj);
+        var typeName = componentName(obj);
         var propertiesOfObject = DependencyObject.getProperties(typeName);
 
         if (propertiesOfObject != undefined)
@@ -53,14 +53,14 @@ export class DependencyObject {
             DependencyObject.forAllProperties(firstAnchestor, callback);
     }
 
-    static lookupProperty(obj: DependencyObject, name: string): DependencyProperty | undefined {
+    static lookupProperty(obj: DependencyObject, name: string): DependencyProperty | null {
         if (obj == undefined)
             throw new Error("obj == undefined");
 
         //var typeName = <string>obj["typeName"];
-        var typeName = getTypeName(obj);
+        var typeName = componentName(obj);
         var property = DependencyObject.globalPropertyMap[typeName] == undefined ? 
-            undefined : 
+            null : 
             DependencyObject.globalPropertyMap[typeName].getProperty(name);
         var firstAnchestor = getFirstAnchestor(obj);
         if (property == undefined && firstAnchestor != undefined)

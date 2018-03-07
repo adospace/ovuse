@@ -2,7 +2,6 @@
 
 import { DependencyObject, DependencyProperty, PropertyPath } from '.'
 import { ISupportDependencyPropertyChange, IConverter } from './contracts'
-import { format } from './utils'
 
 export class Binding implements ISupportDependencyPropertyChange {
     target: DependencyObject;
@@ -54,7 +53,7 @@ export class Binding implements ISupportDependencyPropertyChange {
                     targetProperty: this.targetProperty,
                     parameter: this.converterParameter
                 }) : retValue.value;
-            this.target.setValue(this.targetProperty, this.format != undefined ? format(valueToSet) : valueToSet);//update target
+            this.target.setValue(this.targetProperty, this.format != undefined ? this.format.format(valueToSet) : valueToSet);//update target
         }
         else if (this.source != undefined) {
             //if source is not undefined and retValue.success is false

@@ -15,7 +15,7 @@ class B extends A {
   }
   get property(): string {
     return "B.propertyValue";
-}
+  }
 }
 
 describe('getTypeName', () => {
