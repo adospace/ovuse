@@ -5,10 +5,10 @@ export declare class DependencyObject {
     static registerProperty(typeName: string, name: string, defaultValue?: any, options?: any, converter?: {
         (value: string): any;
     }): DependencyProperty;
-    static getProperty(typeName: string, name: string): DependencyProperty | undefined;
-    static getProperties(typeName: string): DependencyProperty[] | undefined;
+    static getProperty(typeName: string, name: string): DependencyProperty | null;
+    static getProperties(typeName: string): DependencyProperty[] | null;
     static forAllProperties(obj: DependencyObject, callback: (DependencyProperty: DependencyProperty) => void): void;
-    static lookupProperty(obj: DependencyObject, name: string): DependencyProperty | undefined;
+    static lookupProperty(obj: DependencyObject, name: string): DependencyProperty | null;
     protected localPropertyValueMap: {
         [propertyName: string]: any;
     };

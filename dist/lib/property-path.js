@@ -4,11 +4,11 @@ var _1 = require(".");
 var utils_1 = require("./utils");
 var PropertyPath = /** @class */ (function () {
     function PropertyPath(owner, path, source) {
-        this.name = undefined;
-        this.next = undefined;
-        this.prev = undefined;
-        this.sourceProperty = undefined;
-        this.indexers = undefined;
+        this.name = null;
+        this.next = null;
+        this.prev = null;
+        this.sourceProperty = null;
+        this.indexers = null;
         this.owner = owner;
         this.path = path;
         this.source = source;
@@ -36,7 +36,7 @@ var PropertyPath = /** @class */ (function () {
         var nameStr = this.name;
         if ((m = re.exec(nameStr)) !== undefined) {
             if (m == undefined) {
-                this.indexers = undefined;
+                this.indexers = null;
                 return;
             }
             if (m.index === re.lastIndex) {
@@ -53,7 +53,7 @@ var PropertyPath = /** @class */ (function () {
             re = /([\w_]+)(\[([\w_]+)\])(\[([\w_]+)\])/gmi;
             if ((m = re.exec(nameStr)) !== undefined) {
                 if (m == undefined) {
-                    this.indexers = undefined;
+                    this.indexers = null;
                     return;
                 }
                 if (m.index === re.lastIndex) {
@@ -63,18 +63,18 @@ var PropertyPath = /** @class */ (function () {
             }
         }
         else
-            this.indexers = undefined;
+            this.indexers = null;
     };
     PropertyPath.prototype.build = function () {
         var oldNext = this.next;
         if (this.next != undefined) {
             this.next.detachSource();
-            this.next.prev = undefined;
+            this.next.prev = null;
         }
         if (this.path == "" ||
             this.path == ".") {
             this.name = ".";
-            this.next = undefined;
+            this.next = null;
         }
         else {
             var dotIndex = this.path.indexOf(".");
@@ -108,14 +108,14 @@ var PropertyPath = /** @class */ (function () {
                         this.next.build();
                 }
                 else {
-                    this.next = undefined;
+                    this.next = null;
                 }
             }
             else {
                 this.name = this.path;
                 this.lookForIndexers();
                 this.sourceProperty = _1.DependencyObject.lookupProperty(this.source, this.name);
-                this.next = undefined;
+                this.next = null;
             }
         }
         if (this.next != undefined) {
@@ -145,8 +145,8 @@ var PropertyPath = /** @class */ (function () {
         else if (this.name != undefined && this.path.indexOf(".") == -1) {
             if (_1.DependencyObject.logBindingTraceToConsole)
                 if (this.sourceProperty == undefined && (!(this.name in this.source))) {
-                    var typeName = utils_1.getTypeName(this.source);
-                    console.log(utils_1.format("[Bindings] Unable to find property '{0}' on type '{1}'", this.name, typeName == undefined ? "<noneType>" : typeName));
+                    var typeName = _1.componentName(this.source);
+                    console.log("[Bindings] Unable to find property '{0}' on type '{1}'".format(this.name, typeName == undefined ? "<noneType>" : typeName));
                 }
             var sourcePropertyValue = (this.sourceProperty != undefined) ?
                 this.source.getValue(this.sourceProperty) : //if it's a dep property get value using DependencyObject hierarchy

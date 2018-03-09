@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
-var utils_1 = require("./utils");
 var Binding = /** @class */ (function () {
     function Binding(target, targetProperty, propertyPath, source, twoWay, converter, converterParameter, format) {
         if (twoWay === void 0) { twoWay = false; }
@@ -29,7 +28,7 @@ var Binding = /** @class */ (function () {
                 targetProperty: this.targetProperty,
                 parameter: this.converterParameter
             }) : retValue.value;
-            this.target.setValue(this.targetProperty, this.format != undefined ? utils_1.format(valueToSet) : valueToSet); //update target
+            this.target.setValue(this.targetProperty, this.format != undefined ? this.format.format(valueToSet) : valueToSet); //update target
         }
         else if (this.source != undefined) {
             //if source is not undefined and retValue.success is false

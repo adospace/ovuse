@@ -20,13 +20,13 @@ var DependencyObject = /** @class */ (function () {
     ///Get the dependency property registered with this type of object (or undefined if property doesn't exist on object)
     DependencyObject.getProperty = function (typeName, name) {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
-            return undefined;
+            return null;
         return DependencyObject.globalPropertyMap[typeName].getProperty(name);
     };
     ///Get only dependency properties registered with this type of object
     DependencyObject.getProperties = function (typeName) {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
-            return undefined;
+            return null;
         return DependencyObject.globalPropertyMap[typeName].all();
     };
     ///Iterate over all dependency properties registered with this type of object and its ancestors
@@ -34,7 +34,7 @@ var DependencyObject = /** @class */ (function () {
         if (obj == undefined)
             throw new Error("obj == undefined");
         //var typeName = <string>obj["typeName"];
-        var typeName = utils_1.getTypeName(obj);
+        var typeName = _1.componentName(obj);
         var propertiesOfObject = DependencyObject.getProperties(typeName);
         if (propertiesOfObject != undefined)
             propertiesOfObject.forEach(function (_) { return callback(_); });
@@ -48,9 +48,9 @@ var DependencyObject = /** @class */ (function () {
         if (obj == undefined)
             throw new Error("obj == undefined");
         //var typeName = <string>obj["typeName"];
-        var typeName = utils_1.getTypeName(obj);
+        var typeName = _1.componentName(obj);
         var property = DependencyObject.globalPropertyMap[typeName] == undefined ?
-            undefined :
+            null :
             DependencyObject.globalPropertyMap[typeName].getProperty(name);
         var firstAnchestor = utils_1.getFirstAnchestor(obj);
         if (property == undefined && firstAnchestor != undefined)

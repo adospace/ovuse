@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("./utils");
+var _1 = require(".");
 var DependencyProperty = /** @class */ (function () {
     function DependencyProperty(name, typeName, defaultValue, options, converter) {
         this.name = name;
@@ -19,7 +19,7 @@ var DependencyProperty = /** @class */ (function () {
     //get default value of this property for passed object
     DependencyProperty.prototype.getDefaultValue = function (depObject) {
         //var typeName = depObject["typeName"];
-        var typeName = utils_1.getTypeName(depObject);
+        var typeName = _1.componentName(depObject);
         if (typeName in this._defaultValueMap)
             return this._defaultValueMap[typeName];
         return this._defaultValue;

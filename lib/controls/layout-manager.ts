@@ -1,8 +1,13 @@
-import { SizeToContent, PopupPosition, Size, Rect, Popup } from '.'
+import { 
+    SizeToContent, 
+    PopupPosition, 
+    Size,
+    Rect, 
+    Popup } from '.'
+
 import { Application } from '../.'
 
 export class LayoutManager {
-
     static updateLayout() {
         var page = Application.current.page;
         //var docWidth = document.body.clientWidth;
@@ -114,7 +119,9 @@ export class LayoutManager {
     
 }
 
-window.onresize = () =>
-{
-    LayoutManager.updateLayout();
-};
+if (window){
+    window.onresize = () =>
+    {
+        LayoutManager.updateLayout();
+    }
+}

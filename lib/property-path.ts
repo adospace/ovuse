@@ -1,16 +1,16 @@
 import { ISupportDependencyPropertyChange, ISupportPropertyChange } from './contracts'
 import { Binding, DependencyObject, DependencyProperty, componentName } from '.'
-import { getPropertyValue, setPropertyValue, format  } from './utils'
+import { getPropertyValue, setPropertyValue  } from './utils'
 
 export class PropertyPath implements ISupportDependencyPropertyChange, ISupportPropertyChange {
     owner: Binding;
     path: string;
-    name: string | undefined = undefined;
+    name: string | null = null;
     source: DependencyObject;
-    private next: PropertyPath | undefined = undefined;
-    private prev: PropertyPath | undefined = undefined;
-    sourceProperty: DependencyProperty | undefined = undefined;
-    indexers: string[] | undefined = undefined;
+    private next: PropertyPath | null = null;
+    private prev: PropertyPath | null = null;
+    sourceProperty: DependencyProperty | null = null;
+    indexers: string[] | null = null;
 
     constructor(owner: Binding, path: string, source: DependencyObject) {
         this.owner = owner;
@@ -47,7 +47,7 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
 
             if (m == undefined)
             {
-                this.indexers = undefined;
+                this.indexers = null;
                 return;
             }
 
@@ -70,7 +70,7 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
             if ((m = re.exec(nameStr)) !== undefined) {
                 if (m == undefined)
                 {
-                    this.indexers = undefined;
+                    this.indexers = null;
                     return;
                 }
 
@@ -81,7 +81,7 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
             }
 
         } else
-            this.indexers = undefined;
+            this.indexers = null;
     }
 
     private build(): void {
@@ -89,13 +89,13 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
 
         if (this.next != undefined) {
             this.next.detachSource();
-            this.next.prev = undefined;
+            this.next.prev = null;
         }
 
         if (this.path == "" ||
             this.path == ".") {
             this.name = ".";
-            this.next = undefined;
+            this.next = null;
         }
         else {
             var dotIndex = this.path.indexOf(".");
@@ -134,14 +134,14 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
                         this.next.build();
                 }
                 else {
-                    this.next = undefined;
+                    this.next = null;
                 }
             }
             else {
                 this.name = this.path;
                 this.lookForIndexers();
                 this.sourceProperty = DependencyObject.lookupProperty(this.source, this.name);
-                this.next = undefined;
+                this.next = null;
             }
         }
 
@@ -177,7 +177,7 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
                 if (this.sourceProperty == undefined && (!(this.name in this.source)))
                 {
                     var typeName = componentName(this.source);
-                    console.log(format("[Bindings] Unable to find property '{0}' on type '{1}'",
+                    console.log("[Bindings] Unable to find property '{0}' on type '{1}'".format(
                         this.name, 
                         typeName == undefined ? "<noneType>" : typeName));
                 }

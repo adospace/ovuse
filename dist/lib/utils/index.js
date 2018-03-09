@@ -1,14 +1,9 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var type_helpers_1 = require("./type-helpers");
-exports.hasProperty = type_helpers_1.hasProperty;
-exports.isString = type_helpers_1.isString;
-exports.getTypeName = type_helpers_1.getTypeName;
-exports.getFirstAnchestor = type_helpers_1.getFirstAnchestor;
-exports.getPropertyValue = type_helpers_1.getPropertyValue;
-exports.setPropertyValue = type_helpers_1.setPropertyValue;
-var string_1 = require("./string");
-exports.format = string_1.format;
-exports.startsWith = string_1.startsWith;
-exports.toLowerFirstLetter = string_1.toLowerFirstLetter;
-exports.toUpperFirstLetter = string_1.toUpperFirstLetter;
+__export(require("./type-helpers"));
+// export * from './string-extensions'
+// export * from './node-list-extensions'
+// export * from './node-list-extensions'

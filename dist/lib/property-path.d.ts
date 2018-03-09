@@ -3,12 +3,12 @@ import { Binding, DependencyObject, DependencyProperty } from '.';
 export declare class PropertyPath implements ISupportDependencyPropertyChange, ISupportPropertyChange {
     owner: Binding;
     path: string;
-    name: string | undefined;
+    name: string | null;
     source: DependencyObject;
     private next;
     private prev;
-    sourceProperty: DependencyProperty | undefined;
-    indexers: string[] | undefined;
+    sourceProperty: DependencyProperty | null;
+    indexers: string[] | null;
     constructor(owner: Binding, path: string, source: DependencyObject);
     private attachShource();
     private detachSource();
