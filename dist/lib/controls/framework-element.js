@@ -12,25 +12,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 var __1 = require("..");
-var MinMax = /** @class */ (function () {
-    function MinMax(e) {
-        this.maxHeight = e.maxHeight;
-        this.minHeight = e.minHeight;
-        var l = e.height;
-        this.height = isNaN(l) ? Infinity : l;
-        this.maxHeight = Math.max(Math.min(this.height, this.maxHeight), this.minHeight);
-        this.height = isNaN(l) ? 0 : l;
-        this.minHeight = Math.max(Math.min(this.maxHeight, this.height), this.minHeight);
-        this.maxWidth = e.maxWidth;
-        this.minWidth = e.minWidth;
-        l = e.width;
-        this.width = isNaN(l) ? Infinity : l;
-        this.maxWidth = Math.max(Math.min(this.width, this.maxWidth), this.minWidth);
-        this.width = isNaN(l) ? 0 : l;
-        this.minWidth = Math.max(Math.min(this.maxWidth, this.width), this.minWidth);
-    }
-    return MinMax;
-}());
 var FrameworkElement = /** @class */ (function (_super) {
     __extends(FrameworkElement, _super);
     function FrameworkElement() {
@@ -400,3 +381,22 @@ var FrameworkElement = /** @class */ (function (_super) {
     return FrameworkElement;
 }(_1.UIElement));
 exports.FrameworkElement = FrameworkElement;
+var MinMax = /** @class */ (function () {
+    function MinMax(e) {
+        this.maxHeight = e.maxHeight;
+        this.minHeight = e.minHeight;
+        var l = e.height;
+        this.height = isNaN(l) ? Infinity : l;
+        this.maxHeight = Math.max(Math.min(this.height, this.maxHeight), this.minHeight);
+        this.height = isNaN(l) ? 0 : l;
+        this.minHeight = Math.max(Math.min(this.maxHeight, this.height), this.minHeight);
+        this.maxWidth = e.maxWidth;
+        this.minWidth = e.minWidth;
+        l = e.width;
+        this.width = isNaN(l) ? Infinity : l;
+        this.maxWidth = Math.max(Math.min(this.width, this.maxWidth), this.minWidth);
+        this.width = isNaN(l) ? 0 : l;
+        this.minWidth = Math.max(Math.min(this.maxWidth, this.width), this.minWidth);
+    }
+    return MinMax;
+}());
