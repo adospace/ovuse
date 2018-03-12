@@ -1,6 +1,6 @@
 
 import { hasProperty, setPropertyValue, getFirstAnchestor, isString } from '../utils'
-import { InstanceLoader, componentName, DependencyObject, DependencyProperty, ObservableCollection } from '../.'
+import { InstanceLoader, getTypeId, getObjectTypeId, DependencyObject, DependencyProperty, ObservableCollection } from '../.'
 import { IConverter } from '../contracts'
 import { FrameworkElement } from '.'
 
@@ -177,7 +177,7 @@ export class XamlReader {
         if (obj instanceof DependencyObject) {
             //if obj is a dependency object look for a dependency property 
             var depObject = <DependencyObject>obj
-            var typeName =  componentName(depObject);
+            var typeName =  getObjectTypeId(depObject);
 
             var depProperty: DependencyProperty | null;
 

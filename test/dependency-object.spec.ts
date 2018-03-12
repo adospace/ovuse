@@ -2,14 +2,14 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { component, componentName } from '../lib'
+import { typeId, getTypeId, getObjectTypeId  } from '../lib'
 
-@component('my-component-a')
+@typeId("a-uniqueid")
 class A {
 
 }
 
-@component('my-component-b')
+@typeId("b-uniqueid")
 class B extends A {
 
 }
@@ -21,17 +21,33 @@ describe('getPrototypeOf', () => {
     });
 });
 
-describe('componentName', () => {
-    it("it should return 'my-component-a'", () => {
-        const result = componentName(new A());
-        expect(result).to.equal('my-component-a');
+describe('typeId', () => {
+    it("it should return 'a-uniqueid'", () => {
+        const result = getObjectTypeId(new A());
+        expect(result).to.equal('a-uniqueid');
     });
 });
 
 
-describe('componentName of base class', () => {
-    it("it should return 'my-component-b'", () => {
-        const result = componentName(new B());
-        expect(result).to.equal('my-component-b');
+describe('typeId of base class', () => {
+    it("it should return 'b-uniqueid'", () => {
+        const result = getObjectTypeId(new B());
+        expect(result).to.equal('b-uniqueid');
+    });
+});
+
+
+describe('typeId of type class', () => {
+    it("it should return 'a-uniqueid'", () => {
+        const result = getTypeId(A);
+        expect(result).to.equal('a-uniqueid');
+    });
+});
+
+
+describe('componentName of base type class', () => {
+    it("it should return 'b-uniqueid'", () => {
+        const result = getTypeId(B);
+        expect(result).to.equal('b-uniqueid');
     });
 });

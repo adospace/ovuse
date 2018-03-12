@@ -1,11 +1,60 @@
 
-import { DependencyProperty, Binding, PropertyMap, component, componentName } from '.'
+import { DependencyProperty, Binding, PropertyMap } from '.'
+import { typeId, getTypeId, getObjectTypeId } from '.'
+
 import { ISupportDependencyPropertyChange, ISupportPropertyChange, IConverter } from './contracts'
 import { isString, hasProperty, getFirstAnchestor } from './utils'
+
+// function getPropertyRegistrationsFromObject(obj: any) : string {
+//     return obj[typeIdKey];
+// }
+
+
+// function setPropertiesFromType(type: any) : string {
+//     return type.prototype[typeIdKey];
+// }
+
+const dpIdKey : string = "__dpId";
 
 export class DependencyObject {
     ///Map of properties for each dependency object
     private static globalPropertyMap: { [typeName: string]: PropertyMap; } = {};
+
+    static finalizePropertyRegistrations(type: any) {
+        var depPropertRegistration : DependencyProperty[] = type.prototype[dpIdKey];
+
+        if (depPropertRegistration == undefined)
+            return;
+        
+        var typeName = getTypeId(type);
+        if (DependencyObject.globalPropertyMap[typeName] == undefined)
+            DependencyObject.globalPropertyMap[typeName] = new PropertyMap();
+
+
+        depPropertRegistration.forEach(dpReg => {
+            dpReg.typeName = typeName;
+            DependencyObject.globalPropertyMap[typeName].register(name, dpReg);
+        });
+        
+        type.prototype[dpIdKey] = undefined;
+    }
+
+    static registerPropertyByType(type: any, name: string, defaultValue?: any, options?: any, converter?: { (value: string): any }): DependencyProperty {
+
+        var typeName = getTypeId(type);
+
+        if (typeName != undefined)
+            return DependencyObject.registerProperty(typeName, name, defaultValue, options, converter);
+
+        var depPropertRegistration : DependencyProperty[] = type.prototype[dpIdKey];
+
+        if (depPropertRegistration == undefined)
+            type.prototype[dpIdKey] = depPropertRegistration = new Array<DependencyProperty>();
+ 
+        var newProperty = new DependencyProperty(name, undefined, defaultValue, options, converter);
+        depPropertRegistration.push(newProperty);
+        return newProperty;
+    }
 
     ///Register a dependency property for the object
     static registerProperty(typeName: string, name: string, defaultValue?: any, options?: any, converter?: { (value: string): any }): DependencyProperty {
@@ -39,7 +88,7 @@ export class DependencyObject {
             throw new Error("obj == undefined");
 
         //var typeName = <string>obj["typeName"];
-        var typeName = componentName(obj);
+        var typeName = getObjectTypeId(obj);
         var propertiesOfObject = DependencyObject.getProperties(typeName);
 
         if (propertiesOfObject != undefined)
@@ -58,7 +107,7 @@ export class DependencyObject {
             throw new Error("obj == undefined");
 
         //var typeName = <string>obj["typeName"];
-        var typeName = componentName(obj);
+        var typeName = getObjectTypeId(obj);
         var property = DependencyObject.globalPropertyMap[typeName] == undefined ? 
             null : 
             DependencyObject.globalPropertyMap[typeName].getProperty(name);
