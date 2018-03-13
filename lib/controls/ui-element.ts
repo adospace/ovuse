@@ -1,15 +1,16 @@
-import { DependencyObject, DependencyProperty, Command, EventAction } from '../.'
+import { DependencyObject, DependencyProperty, Command, EventAction, typeId } from '../.'
 import { ISupportCommandCanExecuteChanged } from '../contracts'
 
 import { Size, Rect, Vector, ExtendedProperty, FrameworkPropertyMetadataOptions, LayoutManager } from '.'
 import { setPropertyValue } from '../utils';
 
+@typeId("ovuse.controls.UIElement")
 export class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged { //, ISupportCollectionChanged
 
-    static typeName: string = "layouts.UIElement";
-    get typeName(): string {
-        return UIElement.typeName;
-    }
+    // static typeName: string = "layouts.UIElement";
+    // get typeName(): string {
+    //     return UIElement.typeName;
+    // }
 
     desiredSize: Size | null = null;
     renderSize: Size | null = null;
@@ -510,7 +511,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this._extendedProperties.push(new ExtendedProperty(name, value));
     }        
 
-    static isVisibleProperty = DependencyObject.registerProperty(UIElement.typeName, "IsVisible", true, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static isVisibleProperty = DependencyObject.registerPropertyByType(UIElement, "IsVisible", true, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get isVisible(): boolean {
         return <boolean>this.getValue(UIElement.isVisibleProperty);
     }
@@ -518,7 +519,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this.setValue(UIElement.isVisibleProperty, value);
     }
 
-    static classProperty = DependencyObject.registerProperty(UIElement.typeName, "class", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static classProperty = DependencyObject.registerPropertyByType(UIElement, "class", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get cssClass(): string {
         return <string>this.getValue(UIElement.classProperty);
     }
@@ -527,7 +528,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
     }
 
     //name property
-    static idProperty = DependencyObject.registerProperty(UIElement.typeName, "id", "", FrameworkPropertyMetadataOptions.AffectsRender);
+    static idProperty = DependencyObject.registerPropertyByType(UIElement, "id", "", FrameworkPropertyMetadataOptions.AffectsRender);
     get id(): string {
         return <string>this.getValue(UIElement.idProperty);
     }
@@ -535,7 +536,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this.setValue(UIElement.idProperty, value);
     }
 
-    static commandProperty = DependencyObject.registerProperty(UIElement.typeName, "Command", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static commandProperty = DependencyObject.registerPropertyByType(UIElement, "Command", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get command(): Command {
         return <Command>this.getValue(UIElement.commandProperty);
     }
@@ -543,7 +544,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this.setValue(UIElement.commandProperty, value);
     }
 
-    static commandParameterProperty = DependencyObject.registerProperty(UIElement.typeName, "CommandParameter", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static commandParameterProperty = DependencyObject.registerPropertyByType(UIElement, "CommandParameter", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get commandParameter(): any {
         return this.getValue(UIElement.commandParameterProperty);
     }
@@ -552,7 +553,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
     }
     
     //get or set popup property for the element
-    static popupProperty = DependencyObject.registerProperty(UIElement.typeName, "Popup", null, FrameworkPropertyMetadataOptions.None);
+    static popupProperty = DependencyObject.registerPropertyByType(UIElement, "Popup", null, FrameworkPropertyMetadataOptions.None);
     get popup(): any {
         return <string>this.getValue(UIElement.popupProperty);
     }
@@ -560,7 +561,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this.setValue(UIElement.popupProperty, value);
     }
 
-    static autoClosePopupProperty = DependencyObject.registerProperty(UIElement.typeName, "AutoClosePopup", true, FrameworkPropertyMetadataOptions.None, (value) => {
+    static autoClosePopupProperty = DependencyObject.registerPropertyByType(UIElement, "AutoClosePopup", true, FrameworkPropertyMetadataOptions.None, (value) => {
         if (value == null || (value.toLowerCase() != "true" && value.toLowerCase() != "false"))
             throw new Error("Unable to valuate string '{0}' as boolean".format(value));
         return value.toLowerCase() == "true" ? true : false;
@@ -572,7 +573,7 @@ export class UIElement extends DependencyObject implements ISupportCommandCanExe
         this.setValue(UIElement.autoClosePopupProperty, value);
     }
 
-    static layoutUpdatedProperty = DependencyObject.registerProperty(UIElement.typeName, "LayoutUpdated", null, FrameworkPropertyMetadataOptions.None);
+    static layoutUpdatedProperty = DependencyObject.registerPropertyByType(UIElement, "LayoutUpdated", null, FrameworkPropertyMetadataOptions.None);
     get layoutUpdated(): EventAction {
         return <EventAction>this.getValue(UIElement.layoutUpdatedProperty);
     }

@@ -1,8 +1,6 @@
 import { UIElement, FrameworkElement, Size, SizeToContent, NavigationContext } from '.';
 import { DependencyProperty } from '..';
 export declare class Page extends FrameworkElement {
-    static typeName: string;
-    readonly typeName: string;
     private tryLoadChildFromServer();
     protected _container: HTMLElement | null;
     attachVisualOverride(elementContainer: HTMLElement): void;

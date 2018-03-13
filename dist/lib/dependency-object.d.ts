@@ -2,6 +2,10 @@ import { DependencyProperty } from '.';
 import { ISupportDependencyPropertyChange, ISupportPropertyChange, IConverter } from './contracts';
 export declare class DependencyObject {
     private static globalPropertyMap;
+    static finalizePropertyRegistrations(type: any): void;
+    static registerPropertyByType(type: any, name: string, defaultValue?: any, options?: any, converter?: {
+        (value: string): any;
+    }): DependencyProperty;
     static registerProperty(typeName: string, name: string, defaultValue?: any, options?: any, converter?: {
         (value: string): any;
     }): DependencyProperty;

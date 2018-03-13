@@ -17,20 +17,20 @@ var Application = /** @class */ (function () {
         if (Application._current != null)
             throw new Error("Application already initialized");
         Application._current = this;
-        if ("onhashchange" in window) {
-            window.onhashchange = function (ev) {
-                return _this.hashChanged(window.location.hash);
-            };
-        }
-        else {
-            // var storedHash = window.location.hash;
-            // window.setInterval(()=> {
-            //     if (window.location.hash != storedHash) {
-            //         storedHash = window.location.hash;
-            //         this.hashChanged(storedHash);
-            //     }
-            // }, 100);
-        }
+        // if ("onhashchange" in window) { // event supported?
+        window.onhashchange = function (ev) {
+            return _this.hashChanged(window.location.hash);
+        };
+        // }
+        // else { // event not supported:
+        //     var storedHash = window.location.hash;
+        //     window.setInterval(()=> {
+        //         if (window.location.hash != storedHash) {
+        //             storedHash = window.location.hash;
+        //             this.hashChanged(storedHash);
+        //         }
+        //     }, 100);
+        // }         
     }
     Object.defineProperty(Application, "current", {
         //get current application

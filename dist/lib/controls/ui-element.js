@@ -9,6 +9,12 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require("../.");
 var _2 = require(".");
@@ -16,6 +22,10 @@ var utils_1 = require("../utils");
 var UIElement = /** @class */ (function (_super) {
     __extends(UIElement, _super);
     function UIElement() {
+        // static typeName: string = "layouts.UIElement";
+        // get typeName(): string {
+        //     return UIElement.typeName;
+        // }
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.desiredSize = null;
         _this.renderSize = null;
@@ -53,13 +63,7 @@ var UIElement = /** @class */ (function (_super) {
         _this._extendedProperties = [];
         return _this;
     }
-    Object.defineProperty(UIElement.prototype, "typeName", {
-        get: function () {
-            return UIElement.typeName;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    UIElement_1 = UIElement;
     UIElement.prototype.measure = function (availableSize) {
         if (!this.isVisible) {
             this.desiredSize = new _2.Size();
@@ -281,7 +285,7 @@ var UIElement = /** @class */ (function (_super) {
     UIElement.prototype.onDependencyPropertyChanged = function (property, value, oldValue) {
         var _this = this;
         //probably this checks as well as relative properties are to be moved down to FrameworkElement
-        if (property == UIElement.commandProperty) {
+        if (property == UIElement_1.commandProperty) {
             if (oldValue != null) {
                 oldValue.offCanExecuteChangeNotify(this);
                 if (this._visual != null)
@@ -293,7 +297,7 @@ var UIElement = /** @class */ (function (_super) {
                     this._visual.onmousedown = function (ev) { return _this.onMouseDown(ev); };
             }
         }
-        else if (property == UIElement.popupProperty) {
+        else if (property == UIElement_1.popupProperty) {
             if (oldValue != null) {
                 if (this._visual != null)
                     this._visual.onmouseup = null;
@@ -306,11 +310,11 @@ var UIElement = /** @class */ (function (_super) {
                 value.parent = this;
             }
         }
-        else if (property == UIElement.isVisibleProperty) {
+        else if (property == UIElement_1.isVisibleProperty) {
             if (this._visual != null)
                 this._visual.style.visibility = value ? "" : "hidden";
         }
-        else if (property == UIElement.classProperty) {
+        else if (property == UIElement_1.classProperty) {
             var className = this.cssClass;
             if (this._visual != null && this._visual.className != className &&
                 className != null) {
@@ -455,99 +459,102 @@ var UIElement = /** @class */ (function (_super) {
     };
     Object.defineProperty(UIElement.prototype, "isVisible", {
         get: function () {
-            return this.getValue(UIElement.isVisibleProperty);
+            return this.getValue(UIElement_1.isVisibleProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.isVisibleProperty, value);
+            this.setValue(UIElement_1.isVisibleProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "cssClass", {
         get: function () {
-            return this.getValue(UIElement.classProperty);
+            return this.getValue(UIElement_1.classProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.classProperty, value);
+            this.setValue(UIElement_1.classProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "id", {
         get: function () {
-            return this.getValue(UIElement.idProperty);
+            return this.getValue(UIElement_1.idProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.idProperty, value);
+            this.setValue(UIElement_1.idProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "command", {
         get: function () {
-            return this.getValue(UIElement.commandProperty);
+            return this.getValue(UIElement_1.commandProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.commandProperty, value);
+            this.setValue(UIElement_1.commandProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "commandParameter", {
         get: function () {
-            return this.getValue(UIElement.commandParameterProperty);
+            return this.getValue(UIElement_1.commandParameterProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.commandParameterProperty, value);
+            this.setValue(UIElement_1.commandParameterProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "popup", {
         get: function () {
-            return this.getValue(UIElement.popupProperty);
+            return this.getValue(UIElement_1.popupProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.popupProperty, value);
+            this.setValue(UIElement_1.popupProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "autoClosePopup", {
         get: function () {
-            return this.getValue(UIElement.autoClosePopupProperty);
+            return this.getValue(UIElement_1.autoClosePopupProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.autoClosePopupProperty, value);
+            this.setValue(UIElement_1.autoClosePopupProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(UIElement.prototype, "layoutUpdated", {
         get: function () {
-            return this.getValue(UIElement.layoutUpdatedProperty);
+            return this.getValue(UIElement_1.layoutUpdatedProperty);
         },
         set: function (value) {
-            this.setValue(UIElement.layoutUpdatedProperty, value);
+            this.setValue(UIElement_1.layoutUpdatedProperty, value);
         },
         enumerable: true,
         configurable: true
     });
-    UIElement.typeName = "layouts.UIElement";
-    UIElement.isVisibleProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.classProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.isVisibleProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.classProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
     //name property
-    UIElement.idProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandParameterProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.idProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.commandProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.commandParameterProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
     //get or set popup property for the element
-    UIElement.popupProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
-    UIElement.autoClosePopupProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, function (value) {
+    UIElement.popupProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
+    UIElement.autoClosePopupProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, function (value) {
         if (value == null || (value.toLowerCase() != "true" && value.toLowerCase() != "false"))
             throw new Error("Unable to valuate string '{0}' as boolean".format(value));
         return value.toLowerCase() == "true" ? true : false;
     });
-    UIElement.layoutUpdatedProperty = _1.DependencyObject.registerProperty(UIElement.typeName, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
+    UIElement.layoutUpdatedProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
+    UIElement = UIElement_1 = __decorate([
+        _1.typeId("ovuse.controls.UIElement")
+    ], UIElement);
     return UIElement;
+    var UIElement_1;
 }(_1.DependencyObject));
 exports.UIElement = UIElement;

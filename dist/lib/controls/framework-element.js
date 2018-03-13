@@ -9,25 +9,29 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 var __1 = require("..");
 var FrameworkElement = /** @class */ (function (_super) {
     __extends(FrameworkElement, _super);
     function FrameworkElement() {
+        // static typeName: string = "layouts.FrameworkElement";
+        // get typeName(): string {
+        //     return FrameworkElement.typeName;
+        // }
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.unclippedDesiredSize = null;
         //private needClipBounds: boolean;
         _this.visualOffset = null;
         return _this;
     }
-    Object.defineProperty(FrameworkElement.prototype, "typeName", {
-        get: function () {
-            return FrameworkElement.typeName;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    FrameworkElement_1 = FrameworkElement;
     FrameworkElement.prototype.measureCore = function (availableSize) {
         var margin = this.margin;
         var marginWidth = margin.left + margin.right;
@@ -179,120 +183,120 @@ var FrameworkElement = /** @class */ (function (_super) {
     };
     Object.defineProperty(FrameworkElement.prototype, "width", {
         get: function () {
-            return this.getValue(FrameworkElement.widthProperty);
+            return this.getValue(FrameworkElement_1.widthProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.widthProperty, value);
+            this.setValue(FrameworkElement_1.widthProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "height", {
         get: function () {
-            return this.getValue(FrameworkElement.heightProperty);
+            return this.getValue(FrameworkElement_1.heightProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.heightProperty, value);
+            this.setValue(FrameworkElement_1.heightProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "actualWidth", {
         get: function () {
-            return this.getValue(FrameworkElement.actualWidthProperty);
+            return this.getValue(FrameworkElement_1.actualWidthProperty);
         },
         enumerable: true,
         configurable: true
     });
     FrameworkElement.prototype.setActualWidth = function (value) {
-        this.setValue(FrameworkElement.actualWidthProperty, value);
+        this.setValue(FrameworkElement_1.actualWidthProperty, value);
     };
     Object.defineProperty(FrameworkElement.prototype, "actualHeight", {
         get: function () {
-            return this.getValue(FrameworkElement.actualHeightProperty);
+            return this.getValue(FrameworkElement_1.actualHeightProperty);
         },
         enumerable: true,
         configurable: true
     });
     FrameworkElement.prototype.setActualHeight = function (value) {
-        this.setValue(FrameworkElement.actualHeightProperty, value);
+        this.setValue(FrameworkElement_1.actualHeightProperty, value);
     };
     Object.defineProperty(FrameworkElement.prototype, "minWidth", {
         get: function () {
-            return this.getValue(FrameworkElement.minWidthProperty);
+            return this.getValue(FrameworkElement_1.minWidthProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.minWidthProperty, value);
+            this.setValue(FrameworkElement_1.minWidthProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "minHeight", {
         get: function () {
-            return this.getValue(FrameworkElement.minHeightProperty);
+            return this.getValue(FrameworkElement_1.minHeightProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.minHeightProperty, value);
+            this.setValue(FrameworkElement_1.minHeightProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "maxWidth", {
         get: function () {
-            return this.getValue(FrameworkElement.maxWidthProperty);
+            return this.getValue(FrameworkElement_1.maxWidthProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.maxWidthProperty, value);
+            this.setValue(FrameworkElement_1.maxWidthProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "maxHeight", {
         get: function () {
-            return this.getValue(FrameworkElement.maxHeightProperty);
+            return this.getValue(FrameworkElement_1.maxHeightProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.maxHeightProperty, value);
+            this.setValue(FrameworkElement_1.maxHeightProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "verticalAlignment", {
         get: function () {
-            return this.getValue(FrameworkElement.verticalAlignmentProperty);
+            return this.getValue(FrameworkElement_1.verticalAlignmentProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.verticalAlignmentProperty, value);
+            this.setValue(FrameworkElement_1.verticalAlignmentProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "horizontalAlignment", {
         get: function () {
-            return this.getValue(FrameworkElement.horizontalAlignmentProperty);
+            return this.getValue(FrameworkElement_1.horizontalAlignmentProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.horizontalAlignmentProperty, value);
+            this.setValue(FrameworkElement_1.horizontalAlignmentProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "margin", {
         get: function () {
-            return this.getValue(FrameworkElement.marginProperty);
+            return this.getValue(FrameworkElement_1.marginProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.marginProperty, value);
+            this.setValue(FrameworkElement_1.marginProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "dataContext", {
         get: function () {
-            return this.getValue(FrameworkElement.dataContextProperty);
+            return this.getValue(FrameworkElement_1.dataContextProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.dataContextProperty, value);
+            this.setValue(FrameworkElement_1.dataContextProperty, value);
         },
         enumerable: true,
         configurable: true
@@ -300,7 +304,7 @@ var FrameworkElement = /** @class */ (function (_super) {
     Object.defineProperty(FrameworkElement.prototype, "parentDataContext", {
         get: function () {
             if (this.parent != null)
-                return this.parent.getValue(FrameworkElement.dataContextProperty);
+                return this.parent.getValue(FrameworkElement_1.dataContextProperty);
             return null;
         },
         enumerable: true,
@@ -308,7 +312,7 @@ var FrameworkElement = /** @class */ (function (_super) {
     });
     FrameworkElement.prototype.onDependencyPropertyChanged = function (property, value, oldValue) {
         _super.prototype.onDependencyPropertyChanged.call(this, property, value, oldValue);
-        if (property == FrameworkElement.dataContextProperty)
+        if (property == FrameworkElement_1.dataContextProperty)
             _super.prototype.onPropertyChanged.call(this, "parentDataContext", this.parentDataContext, null);
     };
     FrameworkElement.prototype.onParentChanged = function (oldParent, newParent) {
@@ -317,68 +321,71 @@ var FrameworkElement = /** @class */ (function (_super) {
     };
     Object.defineProperty(FrameworkElement.prototype, "tag", {
         get: function () {
-            return this.getValue(FrameworkElement.tagProperty);
+            return this.getValue(FrameworkElement_1.tagProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.tagProperty, value);
+            this.setValue(FrameworkElement_1.tagProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "overflowX", {
         get: function () {
-            return this.getValue(FrameworkElement.overflowXProperty);
+            return this.getValue(FrameworkElement_1.overflowXProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.overflowXProperty, value);
+            this.setValue(FrameworkElement_1.overflowXProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(FrameworkElement.prototype, "overflowY", {
         get: function () {
-            return this.getValue(FrameworkElement.overflowYProperty);
+            return this.getValue(FrameworkElement_1.overflowYProperty);
         },
         set: function (value) {
-            this.setValue(FrameworkElement.overflowYProperty, value);
+            this.setValue(FrameworkElement_1.overflowYProperty, value);
         },
         enumerable: true,
         configurable: true
     });
-    FrameworkElement.typeName = "layouts.FrameworkElement";
     //width property
-    FrameworkElement.widthProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "Width", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
+    FrameworkElement.widthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Width", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
     //height property
-    FrameworkElement.heightProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "Height", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
+    FrameworkElement.heightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Height", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
     //actualWidth property
-    FrameworkElement.actualWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "ActualWidth", 0);
+    FrameworkElement.actualWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "ActualWidth", 0);
     //actualHeight property
-    FrameworkElement.actualHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "ActualHeight", 0);
+    FrameworkElement.actualHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "ActualHeight", 0);
     //minWidth property
-    FrameworkElement.minWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "MinWidth", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.minWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MinWidth", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //minHeight property
-    FrameworkElement.minHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "MinHeight", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.minHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MinHeight", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //maxWidth property
-    FrameworkElement.maxWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "MaxWidth", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.maxWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MaxWidth", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //maxHeight property
-    FrameworkElement.maxHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "MaxHeight", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.maxHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MaxHeight", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //verticalAlignment property
-    FrameworkElement.verticalAlignmentProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "VerticalAlignment", _1.VerticalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.VerticalAlignment[v]; });
+    FrameworkElement.verticalAlignmentProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "VerticalAlignment", _1.VerticalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.VerticalAlignment[v]; });
     //horizontalAlignment property
-    FrameworkElement.horizontalAlignmentProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "HorizontalAlignment", _1.HorizontalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.HorizontalAlignment[v]; });
+    FrameworkElement.horizontalAlignmentProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "HorizontalAlignment", _1.HorizontalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.HorizontalAlignment[v]; });
     //margin property
-    FrameworkElement.marginProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "Margin", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return _1.Thickness.fromString(v); });
+    FrameworkElement.marginProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Margin", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return _1.Thickness.fromString(v); });
     //dataContext property
-    FrameworkElement.dataContextProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "DataContext", null, _1.FrameworkPropertyMetadataOptions.Inherits);
+    FrameworkElement.dataContextProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "DataContext", null, _1.FrameworkPropertyMetadataOptions.Inherits);
     //tag property
-    FrameworkElement.tagProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "Tag");
+    FrameworkElement.tagProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Tag");
     //overflowX property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowX is set to hidden
-    FrameworkElement.overflowXProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "OverflowX", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    FrameworkElement.overflowXProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "OverflowX", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
     //overflowY property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowY is set to hidden
-    FrameworkElement.overflowYProperty = __1.DependencyObject.registerProperty(FrameworkElement.typeName, "OverflowY", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    FrameworkElement.overflowYProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "OverflowY", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    FrameworkElement = FrameworkElement_1 = __decorate([
+        __1.typeId("ovuse.controls.FrameworkElement")
+    ], FrameworkElement);
     return FrameworkElement;
+    var FrameworkElement_1;
 }(_1.UIElement));
 exports.FrameworkElement = FrameworkElement;
 var MinMax = /** @class */ (function () {

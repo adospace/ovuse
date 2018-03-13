@@ -145,7 +145,7 @@ var PropertyPath = /** @class */ (function () {
         else if (this.name != undefined && this.path.indexOf(".") == -1) {
             if (_1.DependencyObject.logBindingTraceToConsole)
                 if (this.sourceProperty == undefined && (!(this.name in this.source))) {
-                    var typeName = _1.componentName(this.source);
+                    var typeName = _1.getObjectTypeId(this.source);
                     console.log("[Bindings] Unable to find property '{0}' on type '{1}'".format(this.name, typeName == undefined ? "<noneType>" : typeName));
                 }
             var sourcePropertyValue = (this.sourceProperty != undefined) ?

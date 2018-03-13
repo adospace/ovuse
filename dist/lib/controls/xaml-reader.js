@@ -141,7 +141,7 @@ var XamlReader = /** @class */ (function () {
         if (obj instanceof _1.DependencyObject) {
             //if obj is a dependency object look for a dependency property 
             var depObject = obj;
-            var typeName = _1.componentName(depObject);
+            var typeName = _1.getObjectTypeId(depObject);
             var depProperty;
             //if an attached property find the property on publisher object
             //for example if Grid.Row-> looks for property Grid#Row in Grid type

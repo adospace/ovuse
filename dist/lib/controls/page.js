@@ -9,12 +9,22 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 var __1 = require("..");
 var Page = /** @class */ (function (_super) {
     __extends(Page, _super);
     function Page() {
+        // static typeName: string = "layouts.controls.Page";
+        // get typeName(): string{
+        //     return Page.typeName;
+        // }
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._container = null;
         //navigation system
@@ -22,13 +32,7 @@ var Page = /** @class */ (function (_super) {
         _this.cachePage = false;
         return _this;
     }
-    Object.defineProperty(Page.prototype, "typeName", {
-        get: function () {
-            return Page.typeName;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    Page_1 = Page;
     Page.prototype.tryLoadChildFromServer = function () {
         var _this = this;
         var req = new XMLHttpRequest();
@@ -38,7 +42,8 @@ var Page = /** @class */ (function (_super) {
                 _this.child = loader.Parse(req.responseText);
             }
         };
-        req.open("GET", this.typeName.replace(/\./gi, '/') + ".xml", true);
+        var typeName = __1.getObjectTypeId(this);
+        req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
         req.send();
     };
     Page.prototype.attachVisualOverride = function (elementContainer) {
@@ -78,16 +83,16 @@ var Page = /** @class */ (function (_super) {
     };
     Object.defineProperty(Page.prototype, "child", {
         get: function () {
-            return this.getValue(Page.childProperty);
+            return this.getValue(Page_1.childProperty);
         },
         set: function (value) {
-            this.setValue(Page.childProperty, value);
+            this.setValue(Page_1.childProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Page.prototype.onDependencyPropertyChanged = function (property, value, oldValue) {
-        if (property == Page.childProperty) {
+        if (property == Page_1.childProperty) {
             var oldChild = oldValue;
             if (oldChild != null && oldChild.parent == this) {
                 oldChild.parent = null;
@@ -104,10 +109,10 @@ var Page = /** @class */ (function (_super) {
     };
     Object.defineProperty(Page.prototype, "sizeToContent", {
         get: function () {
-            return this.getValue(Page.sizeToContentProperty);
+            return this.getValue(Page_1.sizeToContentProperty);
         },
         set: function (value) {
-            this.setValue(Page.sizeToContentProperty, value);
+            this.setValue(Page_1.sizeToContentProperty, value);
         },
         enumerable: true,
         configurable: true
@@ -115,10 +120,13 @@ var Page = /** @class */ (function (_super) {
     //onNavigate method is called also for reused/cached pages
     Page.prototype.onNavigate = function (context) {
     };
-    Page.typeName = "layouts.controls.Page";
-    Page.childProperty = __1.DependencyObject.registerProperty(Page.typeName, "Child", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    Page.childProperty = __1.DependencyObject.registerPropertyByType(Page_1, "Child", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
     //SizeToContent property
-    Page.sizeToContentProperty = __1.DependencyObject.registerProperty(Page.typeName, "SizeToContent", _1.SizeToContent.None, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
+    Page.sizeToContentProperty = __1.DependencyObject.registerPropertyByType(Page_1, "SizeToContent", _1.SizeToContent.None, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
+    Page = Page_1 = __decorate([
+        __1.typeId("ovuse.controls.Page")
+    ], Page);
     return Page;
+    var Page_1;
 }(_1.FrameworkElement));
 exports.Page = Page;

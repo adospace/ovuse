@@ -2,8 +2,6 @@ import { DependencyObject, DependencyProperty, Command, EventAction } from '../.
 import { ISupportCommandCanExecuteChanged } from '../contracts';
 import { Size, Rect, Vector, ExtendedProperty } from '.';
 export declare class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged {
-    static typeName: string;
-    readonly typeName: string;
     desiredSize: Size | null;
     renderSize: Size | null;
     private previousAvailableSize;

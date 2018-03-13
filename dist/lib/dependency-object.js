@@ -1,7 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
+var _2 = require(".");
 var utils_1 = require("./utils");
+// function getPropertyRegistrationsFromObject(obj: any) : string {
+//     return obj[typeIdKey];
+// }
+// function setPropertiesFromType(type: any) : string {
+//     return type.prototype[typeIdKey];
+// }
+var dpIdKey = "__dpId";
 var DependencyObject = /** @class */ (function () {
     function DependencyObject() {
         this.localPropertyValueMap = {};
@@ -9,6 +17,30 @@ var DependencyObject = /** @class */ (function () {
         this.pcHandlers = [];
         this.bindings = new Array();
     }
+    DependencyObject.finalizePropertyRegistrations = function (type) {
+        var depPropertRegistration = type.prototype[dpIdKey];
+        if (depPropertRegistration == undefined)
+            return;
+        var typeName = _2.getTypeId(type);
+        if (DependencyObject.globalPropertyMap[typeName] == undefined)
+            DependencyObject.globalPropertyMap[typeName] = new _1.PropertyMap();
+        depPropertRegistration.forEach(function (dpReg) {
+            dpReg.typeName = typeName;
+            DependencyObject.globalPropertyMap[typeName].register(name, dpReg);
+        });
+        type.prototype[dpIdKey] = undefined;
+    };
+    DependencyObject.registerPropertyByType = function (type, name, defaultValue, options, converter) {
+        var typeName = _2.getTypeId(type);
+        if (typeName != undefined)
+            return DependencyObject.registerProperty(typeName, name, defaultValue, options, converter);
+        var depPropertRegistration = type.prototype[dpIdKey];
+        if (depPropertRegistration == undefined)
+            type.prototype[dpIdKey] = depPropertRegistration = new Array();
+        var newProperty = new _1.DependencyProperty(name, undefined, defaultValue, options, converter);
+        depPropertRegistration.push(newProperty);
+        return newProperty;
+    };
     ///Register a dependency property for the object
     DependencyObject.registerProperty = function (typeName, name, defaultValue, options, converter) {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
@@ -34,7 +66,7 @@ var DependencyObject = /** @class */ (function () {
         if (obj == undefined)
             throw new Error("obj == undefined");
         //var typeName = <string>obj["typeName"];
-        var typeName = _1.componentName(obj);
+        var typeName = _2.getObjectTypeId(obj);
         var propertiesOfObject = DependencyObject.getProperties(typeName);
         if (propertiesOfObject != undefined)
             propertiesOfObject.forEach(function (_) { return callback(_); });
@@ -48,7 +80,7 @@ var DependencyObject = /** @class */ (function () {
         if (obj == undefined)
             throw new Error("obj == undefined");
         //var typeName = <string>obj["typeName"];
-        var typeName = _1.componentName(obj);
+        var typeName = _2.getObjectTypeId(obj);
         var property = DependencyObject.globalPropertyMap[typeName] == undefined ?
             null :
             DependencyObject.globalPropertyMap[typeName].getProperty(name);

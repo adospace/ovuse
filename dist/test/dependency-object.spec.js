@@ -23,7 +23,7 @@ var A = /** @class */ (function () {
     function A() {
     }
     A = __decorate([
-        lib_1.component('my-component-a')
+        lib_1.typeId("a-uniqueid")
     ], A);
     return A;
 }());
@@ -33,7 +33,7 @@ var B = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     B = __decorate([
-        lib_1.component('my-component-b')
+        lib_1.typeId("b-uniqueid")
     ], B);
     return B;
 }(A));
@@ -43,15 +43,27 @@ describe('getPrototypeOf', function () {
         chai_1.expect(result).to.be.true;
     });
 });
-describe('componentName', function () {
-    it("it should return 'my-component-a'", function () {
-        var result = lib_1.componentName(new A());
-        chai_1.expect(result).to.equal('my-component-a');
+describe('typeId', function () {
+    it("it should return 'a-uniqueid'", function () {
+        var result = lib_1.getObjectTypeId(new A());
+        chai_1.expect(result).to.equal('a-uniqueid');
     });
 });
-describe('componentName of base class', function () {
-    it("it should return 'my-component-b'", function () {
-        var result = lib_1.componentName(new B());
-        chai_1.expect(result).to.equal('my-component-b');
+describe('typeId of base class', function () {
+    it("it should return 'b-uniqueid'", function () {
+        var result = lib_1.getObjectTypeId(new B());
+        chai_1.expect(result).to.equal('b-uniqueid');
+    });
+});
+describe('typeId of type class', function () {
+    it("it should return 'a-uniqueid'", function () {
+        var result = lib_1.getTypeId(A);
+        chai_1.expect(result).to.equal('a-uniqueid');
+    });
+});
+describe('componentName of base type class', function () {
+    it("it should return 'b-uniqueid'", function () {
+        var result = lib_1.getTypeId(B);
+        chai_1.expect(result).to.equal('b-uniqueid');
     });
 });

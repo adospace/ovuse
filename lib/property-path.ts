@@ -1,5 +1,5 @@
 import { ISupportDependencyPropertyChange, ISupportPropertyChange } from './contracts'
-import { Binding, DependencyObject, DependencyProperty, componentName } from '.'
+import { Binding, DependencyObject, DependencyProperty, getObjectTypeId } from '.'
 import { getPropertyValue, setPropertyValue  } from './utils'
 
 export class PropertyPath implements ISupportDependencyPropertyChange, ISupportPropertyChange {
@@ -176,7 +176,7 @@ export class PropertyPath implements ISupportDependencyPropertyChange, ISupportP
             if (DependencyObject.logBindingTraceToConsole) 
                 if (this.sourceProperty == undefined && (!(this.name in this.source)))
                 {
-                    var typeName = componentName(this.source);
+                    var typeName = getObjectTypeId(this.source);
                     console.log("[Bindings] Unable to find property '{0}' on type '{1}'".format(
                         this.name, 
                         typeName == undefined ? "<noneType>" : typeName));

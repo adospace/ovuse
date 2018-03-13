@@ -1,8 +1,6 @@
 import { UIElement, Size, Vector, Rect, HorizontalAlignment, VerticalAlignment, Thickness } from '.';
 import { DependencyObject, DependencyProperty } from '..';
 export declare class FrameworkElement extends UIElement {
-    static typeName: string;
-    readonly typeName: string;
     private unclippedDesiredSize;
     protected visualOffset: Vector | null;
     protected measureCore(availableSize: Size): Size;

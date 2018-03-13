@@ -1,12 +1,13 @@
 
 import { UIElement, FrameworkElement, XamlReader, Size, Rect,SizeToContent, FrameworkPropertyMetadataOptions, NavigationContext } from '.'
-import { DependencyObject, DependencyProperty } from '..'
+import { DependencyObject, DependencyProperty, typeId, getTypeId, getObjectTypeId } from '..'
 
+@typeId("ovuse.controls.Page")
 export class Page extends FrameworkElement {
-    static typeName: string = "layouts.controls.Page";
-    get typeName(): string{
-        return Page.typeName;
-    }
+    // static typeName: string = "layouts.controls.Page";
+    // get typeName(): string{
+    //     return Page.typeName;
+    // }
     
     private tryLoadChildFromServer() {
         var req = new XMLHttpRequest();
@@ -16,7 +17,8 @@ export class Page extends FrameworkElement {
                 this.child = loader.Parse(req.responseText);
             }
         }
-        req.open("GET", this.typeName.replace(/\./gi, '/') + ".xml", true);
+        var typeName = getObjectTypeId(this);
+        req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
         req.send();
     }
 
@@ -66,7 +68,7 @@ export class Page extends FrameworkElement {
         return finalSize;
     }   
 
-    static childProperty = DependencyObject.registerProperty(Page.typeName, "Child", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static childProperty = DependencyObject.registerPropertyByType(Page, "Child", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get child(): UIElement {
         return <UIElement>this.getValue(Page.childProperty);
     }
@@ -95,7 +97,7 @@ export class Page extends FrameworkElement {
 
 
     //SizeToContent property
-    static sizeToContentProperty = DependencyObject.registerProperty(Page.typeName, "SizeToContent", SizeToContent.None, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
+    static sizeToContentProperty = DependencyObject.registerPropertyByType(Page, "SizeToContent", SizeToContent.None, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
     get sizeToContent(): SizeToContent {
         return <SizeToContent>this.getValue(Page.sizeToContentProperty);
     }

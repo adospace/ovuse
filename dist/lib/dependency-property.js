@@ -19,7 +19,7 @@ var DependencyProperty = /** @class */ (function () {
     //get default value of this property for passed object
     DependencyProperty.prototype.getDefaultValue = function (depObject) {
         //var typeName = depObject["typeName"];
-        var typeName = _1.componentName(depObject);
+        var typeName = _1.getObjectTypeId(depObject);
         if (typeName in this._defaultValueMap)
             return this._defaultValueMap[typeName];
         return this._defaultValue;
