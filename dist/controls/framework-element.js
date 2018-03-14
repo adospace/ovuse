@@ -18,6 +18,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 var __1 = require("..");
+require("../utils/number-extensions");
+require("../utils/string-extensions");
+require("../utils/array-extensions");
 var FrameworkElement = /** @class */ (function (_super) {
     __extends(FrameworkElement, _super);
     function FrameworkElement() {

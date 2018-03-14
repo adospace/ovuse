@@ -13,11 +13,11 @@ declare global {
 }
 
 if (!Number.prototype.isEpsilon) {
-    Number.prototype.isEpsilon = function () {
+    Number.prototype.isEpsilon = function () : boolean {
         return Math.abs(<number>this) < 1e-10;
     };
 }
-Number.prototype.isCloseTo = function (other : number) {
+Number.prototype.isCloseTo = function (other : number) : boolean {
     if (!isFinite(other) && !isFinite(<number>this))
         return true;
     return Math.abs(<number>this - other) < 1e-10;

@@ -1,6 +1,9 @@
 import { DependencyObject, DependencyProperty, Command, EventAction } from '../.';
 import { ISupportCommandCanExecuteChanged } from '../contracts';
 import { Size, Rect, Vector, ExtendedProperty } from '.';
+import '../utils/number-extensions';
+import '../utils/string-extensions';
+import '../utils/array-extensions';
 export declare class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged {
     desiredSize: Size | null;
     renderSize: Size | null;

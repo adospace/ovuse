@@ -19,6 +19,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require("../.");
 var _2 = require(".");
 var utils_1 = require("../utils");
+require("../utils/number-extensions");
+require("../utils/string-extensions");
+require("../utils/array-extensions");
 var UIElement = /** @class */ (function (_super) {
     __extends(UIElement, _super);
     function UIElement() {

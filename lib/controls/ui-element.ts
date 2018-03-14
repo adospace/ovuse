@@ -4,6 +4,10 @@ import { ISupportCommandCanExecuteChanged } from '../contracts'
 import { Size, Rect, Vector, ExtendedProperty, FrameworkPropertyMetadataOptions, LayoutManager } from '.'
 import { setPropertyValue } from '../utils';
 
+import '../utils/number-extensions'
+import '../utils/string-extensions'
+import '../utils/array-extensions'
+
 @typeId("ovuse.controls.UIElement")
 export class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged { //, ISupportCollectionChanged
 

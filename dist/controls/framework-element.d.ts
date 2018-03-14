@@ -1,5 +1,8 @@
 import { UIElement, Size, Vector, Rect, HorizontalAlignment, VerticalAlignment, Thickness } from '.';
 import { DependencyObject, DependencyProperty } from '..';
+import '../utils/number-extensions';
+import '../utils/string-extensions';
+import '../utils/array-extensions';
 export declare class FrameworkElement extends UIElement {
     private unclippedDesiredSize;
     protected visualOffset: Vector | null;

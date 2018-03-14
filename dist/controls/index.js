@@ -13,3 +13,4 @@ __export(require("./navigation-context"));
 __export(require("./framework-element"));
 __export(require("./popup"));
 __export(require("./page"));
+__export(require("./text-block"));

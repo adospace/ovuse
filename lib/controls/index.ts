@@ -10,3 +10,4 @@ export * from './framework-element'
 
 export * from './popup'
 export * from './page'
+export * from './text-block'

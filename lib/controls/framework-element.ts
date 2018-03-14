@@ -15,6 +15,9 @@ import {
     typeId
 } from '..'
 
+import '../utils/number-extensions'
+import '../utils/string-extensions'
+import '../utils/array-extensions'
 
 @typeId("ovuse.controls.FrameworkElement")
 export class FrameworkElement extends UIElement {

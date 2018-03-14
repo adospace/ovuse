@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha -r jsdom-global/register -r ts-node/register lib/**/*.spec.ts",
-    "link" : "tsc && copy /Y package.json dist && copy /Y readme.md dist && cd dist && npm link",
+    "link": "tsc && copy /Y package.json dist && copy /Y readme.md dist && cd dist && npm link",
     "dist": "tsc && copy /Y package.json dist && copy /Y readme.md dist && cd dist && npm publish"
   },
   "repository": {
