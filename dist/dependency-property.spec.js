@@ -18,7 +18,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var chai_1 = require("chai");
 require("mocha");
-require("reflect-metadata");
 var lib_1 = require("../lib");
 var lib_2 = require("../lib");
 var A = /** @class */ (function (_super) {

@@ -2,8 +2,6 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import "reflect-metadata";
-
 import { typeId, getTypeId, getObjectTypeId  } from '../lib'
 import { DependencyObject, DependencyProperty  } from '../lib'
 

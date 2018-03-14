@@ -2,11 +2,11 @@
   "name": "ovuse",
   "version": "0.0.3",
   "description": "WPF-inspired Web UI framework",
-  "main": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "mocha -r jsdom-global/register -r ts-node/register test/**/*.ts"
+    "test": "mocha -r jsdom-global/register -r ts-node/register lib/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
