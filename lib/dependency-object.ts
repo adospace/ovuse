@@ -33,7 +33,7 @@ export class DependencyObject {
 
         depPropertRegistration.forEach(dpReg => {
             dpReg.typeName = typeName;
-            DependencyObject.globalPropertyMap[typeName].register(name, dpReg);
+            DependencyObject.globalPropertyMap[typeName].register(dpReg.name, dpReg);
         });
         
         type.prototype[dpIdKey] = undefined;

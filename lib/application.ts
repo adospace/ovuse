@@ -13,20 +13,9 @@ export class Application {
 
         Application._current = this;
 
-        // if ("onhashchange" in window) { // event supported?
-            window.onhashchange = ev =>
-                this.hashChanged(window.location.hash);
-        // }
-        // else { // event not supported:
-            
-        //     var storedHash = window.location.hash;
-        //     window.setInterval(()=> {
-        //         if (window.location.hash != storedHash) {
-        //             storedHash = window.location.hash;
-        //             this.hashChanged(storedHash);
-        //         }
-        //     }, 100);
-        // }         
+        window.onhashchange = ev =>
+            this.hashChanged(window.location.hash);
+       
     }
 
     //singleton application

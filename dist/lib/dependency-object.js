@@ -26,7 +26,7 @@ var DependencyObject = /** @class */ (function () {
             DependencyObject.globalPropertyMap[typeName] = new _1.PropertyMap();
         depPropertRegistration.forEach(function (dpReg) {
             dpReg.typeName = typeName;
-            DependencyObject.globalPropertyMap[typeName].register(name, dpReg);
+            DependencyObject.globalPropertyMap[typeName].register(dpReg.name, dpReg);
         });
         type.prototype[dpIdKey] = undefined;
     };
