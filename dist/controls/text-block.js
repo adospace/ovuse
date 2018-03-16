@@ -116,11 +116,11 @@ var TextBlock = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    TextBlock.textProperty = _2.DependencyObject.registerPropertyByType(TextBlock_1, "Text", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return String(v); });
-    TextBlock.whiteSpaceProperty = _2.DependencyObject.registerPropertyByType(TextBlock_1, "WhiteSpace", "pre", _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
-    TextBlock.formatProperty = _2.DependencyObject.registerPropertyByType(TextBlock_1, "Format", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return String(v); });
+    TextBlock.textProperty = _2.DependencyObject.registerProperty(TextBlock_1, "Text", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return String(v); });
+    TextBlock.whiteSpaceProperty = _2.DependencyObject.registerProperty(TextBlock_1, "WhiteSpace", "pre", _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    TextBlock.formatProperty = _2.DependencyObject.registerProperty(TextBlock_1, "Format", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return String(v); });
     TextBlock = TextBlock_1 = __decorate([
-        __1.typeId("ovuse.controls.TextBlock")
+        __1.DependencyObjectId("ovuse.controls.TextBlock")
     ], TextBlock);
     return TextBlock;
     var TextBlock_1;

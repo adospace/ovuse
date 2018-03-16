@@ -7,6 +7,6 @@ export declare class DependencyProperty {
     private _defaultValue;
     constructor(name: string, typeName?: string | undefined, defaultValue?: any, options?: any, converter?: ((value: string) => any) | undefined);
     private _defaultValueMap;
-    overrideDefaultValue(typeName: string, defaultValue: any): void;
+    overrideDefaultValue(type: any, defaultValue: any): void;
     getDefaultValue(depObject: DependencyObject): any;
 }

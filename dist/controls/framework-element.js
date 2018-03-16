@@ -353,39 +353,39 @@ var FrameworkElement = /** @class */ (function (_super) {
         configurable: true
     });
     //width property
-    FrameworkElement.widthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Width", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
+    FrameworkElement.widthProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "Width", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
     //height property
-    FrameworkElement.heightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Height", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
+    FrameworkElement.heightProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "Height", Number.NaN, _1.FrameworkPropertyMetadataOptions.AffectsMeasure);
     //actualWidth property
-    FrameworkElement.actualWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "ActualWidth", 0);
+    FrameworkElement.actualWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "ActualWidth", 0);
     //actualHeight property
-    FrameworkElement.actualHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "ActualHeight", 0);
+    FrameworkElement.actualHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "ActualHeight", 0);
     //minWidth property
-    FrameworkElement.minWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MinWidth", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.minWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "MinWidth", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //minHeight property
-    FrameworkElement.minHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MinHeight", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.minHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "MinHeight", 0, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //maxWidth property
-    FrameworkElement.maxWidthProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MaxWidth", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.maxWidthProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "MaxWidth", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //maxHeight property
-    FrameworkElement.maxHeightProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "MaxHeight", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
+    FrameworkElement.maxHeightProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "MaxHeight", Infinity, _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return parseFloat(v); });
     //verticalAlignment property
-    FrameworkElement.verticalAlignmentProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "VerticalAlignment", _1.VerticalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.VerticalAlignment[v]; });
+    FrameworkElement.verticalAlignmentProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "VerticalAlignment", _1.VerticalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.VerticalAlignment[v]; });
     //horizontalAlignment property
-    FrameworkElement.horizontalAlignmentProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "HorizontalAlignment", _1.HorizontalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.HorizontalAlignment[v]; });
+    FrameworkElement.horizontalAlignmentProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "HorizontalAlignment", _1.HorizontalAlignment.Stretch, _1.FrameworkPropertyMetadataOptions.AffectsArrange, function (v) { return _1.HorizontalAlignment[v]; });
     //margin property
-    FrameworkElement.marginProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Margin", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return _1.Thickness.fromString(v); });
+    FrameworkElement.marginProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "Margin", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure, function (v) { return _1.Thickness.fromString(v); });
     //dataContext property
-    FrameworkElement.dataContextProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "DataContext", null, _1.FrameworkPropertyMetadataOptions.Inherits);
+    FrameworkElement.dataContextProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "DataContext", null, _1.FrameworkPropertyMetadataOptions.Inherits);
     //tag property
-    FrameworkElement.tagProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "Tag");
+    FrameworkElement.tagProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "Tag");
     //overflowX property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowX is set to hidden
-    FrameworkElement.overflowXProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "OverflowX", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    FrameworkElement.overflowXProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "OverflowX", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
     //overflowY property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowY is set to hidden
-    FrameworkElement.overflowYProperty = __1.DependencyObject.registerPropertyByType(FrameworkElement_1, "OverflowY", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    FrameworkElement.overflowYProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "OverflowY", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
     FrameworkElement = FrameworkElement_1 = __decorate([
-        __1.typeId("ovuse.controls.FrameworkElement")
+        __1.DependencyObjectId("ovuse.controls.FrameworkElement")
     ], FrameworkElement);
     return FrameworkElement;
     var FrameworkElement_1;

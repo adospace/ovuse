@@ -9,6 +9,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
 var __1 = require("..");
@@ -20,16 +29,14 @@ var Popup = /** @class */ (function (_super) {
         _this._child = null;
         return _this;
     }
-    Object.defineProperty(Popup.prototype, "typeName", {
-        get: function () {
-            return Popup.typeName;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    Popup_1 = Popup;
+    // static typeName: string = "layouts.controls.Popup";
+    // get typeName(): string {
+    //     return Popup.typeName;
+    // }
     Popup.initProperties = function () {
-        _1.FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup.typeName, "Center");
-        _1.FrameworkElement.verticalAlignmentProperty.overrideDefaultValue(Popup.typeName, "Center");
+        _1.FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup_1, "Center");
+        _1.FrameworkElement.verticalAlignmentProperty.overrideDefaultValue(Popup_1, "Center");
     };
     Popup.prototype.tryLoadChildFromServer = function () {
         var _this = this;
@@ -42,7 +49,7 @@ var Popup = /** @class */ (function (_super) {
                     _this.setupChild();
             }
         };
-        req.open("GET", this.typeName.replace(/\./gi, '/') + ".xml", true);
+        req.open("GET", __1.getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
         req.send();
     };
     Object.defineProperty(Popup.prototype, "child", {
@@ -128,29 +135,33 @@ var Popup = /** @class */ (function (_super) {
     };
     Object.defineProperty(Popup.prototype, "sizeToContent", {
         get: function () {
-            return this.getValue(Popup.sizeToContentProperty);
+            return this.getValue(Popup_1.sizeToContentProperty);
         },
         set: function (value) {
-            this.setValue(Popup.sizeToContentProperty, value);
+            this.setValue(Popup_1.sizeToContentProperty, value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Popup.prototype, "position", {
         get: function () {
-            return this.getValue(Popup.positionProperty);
+            return this.getValue(Popup_1.positionProperty);
         },
         set: function (value) {
-            this.setValue(Popup.positionProperty, value);
+            this.setValue(Popup_1.positionProperty, value);
         },
         enumerable: true,
         configurable: true
     });
-    Popup.typeName = "layouts.controls.Popup";
-    Popup._init = Popup.initProperties();
+    Popup._init = Popup_1.initProperties();
     //SizeToContent property
-    Popup.sizeToContentProperty = __1.DependencyObject.registerProperty(Popup.typeName, "SizeToContent", _1.SizeToContent.Both, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
-    Popup.positionProperty = __1.DependencyObject.registerProperty(Popup.typeName, "Position", _1.PopupPosition.Center, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.PopupPosition[v]; });
+    Popup.sizeToContentProperty = __1.DependencyObject.registerProperty(Popup_1, "SizeToContent", _1.SizeToContent.Both, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
+    Popup.positionProperty = __1.DependencyObject.registerProperty(Popup_1, "Position", _1.PopupPosition.Center, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.PopupPosition[v]; });
+    Popup = Popup_1 = __decorate([
+        __1.DependencyObjectId("ovuse.Controls.Popup"),
+        __metadata("design:paramtypes", [])
+    ], Popup);
     return Popup;
+    var Popup_1;
 }(_1.FrameworkElement));
 exports.Popup = Popup;

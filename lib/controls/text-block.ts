@@ -1,8 +1,8 @@
 import { FrameworkElement, FrameworkPropertyMetadataOptions, Size } from '.'
-import { typeId } from '..';
+import { DependencyObjectId } from '..';
 import { DependencyObject, DependencyProperty } from '../.'
 
-@typeId("ovuse.controls.TextBlock")
+@DependencyObjectId("ovuse.controls.TextBlock")
 export class TextBlock extends FrameworkElement {
     // static typeName: string = "layouts.controls.TextBlock";
     // get typeName(): string {
@@ -79,7 +79,7 @@ export class TextBlock extends FrameworkElement {
     }
 
 
-    static textProperty = DependencyObject.registerPropertyByType(TextBlock, "Text", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => String(v));
+    static textProperty = DependencyObject.registerProperty(TextBlock, "Text", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => String(v));
     get text(): string {
         return <string>this.getValue(TextBlock.textProperty);
     }
@@ -87,7 +87,7 @@ export class TextBlock extends FrameworkElement {
         this.setValue(TextBlock.textProperty, value);
     }
 
-    static whiteSpaceProperty = DependencyObject.registerPropertyByType(TextBlock, "WhiteSpace", "pre", FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static whiteSpaceProperty = DependencyObject.registerProperty(TextBlock, "WhiteSpace", "pre", FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get whiteSpace(): string {
         return <string>this.getValue(TextBlock.whiteSpaceProperty);
     }
@@ -95,7 +95,7 @@ export class TextBlock extends FrameworkElement {
         this.setValue(TextBlock.whiteSpaceProperty, value);
     }
 
-    static formatProperty = DependencyObject.registerPropertyByType(TextBlock, "Format", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => String(v));
+    static formatProperty = DependencyObject.registerProperty(TextBlock, "Format", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => String(v));
     get format(): string {
         return <string>this.getValue(TextBlock.formatProperty);
     }

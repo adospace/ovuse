@@ -13,7 +13,16 @@ var DependencyProperty = /** @class */ (function () {
         this.options = options;
         this.converter = converter;
     }
-    DependencyProperty.prototype.overrideDefaultValue = function (typeName, defaultValue) {
+    // overrideDefaultValue(typeName: string, defaultValue: any) {
+    //     this._defaultValueMap[typeName] = defaultValue;
+    // }
+    DependencyProperty.prototype.overrideDefaultValue = function (type, defaultValue) {
+        var typeName = _1.getTypeId(type);
+        if (typeName == undefined) {
+            //throw Error("Unable to get typeId from type");
+            _1.DependencyObject.registerPropertyDefaultValue(this, type, defaultValue);
+            return;
+        }
         this._defaultValueMap[typeName] = defaultValue;
     };
     //get default value of this property for passed object

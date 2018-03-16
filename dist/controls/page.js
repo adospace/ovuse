@@ -120,11 +120,11 @@ var Page = /** @class */ (function (_super) {
     //onNavigate method is called also for reused/cached pages
     Page.prototype.onNavigate = function (context) {
     };
-    Page.childProperty = __1.DependencyObject.registerPropertyByType(Page_1, "Child", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
+    Page.childProperty = __1.DependencyObject.registerProperty(Page_1, "Child", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
     //SizeToContent property
-    Page.sizeToContentProperty = __1.DependencyObject.registerPropertyByType(Page_1, "SizeToContent", _1.SizeToContent.None, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
+    Page.sizeToContentProperty = __1.DependencyObject.registerProperty(Page_1, "SizeToContent", _1.SizeToContent.None, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
     Page = Page_1 = __decorate([
-        __1.typeId("ovuse.controls.Page")
+        __1.DependencyObjectId("ovuse.controls.Page")
     ], Page);
     return Page;
     var Page_1;

@@ -92,3 +92,20 @@ var Thickness = /** @class */ (function () {
     return Thickness;
 }());
 exports.Thickness = Thickness;
+var CornerRadius = /** @class */ (function () {
+    function CornerRadius(topleft, topright, bottomright, bottomleft) {
+        if (topleft === void 0) { topleft = 0; }
+        this.topleft = topleft;
+        this.topright = topright;
+        this.bottomright = bottomright;
+        this.bottomleft = bottomleft;
+        if (topright == undefined)
+            topright = this.topleft;
+        if (bottomright == undefined)
+            bottomright = this.topleft;
+        if (bottomleft == undefined)
+            bottomleft = this.topleft;
+    }
+    return CornerRadius;
+}());
+exports.CornerRadius = CornerRadius;

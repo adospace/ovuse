@@ -36,13 +36,40 @@ var A = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    A.myProperty = lib_2.DependencyObject.registerPropertyByType(A_1, "MyProperty", 23);
+    A.myProperty = lib_2.DependencyObject.registerProperty(A_1, "MyProperty", 23);
     A = A_1 = __decorate([
-        lib_1.typeId("MyObject")
+        lib_1.DependencyObjectId("ObjectTypeA")
     ], A);
     return A;
     var A_1;
 }(lib_2.DependencyObject));
+var B = /** @class */ (function (_super) {
+    __extends(B, _super);
+    function B() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    B_1 = B;
+    B.initProperties = function () {
+        A.myProperty.overrideDefaultValue(B_1, -1);
+    };
+    Object.defineProperty(B.prototype, "myProperty", {
+        get: function () {
+            return this.getValue(B_1.myProperty);
+        },
+        set: function (value) {
+            this.setValue(B_1.myProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    B._init = B_1.initProperties();
+    B.myProperty = lib_2.DependencyObject.registerProperty(B_1, "MyProperty", 1);
+    B = B_1 = __decorate([
+        lib_1.DependencyObjectId("ObjectTypeB")
+    ], B);
+    return B;
+    var B_1;
+}(A));
 describe('dependency-property', function () {
     it('it should return initial value 23', function () {
         var result = (new A()).getValue(A.myProperty);
@@ -61,5 +88,17 @@ describe('dependency-property set and get', function () {
         a.myProperty = 12;
         var result = a.myProperty;
         chai_1.expect(result).equal(12);
+    });
+});
+describe('dependency-property for derived type', function () {
+    it('it should return initial value for type B -> 1', function () {
+        var result = (new B()).getValue(B.myProperty);
+        chai_1.expect(result).equal(1);
+    });
+});
+describe('dependency-property for derived type default value changed for parent type', function () {
+    it('it should return initial value for type B of A.myProperty -> -1', function () {
+        var result = (new B()).getValue(A.myProperty);
+        chai_1.expect(result).equal(-1);
     });
 });

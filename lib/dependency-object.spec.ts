@@ -2,14 +2,14 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { typeId, getTypeId, getObjectTypeId  } from '../lib'
+import { DependencyObjectId, getTypeId, getObjectTypeId  } from '../lib'
 
-@typeId("a-uniqueid")
+@DependencyObjectId("a-uniqueid")
 class A {
 
 }
 
-@typeId("b-uniqueid")
+@DependencyObjectId("b-uniqueid")
 class B extends A {
 
 }

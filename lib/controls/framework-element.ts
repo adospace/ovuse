@@ -12,14 +12,14 @@ import { UIElement,
 import { 
     DependencyObject, 
     DependencyProperty, 
-    typeId
+    DependencyObjectId
 } from '..'
 
 import '../utils/number-extensions'
 import '../utils/string-extensions'
 import '../utils/array-extensions'
 
-@typeId("ovuse.controls.FrameworkElement")
+@DependencyObjectId("ovuse.controls.FrameworkElement")
 export class FrameworkElement extends UIElement {
     // static typeName: string = "layouts.FrameworkElement";
     // get typeName(): string {
@@ -237,7 +237,7 @@ export class FrameworkElement extends UIElement {
     
 
     //width property
-    static widthProperty = DependencyObject.registerPropertyByType(FrameworkElement, "Width", Number.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure);
+    static widthProperty = DependencyObject.registerProperty(FrameworkElement, "Width", Number.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure);
     get width(): number {
         return <number>this.getValue(FrameworkElement.widthProperty);
     }
@@ -246,7 +246,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //height property
-    static heightProperty = DependencyObject.registerPropertyByType(FrameworkElement, "Height", Number.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure);
+    static heightProperty = DependencyObject.registerProperty(FrameworkElement, "Height", Number.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure);
     get height(): number {
         return <number>this.getValue(FrameworkElement.heightProperty);
     }
@@ -255,7 +255,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //actualWidth property
-    static actualWidthProperty = DependencyObject.registerPropertyByType(FrameworkElement, "ActualWidth", 0);
+    static actualWidthProperty = DependencyObject.registerProperty(FrameworkElement, "ActualWidth", 0);
     get actualWidth(): number {
         return <number>this.getValue(FrameworkElement.actualWidthProperty);
     }
@@ -264,7 +264,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //actualHeight property
-    static actualHeightProperty = DependencyObject.registerPropertyByType(FrameworkElement, "ActualHeight", 0);
+    static actualHeightProperty = DependencyObject.registerProperty(FrameworkElement, "ActualHeight", 0);
     get actualHeight(): number {
         return <number>this.getValue(FrameworkElement.actualHeightProperty);
     }
@@ -273,7 +273,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //minWidth property
-    static minWidthProperty = DependencyObject.registerPropertyByType(FrameworkElement, "MinWidth", 0, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
+    static minWidthProperty = DependencyObject.registerProperty(FrameworkElement, "MinWidth", 0, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
     get minWidth(): number {
         return <number>this.getValue(FrameworkElement.minWidthProperty);
     }
@@ -282,7 +282,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //minHeight property
-    static minHeightProperty = DependencyObject.registerPropertyByType(FrameworkElement, "MinHeight", 0, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
+    static minHeightProperty = DependencyObject.registerProperty(FrameworkElement, "MinHeight", 0, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
     get minHeight(): number {
         return <number>this.getValue(FrameworkElement.minHeightProperty);
     }
@@ -291,7 +291,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //maxWidth property
-    static maxWidthProperty = DependencyObject.registerPropertyByType(FrameworkElement, "MaxWidth", Infinity, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
+    static maxWidthProperty = DependencyObject.registerProperty(FrameworkElement, "MaxWidth", Infinity, FrameworkPropertyMetadataOptions.AffectsMeasure, (v) => parseFloat(v));
     get maxWidth(): number {
         return <number>this.getValue(FrameworkElement.maxWidthProperty);
     }
@@ -300,7 +300,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //maxHeight property
-    static maxHeightProperty = DependencyObject.registerPropertyByType(FrameworkElement, "MaxHeight", Infinity, FrameworkPropertyMetadataOptions.AffectsMeasure, (v)=>parseFloat(v));
+    static maxHeightProperty = DependencyObject.registerProperty(FrameworkElement, "MaxHeight", Infinity, FrameworkPropertyMetadataOptions.AffectsMeasure, (v)=>parseFloat(v));
     get maxHeight(): number {
         return <number>this.getValue(FrameworkElement.maxHeightProperty);
     }
@@ -309,7 +309,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //verticalAlignment property
-    static verticalAlignmentProperty = DependencyObject.registerPropertyByType(FrameworkElement, "VerticalAlignment", VerticalAlignment.Stretch, FrameworkPropertyMetadataOptions.AffectsArrange, (v)=> (<any>VerticalAlignment)[v]);
+    static verticalAlignmentProperty = DependencyObject.registerProperty(FrameworkElement, "VerticalAlignment", VerticalAlignment.Stretch, FrameworkPropertyMetadataOptions.AffectsArrange, (v)=> (<any>VerticalAlignment)[v]);
     get verticalAlignment(): VerticalAlignment {
         return <VerticalAlignment>this.getValue(FrameworkElement.verticalAlignmentProperty);
     }
@@ -318,7 +318,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //horizontalAlignment property
-    static horizontalAlignmentProperty = DependencyObject.registerPropertyByType(FrameworkElement, "HorizontalAlignment", HorizontalAlignment.Stretch, FrameworkPropertyMetadataOptions.AffectsArrange, (v) => (<any>HorizontalAlignment)[v]);
+    static horizontalAlignmentProperty = DependencyObject.registerProperty(FrameworkElement, "HorizontalAlignment", HorizontalAlignment.Stretch, FrameworkPropertyMetadataOptions.AffectsArrange, (v) => (<any>HorizontalAlignment)[v]);
     get horizontalAlignment(): HorizontalAlignment {
         return <HorizontalAlignment>this.getValue(FrameworkElement.horizontalAlignmentProperty);
     }
@@ -327,7 +327,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //margin property
-    static marginProperty = DependencyObject.registerPropertyByType(FrameworkElement, "Margin", new Thickness(), FrameworkPropertyMetadataOptions.AffectsMeasure, (v)=> Thickness.fromString(v));
+    static marginProperty = DependencyObject.registerProperty(FrameworkElement, "Margin", new Thickness(), FrameworkPropertyMetadataOptions.AffectsMeasure, (v)=> Thickness.fromString(v));
     get margin(): Thickness {
         return <Thickness>this.getValue(FrameworkElement.marginProperty);
     }
@@ -336,7 +336,7 @@ export class FrameworkElement extends UIElement {
     }
 
     //dataContext property
-    static dataContextProperty = DependencyObject.registerPropertyByType(FrameworkElement, "DataContext", null, FrameworkPropertyMetadataOptions.Inherits);
+    static dataContextProperty = DependencyObject.registerProperty(FrameworkElement, "DataContext", null, FrameworkPropertyMetadataOptions.Inherits);
     get dataContext(): any {
         return this.getValue(FrameworkElement.dataContextProperty);
     }
@@ -363,7 +363,7 @@ export class FrameworkElement extends UIElement {
 
 
     //tag property
-    static tagProperty = DependencyObject.registerPropertyByType(FrameworkElement, "Tag");
+    static tagProperty = DependencyObject.registerProperty(FrameworkElement, "Tag");
     get tag(): any {
         return <string>this.getValue(FrameworkElement.tagProperty);
     }
@@ -374,7 +374,7 @@ export class FrameworkElement extends UIElement {
 
     //overflowX property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowX is set to hidden
-    static overflowXProperty = DependencyObject.registerPropertyByType(FrameworkElement, "OverflowX", "hidden", FrameworkPropertyMetadataOptions.AffectsRender);
+    static overflowXProperty = DependencyObject.registerProperty(FrameworkElement, "OverflowX", "hidden", FrameworkPropertyMetadataOptions.AffectsRender);
     get overflowX(): any {
         return <string>this.getValue(FrameworkElement.overflowXProperty);
     }
@@ -384,7 +384,7 @@ export class FrameworkElement extends UIElement {
 
     //overflowY property -> visible|hidden|scroll|auto
     //by default content is clipped so overflowY is set to hidden
-    static overflowYProperty = DependencyObject.registerPropertyByType(FrameworkElement, "OverflowY", "hidden", FrameworkPropertyMetadataOptions.AffectsRender);
+    static overflowYProperty = DependencyObject.registerProperty(FrameworkElement, "OverflowY", "hidden", FrameworkPropertyMetadataOptions.AffectsRender);
     get overflowY(): any {
         return <string>this.getValue(FrameworkElement.overflowYProperty);
     }

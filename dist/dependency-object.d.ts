@@ -3,12 +3,11 @@ import { ISupportDependencyPropertyChange, ISupportPropertyChange, IConverter } 
 export declare class DependencyObject {
     private static globalPropertyMap;
     static finalizePropertyRegistrations(type: any): void;
-    static registerPropertyByType(type: any, name: string, defaultValue?: any, options?: any, converter?: {
+    static registerPropertyDefaultValue(dependencyProperty: DependencyProperty, type: any, defaultValue: any): void;
+    static registerProperty(type: any, name: string, defaultValue?: any, options?: any, converter?: {
         (value: string): any;
     }): DependencyProperty;
-    static registerProperty(typeName: string, name: string, defaultValue?: any, options?: any, converter?: {
-        (value: string): any;
-    }): DependencyProperty;
+    private static registerPropertyByTypeName(typeName, name, defaultValue?, options?, converter?);
     static getProperty(typeName: string, name: string): DependencyProperty | null;
     static getProperties(typeName: string): DependencyProperty[] | null;
     static forAllProperties(obj: DependencyObject, callback: (DependencyProperty: DependencyProperty) => void): void;

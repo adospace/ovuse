@@ -1,19 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require(".");
-var typeIdKey = "__typeId";
-function typeId(name) {
+var typeIdKey = "__DependencyObjectId";
+function DependencyObjectId(name) {
     return function (constructor) {
-        constructor.prototype[typeIdKey] = name;
+        var typeName = (constructor['name']);
+        constructor.prototype[typeIdKey + "_" + typeName] = name;
         _1.DependencyObject.finalizePropertyRegistrations(constructor);
     };
 }
-exports.typeId = typeId;
+exports.DependencyObjectId = DependencyObjectId;
 function getObjectTypeId(obj) {
-    return obj[typeIdKey];
+    var typeName = (obj.constructor['name']);
+    return obj[typeIdKey + "_" + typeName];
 }
 exports.getObjectTypeId = getObjectTypeId;
 function getTypeId(type) {
-    return type.prototype[typeIdKey];
+    var typeName = (type['name']);
+    return type.prototype[typeIdKey + "_" + typeName];
 }
 exports.getTypeId = getTypeId;

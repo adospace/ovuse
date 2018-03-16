@@ -23,7 +23,7 @@ var A = /** @class */ (function () {
     function A() {
     }
     A = __decorate([
-        lib_1.typeId("a-uniqueid")
+        lib_1.DependencyObjectId("a-uniqueid")
     ], A);
     return A;
 }());
@@ -33,7 +33,7 @@ var B = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     B = __decorate([
-        lib_1.typeId("b-uniqueid")
+        lib_1.DependencyObjectId("b-uniqueid")
     ], B);
     return B;
 }(A));

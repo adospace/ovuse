@@ -3,7 +3,7 @@ export { DependencyProperty } from './dependency-property';
 export { Binding } from './binding';
 export { PropertyPath } from './property-path';
 export { PropertyMap } from './property-map';
-export { typeId, getObjectTypeId, getTypeId } from './type-id';
+export { DependencyObjectId, getObjectTypeId, getTypeId } from './type-id';
 export { Command } from './command';
 export { InstanceLoader } from './instance-loader';
 export { ObservableCollection } from './observable-collection';

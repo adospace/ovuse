@@ -1,8 +1,8 @@
 
 import { UIElement, FrameworkElement, XamlReader, Size, Rect,SizeToContent, FrameworkPropertyMetadataOptions, NavigationContext } from '.'
-import { DependencyObject, DependencyProperty, typeId, getTypeId, getObjectTypeId } from '..'
+import { DependencyObject, DependencyProperty, DependencyObjectId, getTypeId, getObjectTypeId } from '..'
 
-@typeId("ovuse.controls.Page")
+@DependencyObjectId("ovuse.controls.Page")
 export class Page extends FrameworkElement {
     // static typeName: string = "layouts.controls.Page";
     // get typeName(): string{
@@ -68,7 +68,7 @@ export class Page extends FrameworkElement {
         return finalSize;
     }   
 
-    static childProperty = DependencyObject.registerPropertyByType(Page, "Child", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static childProperty = DependencyObject.registerProperty(Page, "Child", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get child(): UIElement {
         return <UIElement>this.getValue(Page.childProperty);
     }
@@ -97,7 +97,7 @@ export class Page extends FrameworkElement {
 
 
     //SizeToContent property
-    static sizeToContentProperty = DependencyObject.registerPropertyByType(Page, "SizeToContent", SizeToContent.None, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
+    static sizeToContentProperty = DependencyObject.registerProperty(Page, "SizeToContent", SizeToContent.None, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
     get sizeToContent(): SizeToContent {
         return <SizeToContent>this.getValue(Page.sizeToContentProperty);
     }

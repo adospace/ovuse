@@ -2,17 +2,18 @@ import {
     FrameworkElement, XamlReader, UIElement, LayoutManager, Size, SizeToContent, 
     Rect, PopupPosition, FrameworkPropertyMetadataOptions 
 } from '.'
-import { DependencyObject, DependencyProperty } from '..' 
+import { DependencyObject, DependencyProperty, DependencyObjectId, getObjectTypeId } from '..' 
 
+@DependencyObjectId("ovuse.Controls.Popup")
 export class Popup extends FrameworkElement {
-    static typeName: string = "layouts.controls.Popup";
-    get typeName(): string {
-        return Popup.typeName;
-    }
+    // static typeName: string = "layouts.controls.Popup";
+    // get typeName(): string {
+    //     return Popup.typeName;
+    // }
 
     private static initProperties() {
-        FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup.typeName, "Center");
-        FrameworkElement.verticalAlignmentProperty.overrideDefaultValue(Popup.typeName, "Center");
+        FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup, "Center");
+        FrameworkElement.verticalAlignmentProperty.overrideDefaultValue(Popup, "Center");
     }
     private static _init = Popup.initProperties();
 
@@ -30,7 +31,7 @@ export class Popup extends FrameworkElement {
                     this.setupChild();
             }
         }
-        req.open("GET", this.typeName.replace(/\./gi, '/') + ".xml", true);
+        req.open("GET", getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
         req.send();
     }
 
@@ -128,7 +129,7 @@ export class Popup extends FrameworkElement {
 
 
     //SizeToContent property
-    static sizeToContentProperty = DependencyObject.registerProperty(Popup.typeName, "SizeToContent", SizeToContent.Both, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
+    static sizeToContentProperty = DependencyObject.registerProperty(Popup, "SizeToContent", SizeToContent.Both, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>SizeToContent)[v]);
     get sizeToContent(): SizeToContent {
         return <SizeToContent>this.getValue(Popup.sizeToContentProperty);
     }
@@ -136,7 +137,7 @@ export class Popup extends FrameworkElement {
         this.setValue(Popup.sizeToContentProperty, value);
     }        
 
-    static positionProperty = DependencyObject.registerProperty(Popup.typeName, "Position", PopupPosition.Center, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>PopupPosition)[v]);
+    static positionProperty = DependencyObject.registerProperty(Popup, "Position", PopupPosition.Center, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, (v) => (<any>PopupPosition)[v]);
     get position(): PopupPosition {
         return <PopupPosition>this.getValue(Popup.positionProperty);
     }

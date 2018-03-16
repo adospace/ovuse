@@ -1,21 +1,24 @@
 import { DependencyObject } from ".";
 
-const typeIdKey : string = "__typeId";
+const typeIdKey : string = "__DependencyObjectId";
 
-export function typeId(name: string) {
+export function DependencyObjectId(name: string) {
     return (constructor: any) => {
-        constructor.prototype[typeIdKey] = name;
+        var typeName = <string>(constructor['name']);
+        constructor.prototype[typeIdKey + "_" + typeName] = name;
 
         DependencyObject.finalizePropertyRegistrations(constructor);
     }
 }
 
 export function getObjectTypeId(obj: any) : string {
-    return obj[typeIdKey];
+    var typeName = <string>(obj.constructor['name']);
+    return obj[typeIdKey + "_" + typeName];
 }
 
 
 export function getTypeId(type: any) : string {
-    return type.prototype[typeIdKey];
+    var typeName = <string>(type['name']);
+    return type.prototype[typeIdKey + "_" + typeName];
 }
 

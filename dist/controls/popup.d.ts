@@ -1,8 +1,6 @@
 import { FrameworkElement, UIElement, Size, SizeToContent, PopupPosition } from '.';
 import { DependencyProperty } from '..';
 export declare class Popup extends FrameworkElement {
-    static typeName: string;
-    readonly typeName: string;
     private static initProperties();
     private static _init;
     constructor();

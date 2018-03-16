@@ -28,3 +28,10 @@ export declare class Thickness {
     static fromString(v: string): Thickness;
     readonly isSameWidth: boolean;
 }
+export declare class CornerRadius {
+    topleft: number;
+    topright: number | undefined;
+    bottomright: number | undefined;
+    bottomleft: number | undefined;
+    constructor(topleft?: number, topright?: number | undefined, bottomright?: number | undefined, bottomleft?: number | undefined);
+}

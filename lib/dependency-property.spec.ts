@@ -2,18 +2,35 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { typeId, getTypeId, getObjectTypeId  } from '../lib'
+import { DependencyObjectId, getTypeId, getObjectTypeId  } from '../lib'
 import { DependencyObject, DependencyProperty  } from '../lib'
 
-@typeId("MyObject")
+@DependencyObjectId("ObjectTypeA")
 class A extends DependencyObject {
 
-    static myProperty = DependencyObject.registerPropertyByType(A, "MyProperty", 23);
+    static myProperty = DependencyObject.registerProperty(A, "MyProperty", 23);
     get myProperty(): number {
         return <number>this.getValue(A.myProperty);
     }
     set myProperty(value: number) {
         this.setValue(A.myProperty, value);
+    }
+}
+
+@DependencyObjectId("ObjectTypeB")
+class B extends A {
+
+    private static initProperties() {
+        A.myProperty.overrideDefaultValue(B, -1);
+    }
+    private static _init = B.initProperties();
+
+    static myProperty = DependencyObject.registerProperty(B, "MyProperty", 1);
+    get myProperty(): number {
+        return <number>this.getValue(B.myProperty);
+    }
+    set myProperty(value: number) {
+        this.setValue(B.myProperty, value);
     }
 }
 
@@ -38,5 +55,20 @@ describe('dependency-property set and get', () => {
         a.myProperty = 12;
         const result = a.myProperty;
         expect(result).equal(12);
+    });
+});
+
+describe('dependency-property for derived type', () => {
+    it('it should return initial value for type B -> 1', () => {
+        const result = (new B()).getValue(B.myProperty);
+        expect(result).equal(1);
+    });
+});
+
+
+describe('dependency-property for derived type default value changed for parent type', () => {
+    it('it should return initial value for type B of A.myProperty -> -1', () => {
+        const result = (new B()).getValue(A.myProperty);
+        expect(result).equal(-1);
     });
 });

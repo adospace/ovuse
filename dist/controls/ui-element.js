@@ -540,22 +540,22 @@ var UIElement = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    UIElement.isVisibleProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.classProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.isVisibleProperty = _1.DependencyObject.registerProperty(UIElement_1, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.classProperty = _1.DependencyObject.registerProperty(UIElement_1, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
     //name property
-    UIElement.idProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandParameterProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.idProperty = _1.DependencyObject.registerProperty(UIElement_1, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.commandProperty = _1.DependencyObject.registerProperty(UIElement_1, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+    UIElement.commandParameterProperty = _1.DependencyObject.registerProperty(UIElement_1, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
     //get or set popup property for the element
-    UIElement.popupProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
-    UIElement.autoClosePopupProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, function (value) {
+    UIElement.popupProperty = _1.DependencyObject.registerProperty(UIElement_1, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
+    UIElement.autoClosePopupProperty = _1.DependencyObject.registerProperty(UIElement_1, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, function (value) {
         if (value == null || (value.toLowerCase() != "true" && value.toLowerCase() != "false"))
             throw new Error("Unable to valuate string '{0}' as boolean".format(value));
         return value.toLowerCase() == "true" ? true : false;
     });
-    UIElement.layoutUpdatedProperty = _1.DependencyObject.registerPropertyByType(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
+    UIElement.layoutUpdatedProperty = _1.DependencyObject.registerProperty(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
     UIElement = UIElement_1 = __decorate([
-        _1.typeId("ovuse.controls.UIElement")
+        _1.DependencyObjectId("ovuse.controls.UIElement")
     ], UIElement);
     return UIElement;
     var UIElement_1;

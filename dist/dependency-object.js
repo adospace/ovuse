@@ -10,6 +10,14 @@ var utils_1 = require("./utils");
 //     return type.prototype[typeIdKey];
 // }
 var dpIdKey = "__dpId";
+var dpDefaultKey = "__dpDefault";
+var DependencyPropertyDefaultValue = /** @class */ (function () {
+    function DependencyPropertyDefaultValue(dp, defaultValue) {
+        this.dp = dp;
+        this.defaultValue = defaultValue;
+    }
+    return DependencyPropertyDefaultValue;
+}());
 var DependencyObject = /** @class */ (function () {
     function DependencyObject() {
         this.localPropertyValueMap = {};
@@ -18,31 +26,50 @@ var DependencyObject = /** @class */ (function () {
         this.bindings = new Array();
     }
     DependencyObject.finalizePropertyRegistrations = function (type) {
-        var depPropertRegistration = type.prototype[dpIdKey];
-        if (depPropertRegistration == undefined)
-            return;
         var typeName = _2.getTypeId(type);
-        if (DependencyObject.globalPropertyMap[typeName] == undefined)
-            DependencyObject.globalPropertyMap[typeName] = new _1.PropertyMap();
-        depPropertRegistration.forEach(function (dpReg) {
-            dpReg.typeName = typeName;
-            DependencyObject.globalPropertyMap[typeName].register(dpReg.name, dpReg);
-        });
-        type.prototype[dpIdKey] = undefined;
+        if (typeName == undefined)
+            throw new Error("Unable to finalize property registrations for type without DependencyObjectId");
+        var depPropertRegistration = type.prototype[dpIdKey];
+        if (depPropertRegistration != undefined) {
+            if (DependencyObject.globalPropertyMap[typeName] == undefined)
+                DependencyObject.globalPropertyMap[typeName] = new _1.PropertyMap();
+            depPropertRegistration.forEach(function (dpReg) {
+                dpReg.typeName = typeName;
+                DependencyObject.globalPropertyMap[typeName].register(dpReg.name, dpReg);
+            });
+            type.prototype[dpIdKey] = undefined;
+        }
+        var depPropertyDefaultValue = type.prototype[dpDefaultKey];
+        if (depPropertyDefaultValue != undefined) {
+            depPropertyDefaultValue.forEach(function (dpDefaultValue) {
+                dpDefaultValue.dp.overrideDefaultValue(type, dpDefaultValue.defaultValue);
+            });
+            type.prototype[dpDefaultKey] = undefined;
+        }
     };
-    DependencyObject.registerPropertyByType = function (type, name, defaultValue, options, converter) {
+    DependencyObject.registerPropertyDefaultValue = function (dependencyProperty, type, defaultValue) {
         var typeName = _2.getTypeId(type);
         if (typeName != undefined)
-            return DependencyObject.registerProperty(typeName, name, defaultValue, options, converter);
-        var depPropertRegistration = type.prototype[dpIdKey];
-        if (depPropertRegistration == undefined)
-            type.prototype[dpIdKey] = depPropertRegistration = new Array();
+            throw new Error("Property '{0}' on type '{1}' has already registered a default value".format(dependencyProperty.name, typeName));
+        var depPropertyDefaultValue = type.prototype[dpDefaultKey];
+        if (depPropertyDefaultValue == undefined)
+            type.prototype[dpDefaultKey] = depPropertyDefaultValue = new Array();
+        depPropertyDefaultValue.push(new DependencyPropertyDefaultValue(dependencyProperty, defaultValue));
+    };
+    ///Register a dependency property for the object
+    DependencyObject.registerProperty = function (type, name, defaultValue, options, converter) {
+        var typeName = _2.getTypeId(type);
+        if (typeName != undefined)
+            return DependencyObject.registerPropertyByTypeName(typeName, name, defaultValue, options, converter);
+        var depPropertyRegistration = type.prototype[dpIdKey];
+        if (depPropertyRegistration == undefined)
+            type.prototype[dpIdKey] = depPropertyRegistration = new Array();
         var newProperty = new _1.DependencyProperty(name, undefined, defaultValue, options, converter);
-        depPropertRegistration.push(newProperty);
+        depPropertyRegistration.push(newProperty);
         return newProperty;
     };
     ///Register a dependency property for the object
-    DependencyObject.registerProperty = function (typeName, name, defaultValue, options, converter) {
+    DependencyObject.registerPropertyByTypeName = function (typeName, name, defaultValue, options, converter) {
         if (DependencyObject.globalPropertyMap[typeName] == undefined)
             DependencyObject.globalPropertyMap[typeName] = new _1.PropertyMap();
         var newProperty = new _1.DependencyProperty(name, typeName, defaultValue, options, converter);

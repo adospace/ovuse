@@ -55,3 +55,14 @@ export class Thickness
         return this.left == this.top && this.left == this.right && this.right == this.bottom;
     }
 }
+
+export class CornerRadius {
+    constructor(public topleft: number = 0, public topright?: number, public bottomright?: number, public bottomleft?: number) {
+        if (topright == undefined)
+            topright = this.topleft;
+        if (bottomright == undefined)
+            bottomright = this.topleft;
+        if (bottomleft == undefined)
+            bottomleft = this.topleft;
+    }
+}
