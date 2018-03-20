@@ -49,7 +49,8 @@ export class Application {
 
     //Dispatcher Thread
     private static requestAnimationFrame() {
-        requestAnimationFrame(Application.onAnimationFrame);
+        if (typeof requestAnimationFrame == 'function')
+            requestAnimationFrame(Application.onAnimationFrame);
     }
 
     private static onAnimationFrame() {
@@ -127,17 +128,18 @@ export class Application {
                     (<any>this._cachedPages)[uriMapping.mapping] = targetPage;
             }
 
-            if (previousPage == null ||
-                previousUri == null)
-                return false;
+            // if (previousPage == null ||
+            //     previousUri == null)
+            //     return false;
 
             var navContext = new NavigationContext(
-                previousPage,
-                previousUri,
                 targetPage,
                 uri,
-                queryString
+                queryString,
+                previousPage,
+                previousUri,
                 );
+
             navContext.returnUri = this._returnUri;
 
             if (this.onBeforeNavigate != null) {
@@ -154,8 +156,6 @@ export class Application {
                 }
             }
 
-            //this._currentNavigationitem = new NavigationItem(uri);
-            //this._navigationStack.push(this._currentNavigationitem);
             this._currentUri = uri;
             this.page = targetPage;
             if (this.page == null) {
