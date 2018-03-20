@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
-const typeIdKey = "__DependencyObjectId";
+const typeIdKey = "__ovuseDependencyObjectId";
 function DependencyObjectId(name) {
     return (constructor) => {
         var typeName = (constructor['name']);

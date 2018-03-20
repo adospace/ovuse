@@ -3,11 +3,24 @@ import { Page, LayoutManager, NavigationContext } from './controls'
 
 import { UriMapping, InstanceLoader } from '.'
 
+const appContainerKey : string = "__ovuseAppContainer";
+
+export function ApplicationElement(name: string) {
+    return (constructor: any) => {
+        var typeName = <string>(constructor['name']);
+        constructor.prototype[appContainerKey + "_" + typeName] = name;
+    }
+}
+
+function getApplicationElement(obj: any) : string | undefined {
+    var typeName = <string>(obj.constructor['name']);
+    return obj[appContainerKey + "_" + typeName];
+}
 
 export class Application {
                 
-    constructor()
-    {
+    constructor() {
+        
         if (Application._current != null)
             throw new Error("Application already initialized");
 
@@ -40,11 +53,28 @@ export class Application {
 
             this._page = page;
 
-            if (this._page != null)
-                this._page.attachVisual(document.body);
+            if (this._page != null) {
+                var container = this.container;
+                if (container != null)
+                    this._page.attachVisual(container);
+                else
+                    this._page.attachVisual(document.body);
+            }
 
             Application.requestAnimationFrame();
         }
+    }
+
+    private _container: HTMLElement | null = null;
+    
+    get container() : HTMLElement | null {
+        if (this._container == null){
+            var containerId = getApplicationElement(this);
+            if (containerId != undefined)
+                this._container = document.getElementById(containerId);
+        }           
+
+        return this._container;
     }
 
     //Dispatcher Thread

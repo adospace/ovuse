@@ -3,11 +3,17 @@ import 'mocha';
 
 import { XamlReader, Page  } from './controls'
 import { Application, DependencyObjectId, getObjectTypeId } from '.'
+import { ApplicationElement } from './application';
 
 require('jsdom-global')("", {
     /* any jsdom options you need, e.g: */
     url: "http://localhost"
 });
+
+@ApplicationElement("my-app")
+class App extends Application{
+
+}
 
 @DependencyObjectId("tests.Home")
 class HomePage extends Page { }
@@ -21,8 +27,20 @@ class Page2 extends Page { }
 describe('Application routing', () => {
 
     before(() => {
+        var app = new App();
+      }),
+
+    it('it should return true', () => {
+        var app = Application.current;
+        expect(app.container).null;
+    })
+});
+
+describe('Application routing', () => {
+
+    before(() => {
         // runs before all tests in this block
-        var app = new Application();
+        var app = Application.current;
 
         app.map('/page1', 'tests/Page1');
         app.map('/page2', 'tests/Page2');

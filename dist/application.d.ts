@@ -1,11 +1,14 @@
 import { Page, NavigationContext } from './controls';
 import { UriMapping, InstanceLoader } from '.';
+export declare function ApplicationElement(name: string): (constructor: any) => void;
 export declare class Application {
     constructor();
     private static _current;
     static readonly current: Application;
     private _page;
     page: Page | null;
+    private _container;
+    readonly container: HTMLElement | null;
     private static requestAnimationFrame();
     private static onAnimationFrame();
     private static _beginInvokeActions;

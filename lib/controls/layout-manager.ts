@@ -10,12 +10,13 @@ import { Application } from '../.'
 export class LayoutManager {
     static updateLayout() {
         var page = Application.current.page;
+        var appContainer = Application.current.container;
         
-        var docWidth = window.innerWidth
+        var docWidth = appContainer != null ? appContainer.offsetWidth : window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
 
-        var docHeight = window.innerHeight
+        var docHeight = appContainer != null ? appContainer.offsetHeight : window.innerHeight
             || document.documentElement.clientHeight
             || document.body.clientHeight;
 

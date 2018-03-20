@@ -1,6 +1,6 @@
 import { DependencyObject, InstanceLoader } from ".";
 
-const typeIdKey : string = "__DependencyObjectId";
+const typeIdKey : string = "__ovuseDependencyObjectId";
 
 export function DependencyObjectId(name: string) {
     return (constructor: any) => {

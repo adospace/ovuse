@@ -1,11 +1,11 @@
 import { Page } from '.';
 export declare class NavigationContext {
-    previousPage: Page;
-    previousUri: string;
     nextPage: Page;
     nextUri: string;
     queryString: {};
-    constructor(previousPage: Page, previousUri: string, nextPage: Page, nextUri: string, queryString: {});
+    previousPage: Page | null;
+    previousUri: string | null;
+    constructor(nextPage: Page, nextUri: string, queryString: {}, previousPage?: Page | null, previousUri?: string | null);
     cancel: boolean;
     returnUri: string | null;
 }

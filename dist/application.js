@@ -2,9 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const controls_1 = require("./controls");
 const _1 = require(".");
+const appContainerKey = "__ovuseAppContainer";
+function ApplicationElement(name) {
+    return (constructor) => {
+        var typeName = (constructor['name']);
+        constructor.prototype[appContainerKey + "_" + typeName] = name;
+    };
+}
+exports.ApplicationElement = ApplicationElement;
+function getApplicationElement(obj) {
+    var typeName = (obj.constructor['name']);
+    return obj[appContainerKey + "_" + typeName];
+}
 class Application {
     constructor() {
         this._page = null;
+        this._container = null;
         this._mappings = [];
         //private _navigationStack: NavigationItem[] = new Array<NavigationItem>();
         //private _currentNavigationitem: NavigationItem;
@@ -32,14 +45,28 @@ class Application {
             if (this._page != null)
                 this._page.attachVisual(null);
             this._page = page;
-            if (this._page != null)
-                this._page.attachVisual(document.body);
+            if (this._page != null) {
+                var container = this.container;
+                if (container != null)
+                    this._page.attachVisual(container);
+                else
+                    this._page.attachVisual(document.body);
+            }
             Application.requestAnimationFrame();
         }
     }
+    get container() {
+        if (this._container == null) {
+            var containerId = getApplicationElement(this);
+            if (containerId != undefined)
+                this._container = document.getElementById(containerId);
+        }
+        return this._container;
+    }
     //Dispatcher Thread
     static requestAnimationFrame() {
-        requestAnimationFrame(Application.onAnimationFrame);
+        if (typeof requestAnimationFrame == 'function')
+            requestAnimationFrame(Application.onAnimationFrame);
     }
     static onAnimationFrame() {
         controls_1.LayoutManager.updateLayout();
@@ -89,10 +116,10 @@ class Application {
                 if (!(targetPage.typeName in this._cachedPages))
                     this._cachedPages[uriMapping.mapping] = targetPage;
             }
-            if (previousPage == null ||
-                previousUri == null)
-                return false;
-            var navContext = new controls_1.NavigationContext(previousPage, previousUri, targetPage, uri, queryString);
+            // if (previousPage == null ||
+            //     previousUri == null)
+            //     return false;
+            var navContext = new controls_1.NavigationContext(targetPage, uri, queryString, previousPage, previousUri);
             navContext.returnUri = this._returnUri;
             if (this.onBeforeNavigate != null) {
                 var nextUri = navContext.nextUri;
@@ -107,8 +134,6 @@ class Application {
                     return false;
                 }
             }
-            //this._currentNavigationitem = new NavigationItem(uri);
-            //this._navigationStack.push(this._currentNavigationitem);
             this._currentUri = uri;
             this.page = targetPage;
             if (this.page == null) {

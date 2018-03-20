@@ -25,8 +25,10 @@ let Page = Page_1 = class Page extends _1.FrameworkElement {
             }
         };
         var typeName = __1.getObjectTypeId(this);
-        req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
-        req.send();
+        if (typeName != undefined) {
+            req.open("GET", typeName.replace(/\./gi, '/') + ".xaml", true);
+            req.send();
+        }
     }
     attachVisualOverride(elementContainer) {
         this._container = elementContainer;

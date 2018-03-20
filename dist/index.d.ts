@@ -8,5 +8,5 @@ export { Command } from './command';
 export { InstanceLoader } from './instance-loader';
 export { ObservableCollection } from './observable-collection';
 export { EventAction } from './event-action';
-export { Application } from './application';
+export { Application, ApplicationElement } from './application';
 export { UriMapping } from './uri-mapping';

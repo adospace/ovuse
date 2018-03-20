@@ -24,5 +24,6 @@ var event_action_1 = require("./event-action");
 exports.EventAction = event_action_1.EventAction;
 var application_1 = require("./application");
 exports.Application = application_1.Application;
+exports.ApplicationElement = application_1.ApplicationElement;
 var uri_mapping_1 = require("./uri-mapping");
 exports.UriMapping = uri_mapping_1.UriMapping;

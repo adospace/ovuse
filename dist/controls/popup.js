@@ -31,8 +31,11 @@ let Popup = Popup_1 = class Popup extends _1.FrameworkElement {
                     this.setupChild();
             }
         };
-        req.open("GET", __1.getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
-        req.send();
+        var typeName = __1.getObjectTypeId(this);
+        if (typeName != undefined) {
+            req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
+            req.send();
+        }
     }
     get child() {
         return this._child;

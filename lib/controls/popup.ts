@@ -27,8 +27,11 @@ export class Popup extends FrameworkElement {
                     this.setupChild();
             }
         }
-        req.open("GET", getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
-        req.send();
+        var typeName = getObjectTypeId(this);
+        if (typeName != undefined) {
+            req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
+            req.send();
+        }
     }
 
     private _popupContainer: HTMLDivElement | null = null;

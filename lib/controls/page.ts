@@ -14,8 +14,10 @@ export class Page extends FrameworkElement {
             }
         }
         var typeName = getObjectTypeId(this);
-        req.open("GET", typeName.replace(/\./gi, '/') + ".xml", true);
-        req.send();
+        if (typeName != undefined) {
+            req.open("GET", typeName.replace(/\./gi, '/') + ".xaml", true);
+            req.send();
+        }
     }
 
     protected _container: HTMLElement | null = null;
