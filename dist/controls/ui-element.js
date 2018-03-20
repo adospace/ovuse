@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,35 +6,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require("../.");
-var _2 = require(".");
-var utils_1 = require("../utils");
+const _1 = require("../.");
+const _2 = require(".");
+const utils_1 = require("../utils");
 require("../utils/number-extensions");
 require("../utils/string-extensions");
 require("../utils/array-extensions");
-var UIElement = /** @class */ (function (_super) {
-    __extends(UIElement, _super);
-    function UIElement() {
+let UIElement = UIElement_1 = class UIElement extends _1.DependencyObject {
+    constructor() {
         // static typeName: string = "layouts.UIElement";
         // get typeName(): string {
         //     return UIElement.typeName;
         // }
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.desiredSize = null;
-        _this.renderSize = null;
+        super(...arguments);
+        this.desiredSize = null;
+        this.renderSize = null;
         ///Measure Pass
-        _this.previousAvailableSize = null;
+        this.previousAvailableSize = null;
         ///Arrange Pass
-        _this.finalRect = null;
-        _this.previousFinalRect = null;
+        this.finalRect = null;
+        this.previousFinalRect = null;
         ///Render Pass
-        _this.relativeOffset = null;
+        this.relativeOffset = null;
         ///Attach page visual tree (attach to null to remove it from DOM)
-        _this._visual = null;
-        _this.measureDirty = true;
-        _this.arrangeDirty = true;
-        _this.layoutInvalid = true;
-        _this._logicalChildren = null;
+        this._visual = null;
+        this.measureDirty = true;
+        this.arrangeDirty = true;
+        this.layoutInvalid = true;
+        this._logicalChildren = null;
         // forAllChildrenOfType<T extends UIElement>(elementType : any, action: (element:T) => boolean) : boolean {
         //     var typeName = elementType["typeName"];
         //     if (this._logicalChildren != null) {
@@ -60,14 +49,12 @@ var UIElement = /** @class */ (function (_super) {
         //     }
         //     return true;
         // }
-        _this._parent = null;
+        this._parent = null;
         //extended properties are key-value items that loader was unable to assign to element
         //because they didn't not correspond to any property (dependency or native) exposed by element
-        _this._extendedProperties = [];
-        return _this;
+        this._extendedProperties = [];
     }
-    UIElement_1 = UIElement;
-    UIElement.prototype.measure = function (availableSize) {
+    measure(availableSize) {
         if (!this.isVisible) {
             this.desiredSize = new _2.Size();
             this.measureDirty = false;
@@ -86,11 +73,11 @@ var UIElement = /** @class */ (function (_super) {
             throw new Error("measure pass must return valid size");
         this.desiredSize = this.animateSize(desiredSize);
         this.measureDirty = false;
-    };
-    UIElement.prototype.measureCore = function (availableSize) {
+    }
+    measureCore(availableSize) {
         return new _2.Size();
-    };
-    UIElement.prototype.arrange = function (finalRect) {
+    }
+    arrange(finalRect) {
         if (this.measureDirty)
             this.measure(finalRect.size);
         if (!this.isVisible)
@@ -107,12 +94,11 @@ var UIElement = /** @class */ (function (_super) {
         this.arrangeCore(finalRect);
         this.finalRect = finalRect;
         this.arrangeDirty = false;
-    };
-    UIElement.prototype.arrangeCore = function (finalRect) {
+    }
+    arrangeCore(finalRect) {
         this.renderSize = finalRect.size;
-    };
-    UIElement.prototype.layout = function (relativeOffset) {
-        if (relativeOffset === void 0) { relativeOffset = null; }
+    }
+    layout(relativeOffset = null) {
         if (this.layoutInvalid) {
             this.relativeOffset = relativeOffset;
             this.layoutOverride();
@@ -126,15 +112,15 @@ var UIElement = /** @class */ (function (_super) {
             if (layoutUpdated != null)
                 layoutUpdated.invoke(this);
         }
-    };
-    UIElement.prototype.layoutOverride = function () {
+    }
+    layoutOverride() {
         if (this._visual != null) {
             if (this.relativeOffset != null) {
                 this._visual.style.marginTop = this.relativeOffset.y.toString() + "px";
                 this._visual.style.marginLeft = this.relativeOffset.x.toString() + "px";
             }
         }
-    };
+    }
     //Animation Pass
     //private _animations: ObservableCollection<Animate>;
     //get animations(): ObservableCollection<Animate> {
@@ -156,11 +142,10 @@ var UIElement = /** @class */ (function (_super) {
     //onCollectionChanged(collection: any, added: any[], removed: any[], startRemoveIndex: number) {
     //    this.invalidateMeasure();
     //}
-    UIElement.prototype.animateSize = function (desiredSize) {
+    animateSize(desiredSize) {
         return desiredSize;
-    };
-    UIElement.prototype.attachVisual = function (elementContainer, showImmediately) {
-        if (showImmediately === void 0) { showImmediately = false; }
+    }
+    attachVisual(elementContainer, showImmediately = false) {
         //1. if a visual is not yet created and we have a container
         //try create it now
         if (this._visual == null &&
@@ -204,33 +189,28 @@ var UIElement = /** @class */ (function (_super) {
             }
         }
         return this._visual;
-    };
-    Object.defineProperty(UIElement.prototype, "visual", {
-        get: function () {
-            return this._visual;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UIElement.prototype.attachVisualOverride = function (elementContainer) {
-        var _this = this;
+    }
+    get visual() {
+        return this._visual;
+    }
+    attachVisualOverride(elementContainer) {
         if (this._visual == null)
             return;
         //apply extended properties to html element
-        this._extendedProperties.forEach(function (ep) {
-            if (_this._visual == null)
+        this._extendedProperties.forEach(ep => {
+            if (this._visual == null)
                 return;
-            if (ep.name in _this._visual)
-                utils_1.setPropertyValue(_this._visual, ep.name, ep.value);
+            if (ep.name in this._visual)
+                utils_1.setPropertyValue(this._visual, ep.name, ep.value);
             else
-                utils_1.setPropertyValue(_this._visual.style, ep.name, ep.value);
+                utils_1.setPropertyValue(this._visual.style, ep.name, ep.value);
             //this._visual.style[ep.name] = ep.value;
         });
         this._visual.style.visibility = this.isVisible ? "" : "hidden";
         if (this.command != null)
-            this._visual.onmousedown = function (ev) { return _this.onMouseDown(ev); };
+            this._visual.onmousedown = (ev) => this.onMouseDown(ev);
         if (this.popup != null)
-            this._visual.onmouseup = function (ev) { return _this.onMouseUp(ev); };
+            this._visual.onmouseup = (ev) => this.onMouseUp(ev);
         var name = this.id;
         if (this._visual.id != name &&
             name != null)
@@ -241,8 +221,8 @@ var UIElement = /** @class */ (function (_super) {
             this._visual.className = className;
         }
         this._visual.style.position = "absolute";
-    };
-    UIElement.prototype.onMouseDown = function (ev) {
+    }
+    onMouseDown(ev) {
         var command = this.command;
         var commandParameter = this.commandParameter;
         if (command != null && command.canExecute(commandParameter)) {
@@ -250,8 +230,8 @@ var UIElement = /** @class */ (function (_super) {
             this.onCommandCanExecuteChanged(command);
             ev.stopPropagation();
         }
-    };
-    UIElement.prototype.onMouseUp = function (ev) {
+    }
+    onMouseUp(ev) {
         var popup = this.popup;
         if (popup != null) {
             _2.LayoutManager.showPopup(popup);
@@ -263,30 +243,29 @@ var UIElement = /** @class */ (function (_super) {
                 });
             }
         }
-    };
-    UIElement.prototype.getBoundingClientRect = function () {
+    }
+    getBoundingClientRect() {
         if (this._visual == null)
             throw new Error("Unable to get bounding rect for element not linked to DOM");
         return this._visual.getBoundingClientRect();
-    };
-    UIElement.prototype.visualConnected = function (elementContainer) {
+    }
+    visualConnected(elementContainer) {
         this.parentVisualConnected(this, elementContainer);
-    };
-    UIElement.prototype.parentVisualConnected = function (parent, elementContainer) {
+    }
+    parentVisualConnected(parent, elementContainer) {
         if (this._logicalChildren == null)
             return;
-        this._logicalChildren.forEach(function (c) { return c.parentVisualConnected(parent, elementContainer); });
-    };
-    UIElement.prototype.visualDisconnected = function (elementContainer) {
+        this._logicalChildren.forEach(c => c.parentVisualConnected(parent, elementContainer));
+    }
+    visualDisconnected(elementContainer) {
         this.parentVisualDisconnected(this, elementContainer);
-    };
-    UIElement.prototype.parentVisualDisconnected = function (parent, elementContainer) {
+    }
+    parentVisualDisconnected(parent, elementContainer) {
         if (this._logicalChildren == null)
             return;
-        this._logicalChildren.forEach(function (c) { return c.parentVisualDisconnected(parent, elementContainer); });
-    };
-    UIElement.prototype.onDependencyPropertyChanged = function (property, value, oldValue) {
-        var _this = this;
+        this._logicalChildren.forEach(c => c.parentVisualDisconnected(parent, elementContainer));
+    }
+    onDependencyPropertyChanged(property, value, oldValue) {
         //probably this checks as well as relative properties are to be moved down to FrameworkElement
         if (property == UIElement_1.commandProperty) {
             if (oldValue != null) {
@@ -297,7 +276,7 @@ var UIElement = /** @class */ (function (_super) {
             if (value != null) {
                 value.onCanExecuteChangeNotify(this);
                 if (this._visual != null)
-                    this._visual.onmousedown = function (ev) { return _this.onMouseDown(ev); };
+                    this._visual.onmousedown = (ev) => this.onMouseDown(ev);
             }
         }
         else if (property == UIElement_1.popupProperty) {
@@ -309,7 +288,7 @@ var UIElement = /** @class */ (function (_super) {
             }
             if (value != null) {
                 if (this._visual != null)
-                    this._visual.onmouseup = function (ev) { return _this.onMouseUp(ev); };
+                    this._visual.onmouseup = (ev) => this.onMouseUp(ev);
                 value.parent = this;
             }
         }
@@ -338,12 +317,12 @@ var UIElement = /** @class */ (function (_super) {
         if ((options & _2.FrameworkPropertyMetadataOptions.Inherits) != 0 && this._logicalChildren != null)
             //foreach child notify property changing event, unfortunately
             //there is not a more efficient way than walk logical tree down to leaves
-            this._logicalChildren.forEach(function (child) { return child.onDependencyPropertyChanged(property, value, oldValue); });
-        _super.prototype.onDependencyPropertyChanged.call(this, property, value, oldValue);
-    };
-    UIElement.prototype.onCommandCanExecuteChanged = function (command) {
-    };
-    UIElement.prototype.getValue = function (property) {
+            this._logicalChildren.forEach((child) => child.onDependencyPropertyChanged(property, value, oldValue));
+        super.onDependencyPropertyChanged(property, value, oldValue);
+    }
+    onCommandCanExecuteChanged(command) {
+    }
+    getValue(property) {
         if (!(property.name in this.localPropertyValueMap)) {
             var options = property.options;
             if (options != null &&
@@ -357,8 +336,8 @@ var UIElement = /** @class */ (function (_super) {
         }
         //there is a local value
         return this.localPropertyValueMap[property.name];
-    };
-    UIElement.prototype.invalidateMeasure = function () {
+    }
+    invalidateMeasure() {
         this.arrangeDirty = true;
         this.layoutInvalid = true;
         if (!this.measureDirty) {
@@ -366,63 +345,59 @@ var UIElement = /** @class */ (function (_super) {
             if (this._parent != null)
                 this._parent.invalidateMeasure();
         }
-    };
-    UIElement.prototype.invalidateArrange = function () {
+    }
+    invalidateArrange() {
         this.layoutInvalid = true;
         if (!this.arrangeDirty) {
             this.arrangeDirty = true;
             if (this._parent != null)
                 this._parent.invalidateArrange();
         }
-    };
-    UIElement.prototype.invalidateLayout = function () {
+    }
+    invalidateLayout() {
         if (!this.layoutInvalid) {
             this.layoutInvalid = true;
             if (this._parent != null)
                 this._parent.invalidateLayout();
         }
-    };
-    UIElement.prototype.findElementByName = function (name) {
+    }
+    findElementByName(name) {
         if (name == this.id)
             return this;
         if (this._logicalChildren != null) {
             for (var i = 0; i < this._logicalChildren.length; i++) {
-                var child = this._logicalChildren[i];
-                var foundElement = child.findElementByName(name);
+                let child = this._logicalChildren[i];
+                let foundElement = child.findElementByName(name);
                 if (foundElement != null)
                     return foundElement;
             }
         }
         return null;
-    };
-    Object.defineProperty(UIElement.prototype, "parent", {
-        get: function () {
-            return this._parent;
-        },
-        set: function (newParent) {
-            if (this._parent != newParent) {
-                var oldParent = this._parent;
-                if (oldParent != null && oldParent._logicalChildren != null) {
-                    var indexOfElement = oldParent._logicalChildren.indexOf(this);
-                    oldParent._logicalChildren.splice(indexOfElement, 1);
-                }
-                this._parent = newParent;
-                if (newParent != null) {
-                    if (newParent._logicalChildren == null)
-                        newParent._logicalChildren = new Array();
-                    newParent._logicalChildren.push(this);
-                    if (this.measureDirty && this._parent != null)
-                        this._parent.invalidateMeasure();
-                }
-                this.notifyInheritsPropertiesChange();
-                this.onParentChanged(oldParent, newParent);
+    }
+    get parent() {
+        return this._parent;
+    }
+    set parent(newParent) {
+        if (this._parent != newParent) {
+            var oldParent = this._parent;
+            if (oldParent != null && oldParent._logicalChildren != null) {
+                var indexOfElement = oldParent._logicalChildren.indexOf(this);
+                oldParent._logicalChildren.splice(indexOfElement, 1);
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UIElement.prototype.notifyInheritsPropertiesChange = function () {
-        for (var propertyName in this.localPropertyValueMap) {
+            this._parent = newParent;
+            if (newParent != null) {
+                if (newParent._logicalChildren == null)
+                    newParent._logicalChildren = new Array();
+                newParent._logicalChildren.push(this);
+                if (this.measureDirty && this._parent != null)
+                    this._parent.invalidateMeasure();
+            }
+            this.notifyInheritsPropertiesChange();
+            this.onParentChanged(oldParent, newParent);
+        }
+    }
+    notifyInheritsPropertiesChange() {
+        for (let propertyName in this.localPropertyValueMap) {
             var property = _1.DependencyObject.lookupProperty(this, propertyName);
             var options = property == null ? null : property.options;
             if (options != null &&
@@ -445,119 +420,86 @@ var UIElement = /** @class */ (function (_super) {
         }
         if (this._parent != null)
             this._parent.notifyInheritsPropertiesChange();
-    };
+    }
     //function called when a parent property changed 
     //(parent property must have FrameworkPropertyMetadataOptions.Inherits option enabled; most of cases is DataContext property)
-    UIElement.prototype.onParentDependencyPropertyChanged = function (property) {
+    onParentDependencyPropertyChanged(property) {
         if (this._logicalChildren != null) {
-            this._logicalChildren.forEach(function (child) { return child.onParentDependencyPropertyChanged(property); });
+            this._logicalChildren.forEach((child) => child.onParentDependencyPropertyChanged(property));
         }
         //just notify subscribers of bindings
-        _super.prototype.onDependencyPropertyChanged.call(this, property, null, null);
-    };
-    UIElement.prototype.onParentChanged = function (oldParent, newParent) {
-    };
-    UIElement.prototype.addExtentedProperty = function (name, value) {
+        super.onDependencyPropertyChanged(property, null, null);
+    }
+    onParentChanged(oldParent, newParent) {
+    }
+    addExtentedProperty(name, value) {
         this._extendedProperties.push(new _2.ExtendedProperty(name, value));
-    };
-    Object.defineProperty(UIElement.prototype, "isVisible", {
-        get: function () {
-            return this.getValue(UIElement_1.isVisibleProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.isVisibleProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "cssClass", {
-        get: function () {
-            return this.getValue(UIElement_1.classProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.classProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "id", {
-        get: function () {
-            return this.getValue(UIElement_1.idProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.idProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "command", {
-        get: function () {
-            return this.getValue(UIElement_1.commandProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.commandProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "commandParameter", {
-        get: function () {
-            return this.getValue(UIElement_1.commandParameterProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.commandParameterProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "popup", {
-        get: function () {
-            return this.getValue(UIElement_1.popupProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.popupProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "autoClosePopup", {
-        get: function () {
-            return this.getValue(UIElement_1.autoClosePopupProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.autoClosePopupProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(UIElement.prototype, "layoutUpdated", {
-        get: function () {
-            return this.getValue(UIElement_1.layoutUpdatedProperty);
-        },
-        set: function (value) {
-            this.setValue(UIElement_1.layoutUpdatedProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UIElement.isVisibleProperty = _1.DependencyObject.registerProperty(UIElement_1, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.classProperty = _1.DependencyObject.registerProperty(UIElement_1, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    //name property
-    UIElement.idProperty = _1.DependencyObject.registerProperty(UIElement_1, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandProperty = _1.DependencyObject.registerProperty(UIElement_1, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    UIElement.commandParameterProperty = _1.DependencyObject.registerProperty(UIElement_1, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
-    //get or set popup property for the element
-    UIElement.popupProperty = _1.DependencyObject.registerProperty(UIElement_1, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
-    UIElement.autoClosePopupProperty = _1.DependencyObject.registerProperty(UIElement_1, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, function (value) {
-        if (value == null || (value.toLowerCase() != "true" && value.toLowerCase() != "false"))
-            throw new Error("Unable to valuate string '{0}' as boolean".format(value));
-        return value.toLowerCase() == "true" ? true : false;
-    });
-    UIElement.layoutUpdatedProperty = _1.DependencyObject.registerProperty(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
-    UIElement = UIElement_1 = __decorate([
-        _1.DependencyObjectId("ovuse.controls.UIElement")
-    ], UIElement);
-    return UIElement;
-    var UIElement_1;
-}(_1.DependencyObject));
+    }
+    get isVisible() {
+        return this.getValue(UIElement_1.isVisibleProperty);
+    }
+    set isVisible(value) {
+        this.setValue(UIElement_1.isVisibleProperty, value);
+    }
+    get cssClass() {
+        return this.getValue(UIElement_1.classProperty);
+    }
+    set cssClass(value) {
+        this.setValue(UIElement_1.classProperty, value);
+    }
+    get id() {
+        return this.getValue(UIElement_1.idProperty);
+    }
+    set id(value) {
+        this.setValue(UIElement_1.idProperty, value);
+    }
+    get command() {
+        return this.getValue(UIElement_1.commandProperty);
+    }
+    set command(value) {
+        this.setValue(UIElement_1.commandProperty, value);
+    }
+    get commandParameter() {
+        return this.getValue(UIElement_1.commandParameterProperty);
+    }
+    set commandParameter(value) {
+        this.setValue(UIElement_1.commandParameterProperty, value);
+    }
+    get popup() {
+        return this.getValue(UIElement_1.popupProperty);
+    }
+    set popup(value) {
+        this.setValue(UIElement_1.popupProperty, value);
+    }
+    get autoClosePopup() {
+        return this.getValue(UIElement_1.autoClosePopupProperty);
+    }
+    set autoClosePopup(value) {
+        this.setValue(UIElement_1.autoClosePopupProperty, value);
+    }
+    get layoutUpdated() {
+        return this.getValue(UIElement_1.layoutUpdatedProperty);
+    }
+    set layoutUpdated(value) {
+        this.setValue(UIElement_1.layoutUpdatedProperty, value);
+    }
+};
+UIElement.isVisibleProperty = _1.DependencyObject.registerProperty(UIElement_1, "IsVisible", true, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsParentMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+UIElement.classProperty = _1.DependencyObject.registerProperty(UIElement_1, "class", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+//name property
+UIElement.idProperty = _1.DependencyObject.registerProperty(UIElement_1, "id", "", _2.FrameworkPropertyMetadataOptions.AffectsRender);
+UIElement.commandProperty = _1.DependencyObject.registerProperty(UIElement_1, "Command", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+UIElement.commandParameterProperty = _1.DependencyObject.registerProperty(UIElement_1, "CommandParameter", null, _2.FrameworkPropertyMetadataOptions.AffectsMeasure | _2.FrameworkPropertyMetadataOptions.AffectsRender);
+//get or set popup property for the element
+UIElement.popupProperty = _1.DependencyObject.registerProperty(UIElement_1, "Popup", null, _2.FrameworkPropertyMetadataOptions.None);
+UIElement.autoClosePopupProperty = _1.DependencyObject.registerProperty(UIElement_1, "AutoClosePopup", true, _2.FrameworkPropertyMetadataOptions.None, (value) => {
+    if (value == null || (value.toLowerCase() != "true" && value.toLowerCase() != "false"))
+        throw new Error("Unable to valuate string '{0}' as boolean".format(value));
+    return value.toLowerCase() == "true" ? true : false;
+});
+UIElement.layoutUpdatedProperty = _1.DependencyObject.registerProperty(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
+UIElement = UIElement_1 = __decorate([
+    _1.DependencyObjectId("ovuse.controls.UIElement")
+], UIElement);
 exports.UIElement = UIElement;
+var UIElement_1;

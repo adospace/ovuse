@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,61 +9,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require(".");
-var __1 = require("..");
-var Popup = /** @class */ (function (_super) {
-    __extends(Popup, _super);
-    function Popup() {
-        var _this = _super.call(this) || this;
-        _this._popupContainer = null;
-        _this._child = null;
-        return _this;
+const _1 = require(".");
+const __1 = require("..");
+let Popup = Popup_1 = class Popup extends _1.FrameworkElement {
+    constructor() {
+        super();
+        this._popupContainer = null;
+        this._child = null;
     }
-    Popup_1 = Popup;
-    // static typeName: string = "layouts.controls.Popup";
-    // get typeName(): string {
-    //     return Popup.typeName;
-    // }
-    Popup.initProperties = function () {
+    static initProperties() {
         _1.FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup_1, "Center");
         _1.FrameworkElement.verticalAlignmentProperty.overrideDefaultValue(Popup_1, "Center");
-    };
-    Popup.prototype.tryLoadChildFromServer = function () {
-        var _this = this;
+    }
+    tryLoadChildFromServer() {
         var req = new XMLHttpRequest();
-        req.onreadystatechange = function (ev) {
+        req.onreadystatechange = (ev) => {
             if (req.readyState == 4 && req.status == 200) {
-                var loader = new _1.XamlReader();
-                _this._child = loader.Parse(req.responseText);
-                if (_this._child != null)
-                    _this.setupChild();
+                let loader = new _1.XamlReader();
+                this._child = loader.Parse(req.responseText);
+                if (this._child != null)
+                    this.setupChild();
             }
         };
         req.open("GET", __1.getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
         req.send();
-    };
-    Object.defineProperty(Popup.prototype, "child", {
-        get: function () {
-            return this._child;
-        },
-        set: function (value) {
-            if (this._child != value) {
-                this._child = value;
-                this.invalidateMeasure();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Popup.prototype.onShow = function () {
+    }
+    get child() {
+        return this._child;
+    }
+    set child(value) {
+        if (this._child != value) {
+            this._child = value;
+            this.invalidateMeasure();
+        }
+    }
+    onShow() {
         if (this._child == null)
             this._child = this.initializeComponent();
         if (this._child != null)
             this.setupChild();
         else
             this.tryLoadChildFromServer();
-    };
-    Popup.prototype.setupChild = function () {
+    }
+    setupChild() {
         if (this._child == null)
             return;
         this._child.parent = this;
@@ -92,8 +70,8 @@ var Popup = /** @class */ (function (_super) {
                 _1.LayoutManager.closePopup(currentThis);
             }
         });
-    };
-    Popup.prototype.onClose = function () {
+    }
+    onClose() {
         if (this._child != null && this._child.parent == this) {
             this._child.attachVisual(null);
             this._child.parent = null;
@@ -101,12 +79,12 @@ var Popup = /** @class */ (function (_super) {
                 document.body.removeChild(this._popupContainer);
             this._popupContainer = null;
         }
-    };
-    Popup.prototype.initializeComponent = function () {
+    }
+    initializeComponent() {
         return null;
-    };
-    Popup.prototype.layoutOverride = function () {
-        _super.prototype.layoutOverride.call(this);
+    }
+    layoutOverride() {
+        super.layoutOverride();
         var child = this.child;
         if (child != null) {
             var childOffset = this.visualOffset;
@@ -115,8 +93,8 @@ var Popup = /** @class */ (function (_super) {
                 childOffset = childOffset.add(this.relativeOffset);
             child.layout(childOffset);
         }
-    };
-    Popup.prototype.measureOverride = function (constraint) {
+    }
+    measureOverride(constraint) {
         var mySize = new _1.Size();
         if (this._child != null) {
             this._child.measure(constraint);
@@ -124,44 +102,35 @@ var Popup = /** @class */ (function (_super) {
                 return this._child.desiredSize;
         }
         return mySize;
-    };
-    Popup.prototype.arrangeOverride = function (finalSize) {
+    }
+    arrangeOverride(finalSize) {
         //  arrange child
         var child = this._child;
         if (child != null) {
             child.arrange(new _1.Rect(0, 0, finalSize.width, finalSize.height));
         }
         return finalSize;
-    };
-    Object.defineProperty(Popup.prototype, "sizeToContent", {
-        get: function () {
-            return this.getValue(Popup_1.sizeToContentProperty);
-        },
-        set: function (value) {
-            this.setValue(Popup_1.sizeToContentProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Popup.prototype, "position", {
-        get: function () {
-            return this.getValue(Popup_1.positionProperty);
-        },
-        set: function (value) {
-            this.setValue(Popup_1.positionProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Popup._init = Popup_1.initProperties();
-    //SizeToContent property
-    Popup.sizeToContentProperty = __1.DependencyObject.registerProperty(Popup_1, "SizeToContent", _1.SizeToContent.Both, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.SizeToContent[v]; });
-    Popup.positionProperty = __1.DependencyObject.registerProperty(Popup_1, "Position", _1.PopupPosition.Center, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.PopupPosition[v]; });
-    Popup = Popup_1 = __decorate([
-        __1.DependencyObjectId("ovuse.Controls.Popup"),
-        __metadata("design:paramtypes", [])
-    ], Popup);
-    return Popup;
-    var Popup_1;
-}(_1.FrameworkElement));
+    }
+    get sizeToContent() {
+        return this.getValue(Popup_1.sizeToContentProperty);
+    }
+    set sizeToContent(value) {
+        this.setValue(Popup_1.sizeToContentProperty, value);
+    }
+    get position() {
+        return this.getValue(Popup_1.positionProperty);
+    }
+    set position(value) {
+        this.setValue(Popup_1.positionProperty, value);
+    }
+};
+Popup._init = Popup_1.initProperties();
+//SizeToContent property
+Popup.sizeToContentProperty = __1.DependencyObject.registerProperty(Popup_1, "SizeToContent", _1.SizeToContent.Both, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.SizeToContent[v]);
+Popup.positionProperty = __1.DependencyObject.registerProperty(Popup_1, "Position", _1.PopupPosition.Center, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.PopupPosition[v]);
+Popup = Popup_1 = __decorate([
+    __1.DependencyObjectId("ovuse.Controls.Popup"),
+    __metadata("design:paramtypes", [])
+], Popup);
 exports.Popup = Popup;
+var Popup_1;

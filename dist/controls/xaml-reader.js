@@ -1,29 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
-var _1 = require("../.");
-var _2 = require(".");
-var XamlReader = /** @class */ (function () {
-    function XamlReader(namespaceResolver) {
+const utils_1 = require("../utils");
+const _1 = require("../.");
+const _2 = require(".");
+require("../utils/node-list-extensions");
+const xmldom_1 = require("xmldom");
+class XamlReader {
+    constructor(namespaceResolver) {
         this.namespaceResolver = namespaceResolver;
         this._createdObjectsWithId = {};
         this.instanceLoader = new _1.InstanceLoader(window);
     }
-    XamlReader.prototype.Parse = function (lml) {
-        var parser = new DOMParser();
+    Parse(lml) {
+        var parser = new xmldom_1.DOMParser();
         var doc = parser.parseFromString(lml, "text/xml").documentElement;
         return this.Load(doc);
-    };
-    XamlReader.prototype.resolveNameSpace = function (xmlns) {
+    }
+    resolveNameSpace(xmlns) {
         if (xmlns == undefined ||
             xmlns == XamlReader.DefaultNamespace)
-            return "layouts.controls";
+            return "ovuse.controls";
         if (this.namespaceResolver != null)
             return this.namespaceResolver(xmlns);
         return xmlns;
-    };
-    XamlReader.prototype.Load = function (xamlNode) {
-        var _this = this;
+    }
+    Load(xamlNode) {
         //resolve namespace to module/typename
         var ns = this.resolveNameSpace(xamlNode.namespaceURI);
         var typeName = ns != null ? ns + "." + xamlNode.localName : xamlNode.localName;
@@ -36,8 +37,8 @@ var XamlReader = /** @class */ (function () {
         //load properties objects defined by xml attributes
         if (xamlNode.attributes != null) {
             for (var i = 0; i < xamlNode.attributes.length; i++) {
-                var att = xamlNode.attributes[i];
-                var propertyName = att.localName;
+                let att = xamlNode.attributes[i];
+                let propertyName = att.localName;
                 if (propertyName == null)
                     continue;
                 if (!this.trySetProperty(containerObject, propertyName, this.resolveNameSpace(att.namespaceURI), att.value))
@@ -47,27 +48,42 @@ var XamlReader = /** @class */ (function () {
                     this._createdObjectsWithId[att.value] = containerObject;
             }
         }
-        var childrenProperties = xamlNode.childNodes.where(function (_) {
-            return _.nodeType == 1 &&
-                _.localName != null &&
-                _.localName.indexOf(".") > -1;
-        });
-        childrenProperties.forEach(function (childNode) {
+        // can't use extensions in tests
+        // var childrenProperties = xamlNode.childNodes.where(_ => 
+        //     _.nodeType == 1 && 
+        //     _.localName != null &&
+        //     _.localName.indexOf(".") > -1);
+        var childrenProperties = [];
+        for (var child = xamlNode.firstChild; child !== null; child = child.nextSibling) {
+            if (child.nodeType == 1 &&
+                child.localName != null &&
+                child.localName.indexOf(".") > -1)
+                childrenProperties.push(child);
+        }
+        ;
+        childrenProperties.forEach(childNode => {
             if (childNode.localName == null)
                 return;
             var indexOfDot = childNode.localName.indexOf(".");
             if (childNode.localName.substr(0, indexOfDot) == xamlNode.localName) {
-                var propertyName = childNode.localName.substr(indexOfDot + 1);
-                var childOfChild = childNode.childNodes.firstOrDefault(function (_) { return _.nodeType == 1; }, null);
-                var valueToSet = childOfChild == null ? null : _this.Load(childOfChild);
-                _this.trySetProperty(containerObject, propertyName, _this.resolveNameSpace(childNode.namespaceURI), valueToSet);
+                let propertyName = childNode.localName.substr(indexOfDot + 1);
+                let childOfChild = childNode.childNodes.firstOrDefault(_ => _.nodeType == 1, null);
+                let valueToSet = childOfChild == null ? null : this.Load(childOfChild);
+                this.trySetProperty(containerObject, propertyName, this.resolveNameSpace(childNode.namespaceURI), valueToSet);
             }
         });
-        var children = xamlNode.childNodes.where(function (_) {
-            return _.nodeType == 1 &&
-                _.localName != null &&
-                _.localName.indexOf(".") == -1;
-        });
+        // var children = xamlNode.childNodes.where(_=> 
+        //     _.nodeType == 1 && 
+        //     _.localName != null &&
+        //     _.localName.indexOf(".") == -1);
+        var children = [];
+        for (var child = xamlNode.firstChild; child !== null; child = child.nextSibling) {
+            if (child.nodeType == 1 &&
+                child.localName != null &&
+                child.localName.indexOf(".") == -1)
+                children.push(child);
+        }
+        ;
         if (containerObject["setInnerXaml"] != null) {
             if (children.length > 0)
                 containerObject["setInnerXaml"]((new XMLSerializer()).serializeToString(children[0]));
@@ -97,14 +113,14 @@ var XamlReader = /** @class */ (function () {
             if (collectionPropertyName != null) {
                 //if object has a property called Children or Items
                 //load all children from children nodes and set property with resulting list
-                var listOfChildren = children.map(function (childNode) { return _this.Load(childNode); });
+                var listOfChildren = children.map(childNode => this.Load(childNode));
                 containerObject[collectionPropertyName] =
                     new _1.ObservableCollection(listOfChildren);
             }
         }
         return containerObject;
-    };
-    XamlReader.compareXml = function (nodeLeft, nodeRight) {
+    }
+    static compareXml(nodeLeft, nodeRight) {
         if (nodeLeft == null && nodeRight == null)
             return true;
         if (nodeLeft.localName != nodeRight.localName ||
@@ -122,8 +138,20 @@ var XamlReader = /** @class */ (function () {
                 attLeft.value != attRight.value)
                 return false;
         }
-        var childrenLeft = nodeLeft.childNodes.where(function (_) { return _.nodeType == 1; });
-        var childrenRight = nodeRight.childNodes.where(function (_) { return _.nodeType == 1; });
+        var childrenLeft = [];
+        for (var child = nodeLeft.firstChild; child !== null; child = child.nextSibling) {
+            if (child.nodeType == 1)
+                childrenLeft.push(child);
+        }
+        ;
+        //= nodeLeft.childNodes.where(_=> _.nodeType == 1);
+        var childrenRight = [];
+        for (var child = nodeRight.firstChild; child !== null; child = child.nextSibling) {
+            if (child.nodeType == 1)
+                childrenRight.push(child);
+        }
+        ;
+        //= nodeRight.childNodes.where(_=> _.nodeType == 1);
         if (childrenLeft.length != childrenRight.length)
             return false;
         for (var i = 0; i < childrenLeft.length; i++) {
@@ -133,8 +161,8 @@ var XamlReader = /** @class */ (function () {
                 return false;
         }
         return true;
-    };
-    XamlReader.prototype.trySetProperty = function (obj, propertyName, propertyNameSpace, value) {
+    }
+    trySetProperty(obj, propertyName, propertyNameSpace, value) {
         //walk up in class hierarchy to find a property with right name
         if (obj == null)
             return false;
@@ -170,10 +198,10 @@ var XamlReader = /** @class */ (function () {
                     //1) default -> connect to DataContext
                     //2) self -> connect to object itself
                     //3) {element} -> source is an element reference
-                    var isDCProperty = depProperty == _2.FrameworkElement.dataContextProperty;
+                    var isDataContextProperty = depProperty == _2.FrameworkElement.dataContextProperty;
                     var isElementNameDefined = bindingDef.element != undefined;
                     var bindingPath = bindingDef.source == "self" || isElementNameDefined ? bindingDef.path :
-                        isDCProperty ? "parentDataContext." + bindingDef.path :
+                        isDataContextProperty ? "parentDataContext." + bindingDef.path :
                             bindingDef.path == "." ? "DataContext" :
                                 "DataContext." + bindingDef.path;
                     var source = depObject;
@@ -206,8 +234,8 @@ var XamlReader = /** @class */ (function () {
             return true;
         }
         return false;
-    };
-    XamlReader.tryCallMethod = function (obj, methodName, value) {
+    }
+    static tryCallMethod(obj, methodName, value) {
         //walk up in class hierarchy to find a property with right name
         if (obj == null)
             return false;
@@ -216,8 +244,8 @@ var XamlReader = /** @class */ (function () {
             return true;
         }
         return false;
-    };
-    XamlReader.tryParseBinding = function (value) {
+    }
+    static tryParseBinding(value) {
         var bindingValue = value.trim();
         if (bindingValue.length >= 3 && //again here maybe better a regex
             bindingValue[0] == '{' &&
@@ -225,7 +253,7 @@ var XamlReader = /** @class */ (function () {
             try {
                 var bindingDef = new Object();
                 var tokens = bindingValue.substr(1, bindingValue.length - 2).split(",");
-                tokens.forEach(function (t) {
+                tokens.forEach(t => {
                     var keyValue = t.split(":");
                     if (keyValue.length == 2) {
                         var value = keyValue[1].trim();
@@ -256,8 +284,7 @@ var XamlReader = /** @class */ (function () {
             //return { path: path, twoway: twoway, source: source, converter: converter, converterParameter: converterParameter };
         }
         return null;
-    };
-    XamlReader.DefaultNamespace = "http://schemas.layouts.com/";
-    return XamlReader;
-}());
+    }
+}
+XamlReader.DefaultNamespace = "http://schemas.ovuse.com/";
 exports.XamlReader = XamlReader;

@@ -1,16 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ObservableCollection = /** @class */ (function () {
-    function ObservableCollection(elements) {
+class ObservableCollection {
+    constructor(elements) {
         this.pcHandlers = [];
         this.elements = elements == null ? new Array() : elements;
     }
-    ObservableCollection.prototype.toArray = function () {
+    toArray() {
         //return underling item list
         return this.elements;
-    };
-    ObservableCollection.prototype.add = function (element) {
-        var _this = this;
+    }
+    add(element) {
         if (element == null)
             throw new Error("element null");
         var iElement = this.elements.indexOf(element);
@@ -18,15 +17,14 @@ var ObservableCollection = /** @class */ (function () {
             this.elements.push(element);
             //make a copy of handlers list before invoke functions
             //because this.pcHandlers could be modified by user code
-            this.pcHandlers.slice(0).forEach(function (h) {
-                h.onCollectionChanged(_this, [element], [], 0);
+            this.pcHandlers.slice(0).forEach((h) => {
+                h.onCollectionChanged(this, [element], [], 0);
             });
             return element;
         }
         return this.elements[iElement];
-    };
-    ObservableCollection.prototype.remove = function (element) {
-        var _this = this;
+    }
+    remove(element) {
         if (element == null)
             throw new Error("element null");
         var iElement = this.elements.indexOf(element);
@@ -34,42 +32,37 @@ var ObservableCollection = /** @class */ (function () {
             this.elements.splice(iElement, 1);
             //make a copy of handlers list before invoke functions
             //because this.pcHandlers could be modified by user code
-            this.pcHandlers.slice(0).forEach(function (h) {
-                h.onCollectionChanged(_this, [], [element], iElement);
+            this.pcHandlers.slice(0).forEach((h) => {
+                h.onCollectionChanged(this, [], [element], iElement);
             });
         }
-    };
-    ObservableCollection.prototype.at = function (index) {
+    }
+    at(index) {
         return this.elements[index];
-    };
-    ObservableCollection.prototype.first = function () {
+    }
+    first() {
         return this.elements[0];
-    };
-    ObservableCollection.prototype.last = function () {
+    }
+    last() {
         return this.elements[this.elements.length - 1];
-    };
-    Object.defineProperty(ObservableCollection.prototype, "count", {
-        get: function () {
-            return this.elements.length;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ObservableCollection.prototype.forEach = function (action) {
+    }
+    get count() {
+        return this.elements.length;
+    }
+    forEach(action) {
         this.elements.forEach(action);
-    };
+    }
     //subscribe to collection changes
-    ObservableCollection.prototype.onChangeNotify = function (handler) {
+    onChangeNotify(handler) {
         if (this.pcHandlers.indexOf(handler) == -1)
             this.pcHandlers.push(handler);
-    };
+    }
     //unsubscribe from collection changes
-    ObservableCollection.prototype.offChangeNotify = function (handler) {
+    offChangeNotify(handler) {
         var index = this.pcHandlers.indexOf(handler, 0);
         if (index != -1) {
             this.pcHandlers.splice(index, 1);
         }
-    };
-    return ObservableCollection;
-}());
+    }
+}
 exports.ObservableCollection = ObservableCollection;

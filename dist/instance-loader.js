@@ -1,16 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var InstanceLoader = /** @class */ (function () {
-    function InstanceLoader(context) {
+const _1 = require(".");
+class InstanceLoader {
+    constructor(context) {
         this.context = context;
     }
-    InstanceLoader.prototype.getInstance = function (name) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
+    getInstance(typeName, ...args) {
+        if (typeName in InstanceLoader._typeMap) {
+            var instance = InstanceLoader._typeMap[typeName]; //Object.create(InstanceLoader._typeMap[typeName].prototype);
+            return new instance();
         }
         //find namespaces if any
-        var tokens = name.split(".");
+        var tokens = typeName.split(".");
         var iterationObject = this.context[tokens[0]];
         if (iterationObject == null)
             return null;
@@ -22,7 +23,15 @@ var InstanceLoader = /** @class */ (function () {
         var instance = Object.create(iterationObject.prototype);
         instance.constructor.apply(instance, args);
         return instance;
-    };
-    return InstanceLoader;
-}());
+    }
+    static registerType(type) {
+        var typeName = _1.getTypeId(type);
+        if (typeName == undefined)
+            throw new Error("Unable to register type: have you applied DependencyObjectId decorator?");
+        if (typeName in InstanceLoader._typeMap)
+            throw new Error("Type '{0}' already registered".format(typeName));
+        InstanceLoader._typeMap[typeName] = type;
+    }
+}
+InstanceLoader._typeMap = {};
 exports.InstanceLoader = InstanceLoader;

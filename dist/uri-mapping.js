@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var UriMapping = /** @class */ (function () {
-    function UriMapping(uri, mapping) {
+class UriMapping {
+    constructor(uri, mapping) {
         this.uri = uri;
         this._mapping = null;
         this._compiled = false;
@@ -9,19 +9,15 @@ var UriMapping = /** @class */ (function () {
         this._queryStringTokens = new Array();
         this.mapping = mapping;
     }
-    Object.defineProperty(UriMapping.prototype, "mapping", {
-        get: function () {
-            return this._mapping;
-        },
-        set: function (value) {
-            var re = /(\/|\\)/gi;
-            if (value != null)
-                this._mapping = value.replace(re, '.');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UriMapping.prototype.compile = function () {
+    get mapping() {
+        return this._mapping;
+    }
+    set mapping(value) {
+        var re = /(\/|\\)/gi;
+        if (value != null)
+            this._mapping = value.replace(re, '.');
+    }
+    compile() {
         if (!this._compiled) {
             ///example:
             ///   /Product/{value1}/{value2}/{value3}
@@ -43,15 +39,15 @@ var UriMapping = /** @class */ (function () {
             this._compiledUri = new RegExp(rx, "gi");
             this._compiled = true;
         }
-    };
-    UriMapping.prototype.test = function (uri) {
+    }
+    test(uri) {
         this.compile();
         if (this._compiledUri == null)
             return false;
         this._compiledUri.lastIndex = 0;
         return this._compiledUri.test(uri);
-    };
-    UriMapping.prototype.resolve = function (uriToResolve) {
+    }
+    resolve(uriToResolve) {
         this.compile();
         var match;
         var re = this._compiledUri;
@@ -68,8 +64,7 @@ var UriMapping = /** @class */ (function () {
             result[this._queryStringTokens[i - 1]] = m[i];
         }
         return result;
-    };
-    UriMapping._rxMapping = new RegExp("\{([\w\d_&$]+)\}", "gi");
-    return UriMapping;
-}());
+    }
+}
+UriMapping._rxMapping = new RegExp("\{([\w\d_&$]+)\}", "gi");
 exports.UriMapping = UriMapping;

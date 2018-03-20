@@ -4,11 +4,6 @@ import { DependencyObject, DependencyProperty } from '../.'
 
 @DependencyObjectId("ovuse.controls.TextBlock")
 export class TextBlock extends FrameworkElement {
-    // static typeName: string = "layouts.controls.TextBlock";
-    // get typeName(): string {
-    //     return TextBlock.typeName;
-    // }
-
 
     private _pElement: HTMLElement | null = null;
 

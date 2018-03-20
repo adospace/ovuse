@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require(".");
-var utils_1 = require("./utils");
-var PropertyPath = /** @class */ (function () {
-    function PropertyPath(owner, path, source) {
+const _1 = require(".");
+const utils_1 = require("./utils");
+class PropertyPath {
+    constructor(owner, path, source) {
         this.name = null;
         this.next = null;
         this.prev = null;
@@ -15,22 +15,22 @@ var PropertyPath = /** @class */ (function () {
         this.build();
         this.attachShource();
     }
-    PropertyPath.prototype.attachShource = function () {
+    attachShource() {
         if (this.sourceProperty == undefined) {
             if (this.source.subscribePropertyChanges != undefined)
                 this.source.subscribePropertyChanges(this);
         }
         else if (this.source["unsubscribeDependencyPropertyChanges"] != undefined)
             this.source.subscribeDependencyPropertyChanges(this);
-    };
-    PropertyPath.prototype.detachSource = function () {
+    }
+    detachSource() {
         if (this.source.unsubscribePropertyChanges != undefined)
             this.source.unsubscribePropertyChanges(this);
         //if source is not a DependencyObject I can't subscribe/unsubscribe to its property changes
         if (this.source["unsubscribeDependencyPropertyChanges"] != undefined)
             this.source.unsubscribeDependencyPropertyChanges(this);
-    };
-    PropertyPath.prototype.lookForIndexers = function () {
+    }
+    lookForIndexers() {
         var re = /([\w_]+)(\[([\w_]+)\])/gmi;
         var m;
         var nameStr = this.name;
@@ -64,8 +64,8 @@ var PropertyPath = /** @class */ (function () {
         }
         else
             this.indexers = null;
-    };
-    PropertyPath.prototype.build = function () {
+    }
+    build() {
         var oldNext = this.next;
         if (this.next != undefined) {
             this.next.detachSource();
@@ -124,15 +124,15 @@ var PropertyPath = /** @class */ (function () {
         }
         if (this.next != oldNext)
             this.onPathChanged();
-    };
-    PropertyPath.prototype.onPathChanged = function () {
+    }
+    onPathChanged() {
         if (this.prev != undefined)
             this.prev.onPathChanged();
         else {
             this.owner.updateTarget();
         }
-    };
-    PropertyPath.prototype.getValue = function () {
+    }
+    getValue() {
         if (this.next != undefined)
             return this.next.getValue();
         else if (this.name == ".")
@@ -170,8 +170,8 @@ var PropertyPath = /** @class */ (function () {
             return {
                 success: false
             };
-    };
-    PropertyPath.prototype.setValue = function (value) {
+    }
+    setValue(value) {
         if (this.next != undefined)
             this.next.setValue(value);
         else if (this.name != undefined && this.path.indexOf(".") == -1) {
@@ -183,21 +183,20 @@ var PropertyPath = /** @class */ (function () {
                 utils_1.setPropertyValue(this.source, this.name, value); //try update source using default property lookup access
             //this.source[this.name] = value;//try update source using default property lookup access
         }
-    };
-    PropertyPath.prototype.onDependencyPropertyChanged = function (DependencyObject, DependencyProperty) {
+    }
+    onDependencyPropertyChanged(DependencyObject, DependencyProperty) {
         if (DependencyObject == this.source &&
             DependencyProperty.name == this.name) {
             this.build();
             this.owner.updateTarget();
         }
-    };
-    PropertyPath.prototype.onChangeProperty = function (source, propertyName, value) {
+    }
+    onChangeProperty(source, propertyName, value) {
         if (source == this.source &&
             propertyName == this.name) {
             this.build();
             this.owner.updateTarget();
         }
-    };
-    return PropertyPath;
-}());
+    }
+}
 exports.PropertyPath = PropertyPath;

@@ -3,10 +3,14 @@ import { hasProperty, setPropertyValue, getFirstAnchestor, isString } from '../u
 import { InstanceLoader, getTypeId, getObjectTypeId, DependencyObject, DependencyProperty, ObservableCollection } from '../.'
 import { IConverter } from '../contracts'
 import { FrameworkElement } from '.'
+import '../utils/node-list-extensions'
+
+import { DOMParser } from 'xmldom'
+
 
 export class XamlReader {
 
-    private static DefaultNamespace: string = "http://schemas.layouts.com/";
+    private static DefaultNamespace: string = "http://schemas.ovuse.com/";
 
     private instanceLoader : InstanceLoader;
 
@@ -26,7 +30,7 @@ export class XamlReader {
     resolveNameSpace(xmlns: string | null): string {
         if (xmlns == undefined ||
             xmlns == XamlReader.DefaultNamespace)
-            return "layouts.controls";
+            return "ovuse.controls";
 
         if (this.namespaceResolver != null)
             return this.namespaceResolver(xmlns);
@@ -67,10 +71,19 @@ export class XamlReader {
             }
         }
 
-        var childrenProperties = xamlNode.childNodes.where(_ => 
-            _.nodeType == 1 && 
-            _.localName != null &&
-            _.localName.indexOf(".") > -1);
+        // can't use extensions in tests
+        // var childrenProperties = xamlNode.childNodes.where(_ => 
+        //     _.nodeType == 1 && 
+        //     _.localName != null &&
+        //     _.localName.indexOf(".") > -1);
+        var childrenProperties : Node[] = [];
+        for(var child=xamlNode.firstChild; child!==null; child=child.nextSibling) {
+            if (child.nodeType == 1 && 
+                child.localName != null &&
+                child.localName.indexOf(".") > -1)
+                childrenProperties.push(child);
+        };
+
 
         childrenProperties.forEach(childNode => {
             if (childNode.localName == null)
@@ -85,10 +98,17 @@ export class XamlReader {
             }
         });
 
-        var children = xamlNode.childNodes.where(_=> 
-            _.nodeType == 1 && 
-            _.localName != null &&
-            _.localName.indexOf(".") == -1);
+        // var children = xamlNode.childNodes.where(_=> 
+        //     _.nodeType == 1 && 
+        //     _.localName != null &&
+        //     _.localName.indexOf(".") == -1);
+        var children : Node[] = [];
+        for(var child=xamlNode.firstChild; child!==null; child=child.nextSibling) {
+            if (child.nodeType == 1 && 
+                child.localName != null &&
+                child.localName.indexOf(".") == -1)
+                children.push(child);
+        };        
 
         if (containerObject["setInnerXaml"] != null) {
             if (children.length > 0)
@@ -153,8 +173,20 @@ export class XamlReader {
         }
 
         
-        var childrenLeft = nodeLeft.childNodes.where(_=> _.nodeType == 1);
-        var childrenRight = nodeRight.childNodes.where(_=> _.nodeType == 1);
+        var childrenLeft : Node[] = [];
+        for(var child=nodeLeft.firstChild; child!==null; child=child.nextSibling) {
+            if (child.nodeType == 1)
+                childrenLeft.push(child);
+        };
+        //= nodeLeft.childNodes.where(_=> _.nodeType == 1);
+
+
+        var childrenRight : Node[] = [];
+        for(var child=nodeRight.firstChild; child!==null; child=child.nextSibling) {
+            if (child.nodeType == 1)
+                childrenRight.push(child);
+        }; 
+        //= nodeRight.childNodes.where(_=> _.nodeType == 1);
 
         if (childrenLeft.length != childrenRight.length)
             return false;
@@ -209,11 +241,11 @@ export class XamlReader {
                     //1) default -> connect to DataContext
                     //2) self -> connect to object itself
                     //3) {element} -> source is an element reference
-                    var isDCProperty = depProperty == FrameworkElement.dataContextProperty;
+                    var isDataContextProperty = depProperty == FrameworkElement.dataContextProperty;
                     var isElementNameDefined = bindingDef.element != undefined;
                     var bindingPath =
                         bindingDef.source == "self" || isElementNameDefined ? bindingDef.path :
-                        isDCProperty ? "parentDataContext." + bindingDef.path : 
+                        isDataContextProperty ? "parentDataContext." + bindingDef.path : 
                         bindingDef.path == "." ? "DataContext" :
                                     "DataContext." + bindingDef.path;
 

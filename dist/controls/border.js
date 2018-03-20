@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,52 +6,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require(".");
-var _2 = require("../.");
-var Border = /** @class */ (function (_super) {
-    __extends(Border, _super);
-    function Border() {
-        // static typeName: string = "layouts.controls.Border";
-        // get typeName(): string {
-        //     return Border.typeName;
-        // }
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._child = null;
-        _this._divElement = null;
-        return _this;
+const _1 = require(".");
+const _2 = require("../.");
+let Border = Border_1 = class Border extends _1.FrameworkElement {
+    constructor() {
+        super(...arguments);
+        this._child = null;
+        this._divElement = null;
     }
-    Border_1 = Border;
-    Object.defineProperty(Border.prototype, "child", {
-        get: function () {
-            return this._child;
-        },
-        set: function (value) {
-            if (this._child != value) {
-                if (this._child != null && this._child.parent == this) {
-                    this._child.parent = null;
-                    this._child.attachVisual(null);
-                }
-                this._child = value;
-                if (this._child != null) {
-                    this._child.parent = this;
-                    if (this._divElement != null)
-                        this._child.attachVisual(this._divElement);
-                }
-                this.invalidateMeasure();
+    get child() {
+        return this._child;
+    }
+    set child(value) {
+        if (this._child != value) {
+            if (this._child != null && this._child.parent == this) {
+                this._child.parent = null;
+                this._child.attachVisual(null);
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Border.prototype.attachVisualOverride = function (elementContainer) {
+            this._child = value;
+            if (this._child != null) {
+                this._child.parent = this;
+                if (this._divElement != null)
+                    this._child.attachVisual(this._divElement);
+            }
+            this.invalidateMeasure();
+        }
+    }
+    attachVisualOverride(elementContainer) {
         this._visual = this._divElement = document.createElement("div");
         this.updateVisualProperties();
         if (this._child != null) {
             this._child.attachVisual(this._divElement);
         }
-        _super.prototype.attachVisualOverride.call(this, elementContainer);
-    };
-    Border.prototype.measureOverride = function (constraint) {
+        super.attachVisualOverride(elementContainer);
+    }
+    measureOverride(constraint) {
         var mySize = new _1.Size();
         // Compute the chrome size added by the various elements
         var borderThickness = this.borderThickness;
@@ -88,8 +67,8 @@ var Border = /** @class */ (function (_super) {
             mySize = new _1.Size(border.width + padding.width, border.height + padding.height);
         }
         return mySize;
-    };
-    Border.prototype.arrangeOverride = function (finalSize) {
+    }
+    arrangeOverride(finalSize) {
         var borderThickness = this.borderThickness;
         if (borderThickness == null)
             borderThickness = new _1.Thickness();
@@ -103,9 +82,9 @@ var Border = /** @class */ (function (_super) {
             child.arrange(childRect);
         }
         return finalSize;
-    };
-    Border.prototype.layoutOverride = function () {
-        _super.prototype.layoutOverride.call(this);
+    }
+    layoutOverride() {
+        super.layoutOverride();
         var borderThickness = this.borderThickness;
         if (borderThickness == null)
             borderThickness = new _1.Thickness();
@@ -115,8 +94,8 @@ var Border = /** @class */ (function (_super) {
         }
         if (this._child != null)
             this._child.layout();
-    };
-    Border.prototype.updateVisualProperties = function () {
+    }
+    updateVisualProperties() {
         if (this._visual == null)
             return;
         this._visual.style.background = this.background;
@@ -135,73 +114,52 @@ var Border = /** @class */ (function (_super) {
                 this._visual.style.borderBottom = borderThickness.bottom.toString() + "px";
             }
         }
-    };
-    Border.prototype.onDependencyPropertyChanged = function (property, value, oldValue) {
+    }
+    onDependencyPropertyChanged(property, value, oldValue) {
         if (property == Border_1.borderThicknessProperty ||
             property == Border_1.backgroundProperty ||
             property == Border_1.borderBrushProperty)
             this.updateVisualProperties();
-        _super.prototype.onDependencyPropertyChanged.call(this, property, value, oldValue);
-    };
-    Object.defineProperty(Border.prototype, "borderThickness", {
-        get: function () {
-            return this.getValue(Border_1.borderThicknessProperty);
-        },
-        set: function (value) {
-            this.setValue(Border_1.borderThicknessProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Border.prototype, "padding", {
-        get: function () {
-            return this.getValue(Border_1.paddingProperty);
-        },
-        set: function (value) {
-            this.setValue(Border_1.paddingProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Border.prototype, "background", {
-        get: function () {
-            return this.getValue(Border_1.backgroundProperty);
-        },
-        set: function (value) {
-            this.setValue(Border_1.backgroundProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Border.prototype, "borderBrush", {
-        get: function () {
-            return this.getValue(Border_1.borderBrushProperty);
-        },
-        set: function (value) {
-            this.setValue(Border_1.borderBrushProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Border.prototype, "borderStyle", {
-        get: function () {
-            return this.getValue(Border_1.borderStyleProperty);
-        },
-        set: function (value) {
-            this.setValue(Border_1.borderStyleProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Border.borderThicknessProperty = _2.DependencyObject.registerProperty(Border_1, "BorderThickness", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.Thickness.fromString(v); });
-    Border.paddingProperty = _2.DependencyObject.registerProperty(Border_1, "Padding", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, function (v) { return _1.Thickness.fromString(v); });
-    Border.backgroundProperty = _2.DependencyObject.registerProperty(Border_1, "Background", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
-    Border.borderBrushProperty = _2.DependencyObject.registerProperty(Border_1, "BorderBrush", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
-    Border.borderStyleProperty = _2.DependencyObject.registerProperty(Border_1, "BorderStyle", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
-    Border = Border_1 = __decorate([
-        _2.DependencyObjectId("ovuse.Border")
-    ], Border);
-    return Border;
-    var Border_1;
-}(_1.FrameworkElement));
+        super.onDependencyPropertyChanged(property, value, oldValue);
+    }
+    get borderThickness() {
+        return this.getValue(Border_1.borderThicknessProperty);
+    }
+    set borderThickness(value) {
+        this.setValue(Border_1.borderThicknessProperty, value);
+    }
+    get padding() {
+        return this.getValue(Border_1.paddingProperty);
+    }
+    set padding(value) {
+        this.setValue(Border_1.paddingProperty, value);
+    }
+    get background() {
+        return this.getValue(Border_1.backgroundProperty);
+    }
+    set background(value) {
+        this.setValue(Border_1.backgroundProperty, value);
+    }
+    get borderBrush() {
+        return this.getValue(Border_1.borderBrushProperty);
+    }
+    set borderBrush(value) {
+        this.setValue(Border_1.borderBrushProperty, value);
+    }
+    get borderStyle() {
+        return this.getValue(Border_1.borderStyleProperty);
+    }
+    set borderStyle(value) {
+        this.setValue(Border_1.borderStyleProperty, value);
+    }
+};
+Border.borderThicknessProperty = _2.DependencyObject.registerProperty(Border_1, "BorderThickness", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.Thickness.fromString(v));
+Border.paddingProperty = _2.DependencyObject.registerProperty(Border_1, "Padding", new _1.Thickness(), _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.Thickness.fromString(v));
+Border.backgroundProperty = _2.DependencyObject.registerProperty(Border_1, "Background", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
+Border.borderBrushProperty = _2.DependencyObject.registerProperty(Border_1, "BorderBrush", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
+Border.borderStyleProperty = _2.DependencyObject.registerProperty(Border_1, "BorderStyle", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
+Border = Border_1 = __decorate([
+    _2.DependencyObjectId("ovuse.Border")
+], Border);
 exports.Border = Border;
+var Border_1;

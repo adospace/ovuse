@@ -21,13 +21,8 @@ import '../utils/array-extensions'
 
 @DependencyObjectId("ovuse.controls.FrameworkElement")
 export class FrameworkElement extends UIElement {
-    // static typeName: string = "layouts.FrameworkElement";
-    // get typeName(): string {
-    //     return FrameworkElement.typeName;
-    // }
 
     private unclippedDesiredSize: Size | null = null;
-    //private needClipBounds: boolean;
     protected visualOffset: Vector | null = null;
 
     protected measureCore(availableSize: Size): Size {

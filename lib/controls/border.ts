@@ -3,10 +3,6 @@ import { DependencyObjectId, DependencyProperty, DependencyObject } from '../.'
 
 @DependencyObjectId("ovuse.Border")
 export class Border extends FrameworkElement {
-    // static typeName: string = "layouts.controls.Border";
-    // get typeName(): string {
-    //     return Border.typeName;
-    // }
 
     private _child: UIElement | null = null;
     get child(): UIElement | null{

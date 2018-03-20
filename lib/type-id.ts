@@ -1,4 +1,4 @@
-import { DependencyObject } from ".";
+import { DependencyObject, InstanceLoader } from ".";
 
 const typeIdKey : string = "__DependencyObjectId";
 
@@ -8,6 +8,7 @@ export function DependencyObjectId(name: string) {
         constructor.prototype[typeIdKey + "_" + typeName] = name;
 
         DependencyObject.finalizePropertyRegistrations(constructor);
+        InstanceLoader.registerType(constructor);
     }
 }
 

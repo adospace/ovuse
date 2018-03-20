@@ -4,10 +4,6 @@ import { DependencyObject, DependencyProperty, DependencyObjectId, getTypeId, ge
 
 @DependencyObjectId("ovuse.controls.Page")
 export class Page extends FrameworkElement {
-    // static typeName: string = "layouts.controls.Page";
-    // get typeName(): string{
-    //     return Page.typeName;
-    // }
     
     private tryLoadChildFromServer() {
         var req = new XMLHttpRequest();

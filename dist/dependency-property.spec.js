@@ -1,14 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,89 +6,68 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var chai_1 = require("chai");
+const chai_1 = require("chai");
 require("mocha");
-var lib_1 = require("../lib");
-var lib_2 = require("../lib");
-var A = /** @class */ (function (_super) {
-    __extends(A, _super);
-    function A() {
-        return _super !== null && _super.apply(this, arguments) || this;
+const lib_1 = require("../lib");
+const lib_2 = require("../lib");
+let A = A_1 = class A extends lib_2.DependencyObject {
+    get myProperty() {
+        return this.getValue(A_1.myProperty);
     }
-    A_1 = A;
-    Object.defineProperty(A.prototype, "myProperty", {
-        get: function () {
-            return this.getValue(A_1.myProperty);
-        },
-        set: function (value) {
-            this.setValue(A_1.myProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    A.myProperty = lib_2.DependencyObject.registerProperty(A_1, "MyProperty", 23);
-    A = A_1 = __decorate([
-        lib_1.DependencyObjectId("ObjectTypeA")
-    ], A);
-    return A;
-    var A_1;
-}(lib_2.DependencyObject));
-var B = /** @class */ (function (_super) {
-    __extends(B, _super);
-    function B() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    set myProperty(value) {
+        this.setValue(A_1.myProperty, value);
     }
-    B_1 = B;
-    B.initProperties = function () {
+};
+A.myProperty = lib_2.DependencyObject.registerProperty(A_1, "MyProperty", 23);
+A = A_1 = __decorate([
+    lib_1.DependencyObjectId("ObjectTypeA")
+], A);
+let B = B_1 = class B extends A {
+    static initProperties() {
         A.myProperty.overrideDefaultValue(B_1, -1);
-    };
-    Object.defineProperty(B.prototype, "myProperty", {
-        get: function () {
-            return this.getValue(B_1.myProperty);
-        },
-        set: function (value) {
-            this.setValue(B_1.myProperty, value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    B._init = B_1.initProperties();
-    B.myProperty = lib_2.DependencyObject.registerProperty(B_1, "MyProperty", 1);
-    B = B_1 = __decorate([
-        lib_1.DependencyObjectId("ObjectTypeB")
-    ], B);
-    return B;
-    var B_1;
-}(A));
-describe('dependency-property', function () {
-    it('it should return initial value 23', function () {
-        var result = (new A()).getValue(A.myProperty);
+    }
+    get myProperty() {
+        return this.getValue(B_1.myProperty);
+    }
+    set myProperty(value) {
+        this.setValue(B_1.myProperty, value);
+    }
+};
+B._init = B_1.initProperties();
+B.myProperty = lib_2.DependencyObject.registerProperty(B_1, "MyProperty", 1);
+B = B_1 = __decorate([
+    lib_1.DependencyObjectId("ObjectTypeB")
+], B);
+describe('dependency-property', () => {
+    it('it should return initial value 23', () => {
+        const result = (new A()).getValue(A.myProperty);
         chai_1.expect(result).equal(23);
     });
 });
-describe('dependency-property get default value', function () {
-    it('it should return initial value 23', function () {
-        var result = new A().myProperty;
+describe('dependency-property get default value', () => {
+    it('it should return initial value 23', () => {
+        const result = new A().myProperty;
         chai_1.expect(result).equal(23);
     });
 });
-describe('dependency-property set and get', function () {
-    it('it should return value 12', function () {
+describe('dependency-property set and get', () => {
+    it('it should return value 12', () => {
         var a = new A();
         a.myProperty = 12;
-        var result = a.myProperty;
+        const result = a.myProperty;
         chai_1.expect(result).equal(12);
     });
 });
-describe('dependency-property for derived type', function () {
-    it('it should return initial value for type B -> 1', function () {
-        var result = (new B()).getValue(B.myProperty);
+describe('dependency-property for derived type', () => {
+    it('it should return initial value for type B -> 1', () => {
+        const result = (new B()).getValue(B.myProperty);
         chai_1.expect(result).equal(1);
     });
 });
-describe('dependency-property for derived type default value changed for parent type', function () {
-    it('it should return initial value for type B of A.myProperty -> -1', function () {
-        var result = (new B()).getValue(A.myProperty);
+describe('dependency-property for derived type default value changed for parent type', () => {
+    it('it should return initial value for type B of A.myProperty -> -1', () => {
+        const result = (new B()).getValue(A.myProperty);
         chai_1.expect(result).equal(-1);
     });
 });
+var A_1, B_1;

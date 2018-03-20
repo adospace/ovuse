@@ -1,3 +1,4 @@
+import '../utils/node-list-extensions';
 export declare class XamlReader {
     namespaceResolver: ((xmlNs: string) => string) | undefined;
     private static DefaultNamespace;

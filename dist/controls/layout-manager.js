@@ -1,22 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require(".");
-var _2 = require("../.");
-var LayoutManager = /** @class */ (function () {
-    function LayoutManager() {
-    }
-    LayoutManager.updateLayout = function () {
+const _1 = require(".");
+const _2 = require("../.");
+class LayoutManager {
+    static updateLayout() {
         var page = _2.Application.current.page;
-        //var docWidth = document.body.clientWidth;
         var docWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
-        //var docHeight = document.body.clientHeight;
         var docHeight = window.innerHeight
             || document.documentElement.clientHeight
             || document.body.clientHeight;
-        //docWidth /= window.devicePixelRatio || 1;
-        //docHeight /= window.devicePixelRatio || 1;
         if (page != null) {
             var pageDesiredSize = page.desiredSize != null ? page.desiredSize : new _1.Size();
             var sizeToContentWidth = page.sizeToContent == _1.SizeToContent.Both || page.sizeToContent == _1.SizeToContent.Horizontal;
@@ -25,7 +19,7 @@ var LayoutManager = /** @class */ (function () {
             page.arrange(new _1.Rect(0, 0, sizeToContentWidth ? pageDesiredSize.width : docWidth, sizeToContentHeight ? pageDesiredSize.height : docHeight));
             page.layout();
         }
-        LayoutManager.popups.forEach(function (popup) {
+        LayoutManager.popups.forEach(popup => {
             var sizeToContentWidth = popup.sizeToContent == _1.SizeToContent.Both || popup.sizeToContent == _1.SizeToContent.Horizontal;
             var sizeToContentHeight = popup.sizeToContent == _1.SizeToContent.Both || popup.sizeToContent == _1.SizeToContent.Vertical;
             popup.measure(new _1.Size(sizeToContentWidth ? Infinity : docWidth, sizeToContentHeight ? Infinity : docHeight));
@@ -88,28 +82,27 @@ var LayoutManager = /** @class */ (function () {
             popup.arrange(new _1.Rect(left, top, finalWidth, finalHeight));
             popup.layout();
         });
-    };
-    LayoutManager.showPopup = function (popup) {
+    }
+    static showPopup(popup) {
         if (LayoutManager.popups.indexOf(popup) == -1) {
             LayoutManager.popups.push(popup);
             popup.onShow();
             LayoutManager.updateLayout();
         }
-    };
-    LayoutManager.closePopup = function (popup) {
+    }
+    static closePopup(popup) {
         var indexOfElement = popup == null ? LayoutManager.popups.length - 1 : LayoutManager.popups.indexOf(popup);
         if (indexOfElement > -1) {
             popup = LayoutManager.popups.splice(indexOfElement)[0];
             popup.onClose();
             LayoutManager.updateLayout();
         }
-    };
-    LayoutManager.popups = [];
-    return LayoutManager;
-}());
+    }
+}
+LayoutManager.popups = [];
 exports.LayoutManager = LayoutManager;
 if (window) {
-    window.onresize = function () {
+    window.onresize = () => {
         LayoutManager.updateLayout();
     };
 }

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var NavigationContext = /** @class */ (function () {
-    function NavigationContext(previousPage, previousUri, nextPage, nextUri, queryString) {
+class NavigationContext {
+    constructor(previousPage, previousUri, nextPage, nextUri, queryString) {
         this.previousPage = previousPage;
         this.previousUri = previousUri;
         this.nextPage = nextPage;
@@ -10,6 +10,5 @@ var NavigationContext = /** @class */ (function () {
         this.cancel = false;
         this.returnUri = null;
     }
-    return NavigationContext;
-}());
+}
 exports.NavigationContext = NavigationContext;

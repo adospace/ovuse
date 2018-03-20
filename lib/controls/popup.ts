@@ -6,10 +6,6 @@ import { DependencyObject, DependencyProperty, DependencyObjectId, getObjectType
 
 @DependencyObjectId("ovuse.Controls.Popup")
 export class Popup extends FrameworkElement {
-    // static typeName: string = "layouts.controls.Popup";
-    // get typeName(): string {
-    //     return Popup.typeName;
-    // }
 
     private static initProperties() {
         FrameworkElement.horizontalAlignmentProperty.overrideDefaultValue(Popup, "Center");

@@ -10,19 +10,14 @@ import { Application } from '../.'
 export class LayoutManager {
     static updateLayout() {
         var page = Application.current.page;
-        //var docWidth = document.body.clientWidth;
+        
         var docWidth = window.innerWidth
             || document.documentElement.clientWidth
             || document.body.clientWidth;
 
-        //var docHeight = document.body.clientHeight;
         var docHeight = window.innerHeight
             || document.documentElement.clientHeight
             || document.body.clientHeight;
-
-        //docWidth /= window.devicePixelRatio || 1;
-        //docHeight /= window.devicePixelRatio || 1;
-
 
         if (page != null) {
             var pageDesiredSize = page.desiredSize != null ? page.desiredSize : new Size();

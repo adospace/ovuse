@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var controls_1 = require("./controls");
-var _1 = require(".");
-var Application = /** @class */ (function () {
-    function Application() {
-        var _this = this;
+const controls_1 = require("./controls");
+const _1 = require(".");
+class Application {
+    constructor() {
         this._page = null;
         this._mappings = [];
         //private _navigationStack: NavigationItem[] = new Array<NavigationItem>();
@@ -17,76 +16,60 @@ var Application = /** @class */ (function () {
         if (Application._current != null)
             throw new Error("Application already initialized");
         Application._current = this;
-        window.onhashchange = function (ev) {
-            return _this.hashChanged(window.location.hash);
-        };
+        window.onhashchange = ev => this.hashChanged(window.location.hash);
     }
-    Object.defineProperty(Application, "current", {
-        //get current application
-        get: function () {
-            if (Application._current == null)
-                Application._current = new Application();
-            return Application._current;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Application.prototype, "page", {
-        get: function () {
-            return this._page;
-        },
-        set: function (page) {
-            if (this._page != page) {
-                if (this._page != null)
-                    this._page.attachVisual(null);
-                this._page = page;
-                if (this._page != null)
-                    this._page.attachVisual(document.body);
-                Application.requestAnimationFrame();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
+    //get current application
+    static get current() {
+        if (Application._current == null)
+            Application._current = new Application();
+        return Application._current;
+    }
+    get page() {
+        return this._page;
+    }
+    set page(page) {
+        if (this._page != page) {
+            if (this._page != null)
+                this._page.attachVisual(null);
+            this._page = page;
+            if (this._page != null)
+                this._page.attachVisual(document.body);
+            Application.requestAnimationFrame();
+        }
+    }
     //Dispatcher Thread
-    Application.requestAnimationFrame = function () {
+    static requestAnimationFrame() {
         requestAnimationFrame(Application.onAnimationFrame);
-    };
-    Application.onAnimationFrame = function () {
+    }
+    static onAnimationFrame() {
         controls_1.LayoutManager.updateLayout();
-        Application._beginInvokeActions.forEach(function (action) { action(); });
+        Application._beginInvokeActions.forEach((action) => { action(); });
         Application._beginInvokeActions = [];
         requestAnimationFrame(Application.onAnimationFrame);
-    };
-    Application.beginInvoke = function (action) {
+    }
+    static beginInvoke(action) {
         Application._beginInvokeActions.push(action);
-    };
-    Object.defineProperty(Application.prototype, "mappings", {
-        get: function () {
-            return this._mappings;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Application.prototype.map = function (uri, mappedUri) {
-        var uriMapping = this._mappings.firstOrDefault(function (m) { return m.uri == uri; }, null);
+    }
+    get mappings() {
+        return this._mappings;
+    }
+    map(uri, mappedUri) {
+        var uriMapping = this._mappings.firstOrDefault((m) => m.uri == uri, null);
         if (uriMapping == null) {
             uriMapping = new _1.UriMapping(uri, mappedUri);
             this._mappings.push(uriMapping);
         }
         uriMapping.mapping = mappedUri;
         return uriMapping;
-    };
-    Application.prototype.navigate = function (uri, loader) {
+    }
+    navigate(uri, loader) {
         if (uri == undefined) {
             uri = window.location.hash.length > 0 ?
                 window.location.hash.slice(1) : "";
         }
         if (this._currentUri == uri)
             return true;
-        var uriMapping = this._mappings.firstOrDefault(function (m) {
-            return (uri != undefined) ? m.test(uri) : false;
-        }, null);
+        var uriMapping = this._mappings.firstOrDefault((m) => (uri != undefined) ? m.test(uri) : false, null);
         if (uriMapping != null && uriMapping.mapping != null) {
             var queryString = uriMapping.resolve(uri);
             var previousPage = this.page;
@@ -139,11 +122,10 @@ var Application = /** @class */ (function () {
             }
         }
         return (uriMapping != null);
-    };
-    Application.prototype.hashChanged = function (hash) {
+    }
+    hashChanged(hash) {
         this.navigate(hash.slice(1));
-    };
-    Application._beginInvokeActions = [];
-    return Application;
-}());
+    }
+}
+Application._beginInvokeActions = [];
 exports.Application = Application;

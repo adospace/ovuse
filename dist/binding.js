@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = require(".");
-var Binding = /** @class */ (function () {
-    function Binding(target, targetProperty, propertyPath, source, twoWay, converter, converterParameter, format) {
-        if (twoWay === void 0) { twoWay = false; }
+const _1 = require(".");
+class Binding {
+    constructor(target, targetProperty, propertyPath, source, twoWay = false, converter, converterParameter, format) {
         this.twoWay = false;
         this.target = target;
         this.targetProperty = targetProperty;
@@ -16,7 +15,7 @@ var Binding = /** @class */ (function () {
         if (this.twoWay)
             this.target.subscribeDependencyPropertyChanges(this);
     }
-    Binding.prototype.updateTarget = function () {
+    updateTarget() {
         var retValue = this.path.getValue();
         if (retValue.success) {
             this.source = retValue.source;
@@ -38,8 +37,8 @@ var Binding = /** @class */ (function () {
             this.source = undefined;
             this.sourceProperty = undefined;
         }
-    };
-    Binding.prototype.onDependencyPropertyChanged = function (DependencyObject, DependencyProperty) {
+    }
+    onDependencyPropertyChanged(DependencyObject, DependencyProperty) {
         if (DependencyObject == this.target &&
             DependencyProperty == this.targetProperty &&
             this.twoWay) {
@@ -54,7 +53,6 @@ var Binding = /** @class */ (function () {
                 parameter: this.converterParameter
             }) : value);
         }
-    };
-    return Binding;
-}());
+    }
+}
 exports.Binding = Binding;

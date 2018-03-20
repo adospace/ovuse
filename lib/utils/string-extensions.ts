@@ -34,7 +34,7 @@ if (!String.prototype.toLowerFirstLetter) {
 }
 
 if (!String.prototype.startsWith) {
-    String.prototype.startsWith = function (other) {
+    String.prototype.startsWith = function (other : string) {
         return this.lastIndexOf(other, 0) == 0;
     }
 }
