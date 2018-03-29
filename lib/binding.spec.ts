@@ -2,14 +2,14 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { DependencyObjectId, DependencyProperty, DependencyObject, Binding  } from '../lib'
+import { TypeId, DependencyProperty, DependencyObject, Binding  } from '../lib'
 
-@DependencyObjectId("TypeA")
+@TypeId("TypeA")
 class A extends DependencyObject {
     static propertyOnSource = DependencyObject.registerProperty(A, "PropertyOnSource");
 }
 
-@DependencyObjectId("TypeB")
+@TypeId("TypeB")
 class B extends DependencyObject {
     static propertyOnTarget = DependencyObject.registerProperty(B, "PropertyOnTarget");
 }

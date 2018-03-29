@@ -1,4 +1,4 @@
-import { DependencyObject, DependencyProperty, Command, EventAction, DependencyObjectId } from '../.'
+import { DependencyObject, DependencyProperty, Command, EventAction, TypeId } from '../.'
 import { ISupportCommandCanExecuteChanged } from '../contracts'
 
 import { Size, Rect, Vector, ExtendedProperty, FrameworkPropertyMetadataOptions, LayoutManager } from '.'
@@ -8,7 +8,7 @@ import '../utils/number-extensions'
 import '../utils/string-extensions'
 import '../utils/array-extensions'
 
-@DependencyObjectId("ovuse.controls.UIElement")
+@TypeId("ovuse.controls.UIElement")
 export class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged { //, ISupportCollectionChanged
 
     // static typeName: string = "layouts.UIElement";

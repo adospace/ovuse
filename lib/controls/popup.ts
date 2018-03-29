@@ -2,9 +2,9 @@ import {
     FrameworkElement, XamlReader, UIElement, LayoutManager, Size, SizeToContent, 
     Rect, PopupPosition, FrameworkPropertyMetadataOptions 
 } from '.'
-import { DependencyObject, DependencyProperty, DependencyObjectId, getObjectTypeId } from '..' 
+import { DependencyObject, DependencyProperty, TypeId, getObjectTypeId } from '..' 
 
-@DependencyObjectId("ovuse.Controls.Popup")
+@TypeId("ovuse.Controls.Popup")
 export class Popup extends FrameworkElement {
 
     private static initProperties() {

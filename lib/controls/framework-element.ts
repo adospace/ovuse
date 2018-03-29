@@ -12,14 +12,14 @@ import { UIElement,
 import { 
     DependencyObject, 
     DependencyProperty, 
-    DependencyObjectId
+    TypeId
 } from '..'
 
 import '../utils/number-extensions'
 import '../utils/string-extensions'
 import '../utils/array-extensions'
 
-@DependencyObjectId("ovuse.controls.FrameworkElement")
+@TypeId("ovuse.controls.FrameworkElement")
 export class FrameworkElement extends UIElement {
 
     private unclippedDesiredSize: Size | null = null;

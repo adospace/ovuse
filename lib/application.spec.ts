@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import 'mocha';
 
 import { XamlReader, Page  } from './controls'
-import { Application, DependencyObjectId, getObjectTypeId } from '.'
+import { Application, TypeId, getObjectTypeId } from '.'
 import { ApplicationElement } from './application';
 
 require('jsdom-global')("", {
@@ -15,13 +15,13 @@ class App extends Application{
 
 }
 
-@DependencyObjectId("tests.Home")
+@TypeId("tests.Home")
 class HomePage extends Page { }
 
-@DependencyObjectId("tests.Page1")
+@TypeId("tests.Page1")
 class Page1 extends Page { }
 
-@DependencyObjectId("tests.Page2")
+@TypeId("tests.Page2")
 class Page2 extends Page { }
 
 describe('Application routing', () => {

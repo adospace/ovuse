@@ -1,8 +1,8 @@
 import { FrameworkElement, FrameworkPropertyMetadataOptions, Size } from '.'
-import { DependencyObjectId } from '..';
+import { TypeId } from '..';
 import { DependencyObject, DependencyProperty } from '../.'
 
-@DependencyObjectId("ovuse.controls.TextBlock")
+@TypeId("ovuse.controls.TextBlock")
 export class TextBlock extends FrameworkElement {
 
     private _pElement: HTMLElement | null = null;

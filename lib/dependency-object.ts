@@ -1,6 +1,6 @@
 
 import { DependencyProperty, Binding, PropertyMap } from '.'
-import { DependencyObjectId, getTypeId, getObjectTypeId } from '.'
+import { TypeId, getTypeId, getObjectTypeId } from '.'
 
 import { ISupportDependencyPropertyChange, ISupportPropertyChange, IConverter } from './contracts'
 import { isString, hasProperty, getFirstAnchestor } from './utils'

@@ -1,7 +1,7 @@
 import { FrameworkElement, UIElement, CornerRadius, Rect, Size, Thickness, FrameworkPropertyMetadataOptions } from '.'
-import { DependencyObjectId, DependencyProperty, DependencyObject } from '../.'
+import { TypeId, DependencyProperty, DependencyObject } from '../.'
 
-@DependencyObjectId("ovuse.controls.Border")
+@TypeId("ovuse.controls.Border")
 export class Border extends FrameworkElement {
 
     private _child: UIElement | null = null;

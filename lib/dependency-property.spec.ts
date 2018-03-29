@@ -2,10 +2,10 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { DependencyObjectId, getTypeId, getObjectTypeId  } from '../lib'
+import { TypeId, getTypeId, getObjectTypeId  } from '../lib'
 import { DependencyObject, DependencyProperty  } from '../lib'
 
-@DependencyObjectId("ObjectTypeA")
+@TypeId("ObjectTypeA")
 class A extends DependencyObject {
 
     static myProperty = DependencyObject.registerProperty(A, "MyProperty", 23);
@@ -17,7 +17,7 @@ class A extends DependencyObject {
     }
 }
 
-@DependencyObjectId("ObjectTypeB")
+@TypeId("ObjectTypeB")
 class B extends A {
 
     private static initProperties() {
