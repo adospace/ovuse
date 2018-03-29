@@ -10,5 +10,5 @@ Ovuse comes from my personal development experiences with Layouts (https://githu
 
 Ovuse is best suited for Single Page Applications (SAP) and supports natively MVM pattern.
 
-# Documentation
+### Documentation
 https://adospace.github.io/ovuse/
