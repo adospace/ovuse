@@ -9,3 +9,6 @@ Ovuse borrows many ideas from WPF like Xaml, Dependency Properties, Binding, Dat
 Ovuse comes from my personal development experiences with Layouts (https://github.com/adospace/layouts): with it I've successfully developed a complex dashboard application enjoying many powerful features like Xaml and Binding. Layouts was written specifically for Visual Studio users (so it's released as a nuget package) while Ovuse is released as npm package (yarn in future too?) and written entirely with Typescript in Visual Studio Code.
 
 Ovuse is best suited for Single Page Applications (SAP) and supports natively MVM pattern.
+
+# Documentation
+https://adospace.github.io/ovuse/
