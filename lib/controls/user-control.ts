@@ -1,14 +1,9 @@
 import { FrameworkElement, UIElement, CornerRadius, Rect, Size, Thickness, FrameworkPropertyMetadataOptions, XamlReader, TextBlock, DataTemplate } from '.'
-import { TypeId, DependencyProperty, DependencyObject, ObservableCollection } from '../.'
+import { TypeId, DependencyProperty, DependencyObject, ObservableCollection, getTypeId, getObjectTypeId } from '../.'
 import { ISupportCollectionChanged } from '../contracts'
 
 @TypeId("ovuse.controls.UserControl")
 export class UserControl extends FrameworkElement {
-    static typeName: string = "layouts.controls.UserControl";
-    get typeName(): string {
-        return UserControl.typeName;
-    }
-
     private _content: UIElement | null = null;
     protected initializeComponent(): UIElement | null {
         return null;
@@ -24,7 +19,7 @@ export class UserControl extends FrameworkElement {
         }
         //req.open("GET", "data/records.txt", true);
         //app.views.CustomView
-        req.open("GET", this.typeName.replace(/\./gi, '/') + ".xml", true);
+        req.open("GET", getObjectTypeId(this).replace(/\./gi, '/') + ".xml", true);
         req.send();
     }
 

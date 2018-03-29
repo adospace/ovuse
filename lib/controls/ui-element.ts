@@ -11,11 +11,6 @@ import '../utils/array-extensions'
 @TypeId("ovuse.controls.UIElement")
 export class UIElement extends DependencyObject implements ISupportCommandCanExecuteChanged { //, ISupportCollectionChanged
 
-    // static typeName: string = "layouts.UIElement";
-    // get typeName(): string {
-    //     return UIElement.typeName;
-    // }
-
     desiredSize: Size | null = null;
     renderSize: Size | null = null;
 

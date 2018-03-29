@@ -5,11 +5,6 @@ import { hasTypeId } from '../type-id';
 
 
 export class DataTemplate extends DependencyObject {
-    static typeName: string = "layouts.controls.DataTemplate";
-    get typeName(): string {
-        return DataTemplate.typeName;
-    }
-
     private _innerXaml: string | null = null;
     setInnerXaml(value: string) {
         this._innerXaml = value;
@@ -99,7 +94,8 @@ export class DataTemplate extends DependencyObject {
 
     ///returns the type datatemplate is suited for
     ///if null it means it's a generic template usable for any object of any type
-    static targetTypeProperty = DependencyObject.registerProperty(DataTemplate.typeName, "TargetType", null);
+    static targetTypeProperty = DependencyObject.registerProperty(
+        DataTemplate, "TargetType", null);
     get targetType(): string {
         return <string>this.getValue(DataTemplate.targetTypeProperty);
     }
@@ -107,7 +103,8 @@ export class DataTemplate extends DependencyObject {
         this.setValue(DataTemplate.targetTypeProperty, value);
     }
 
-    static targetMemberProperty = DependencyObject.registerProperty(DataTemplate.typeName, "TargetMember", null);
+    static targetMemberProperty = DependencyObject.registerProperty(
+        DataTemplate, "TargetMember", null);
     get targetMember(): string {
         return <string>this.getValue(DataTemplate.targetMemberProperty);
     }
@@ -115,7 +112,8 @@ export class DataTemplate extends DependencyObject {
         this.setValue(DataTemplate.targetMemberProperty, value);
     }
 
-    static mediaProperty = DependencyObject.registerProperty(DataTemplate.typeName, "Media", null);
+    static mediaProperty = DependencyObject.registerProperty(
+        DataTemplate, "Media", null);
     get media(): string {
         return <string>this.getValue(DataTemplate.mediaProperty);
     }
@@ -123,7 +121,8 @@ export class DataTemplate extends DependencyObject {
         this.setValue(DataTemplate.mediaProperty, value);
     }
 
-    static nameProperty = DependencyObject.registerProperty(DataTemplate.typeName, "Name", null);
+    static nameProperty = DependencyObject.registerProperty(
+        DataTemplate, "Name", null);
     get name(): string {
         return <string>this.getValue(DataTemplate.nameProperty);
     }

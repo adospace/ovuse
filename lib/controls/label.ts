@@ -4,10 +4,6 @@ import { ISupportCollectionChanged } from '../contracts'
 
 @TypeId("ovuse.controls.Label")
 export class Label extends TextBlock {
-    static typeName: string = "layouts.controls.Label";
-    get typeName(): string {
-        return Label.typeName;
-    }
 
     private _label: HTMLLabelElement | null = null;
 

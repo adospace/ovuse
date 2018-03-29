@@ -174,10 +174,6 @@ export class span extends NativeElement {
 
 @TypeId("ovuse.controls.h1")
 export class h1 extends NativeElement {
-    static typeName: string = "layouts.controls.h1";
-    get typeName(): string {
-        return h1.typeName;
-    }
 
     constructor() {
         super("h1");
@@ -186,10 +182,6 @@ export class h1 extends NativeElement {
 
 @TypeId("ovuse.controls.h2")
 export class h2 extends NativeElement {
-    static typeName: string = "layouts.controls.h2";
-    get typeName(): string {
-        return h2.typeName;
-    }
 
     constructor() {
         super("h2");
@@ -198,10 +190,6 @@ export class h2 extends NativeElement {
 
 @TypeId("ovuse.controls.h3")
 export class h3 extends NativeElement {
-    static typeName: string = "layouts.controls.h3";
-    get typeName(): string {
-        return h3.typeName;
-    }
 
     constructor() {
         super("h3");
@@ -210,10 +198,6 @@ export class h3 extends NativeElement {
 
 @TypeId("ovuse.controls.h4")
 export class h4 extends NativeElement {
-    static typeName: string = "layouts.controls.h4";
-    get typeName(): string {
-        return h4.typeName;
-    }
 
     constructor() {
         super("h4");
@@ -222,10 +206,6 @@ export class h4 extends NativeElement {
 
 @TypeId("ovuse.controls.h5")
 export class h5 extends NativeElement {
-    static typeName: string = "layouts.controls.h5";
-    get typeName(): string {
-        return h5.typeName;
-    }
 
     constructor() {
         super("h5");

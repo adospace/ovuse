@@ -5,14 +5,8 @@ import { ISupportCollectionChanged } from '../contracts'
     
 
 export class ItemsControl extends FrameworkElement implements ISupportCollectionChanged {
-    static typeName: string = "layouts.controls.ItemsControl";
-    get typeName(): string {
-        return ItemsControl.typeName;
-    }
-
     private static initProperties() {
-        //FrameworkElement.overflowXProperty.overrideDefaultValue(ItemsControl.typeName, "auto");
-        FrameworkElement.overflowYProperty.overrideDefaultValue(ItemsControl.typeName, "auto");
+        FrameworkElement.overflowYProperty.overrideDefaultValue(ItemsControl, "auto");
     }
     private static _init = ItemsControl.initProperties();
 
@@ -123,7 +117,8 @@ export class ItemsControl extends FrameworkElement implements ISupportCollection
     }
 
     //itemsSource property
-    static itemsSourceProperty = DependencyObject.registerProperty(ItemsControl.typeName, "ItemsSource", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static itemsSourceProperty = DependencyObject.registerProperty(
+        ItemsControl, "ItemsSource", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get itemsSource(): any {
         return <any>this.getValue(ItemsControl.itemsSourceProperty);
     }
@@ -132,7 +127,8 @@ export class ItemsControl extends FrameworkElement implements ISupportCollection
     }
 
     //itemsPanel property
-    static itemsPanelProperty = DependencyObject.registerProperty(ItemsControl.typeName, "ItemsPanel", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
+    static itemsPanelProperty = DependencyObject.registerProperty(
+        ItemsControl, "ItemsPanel", null, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender);
     get itemsPanel(): Panel {
         return <Panel>this.getValue(ItemsControl.itemsPanelProperty);
     }
@@ -175,31 +171,6 @@ export class ItemsControl extends FrameworkElement implements ISupportCollection
 
         super.onDependencyPropertyChanged(property, value, oldValue);
     }
-
-    //private getTemplateForItem(item: any): DataTemplate {
-    //    if (this._templates == null ||
-    //        this._templates.count == 0)
-    //        return null;
-
-    //    var typeName: string = typeof item;
-    //    if (Ext.hasProperty(item, "typeName"))
-    //        typeName = item["typeName"];
-    //    else {
-    //        if (item instanceof Date)//detect date type
-    //            typeName = "date";
-                
-    //    }
-
-    //    var foundTemplate: DataTemplate = null;
-
-    //    if (typeName != null)
-    //        foundTemplate = Enumerable.From(this.templates.elements).FirstOrDefault(null, dt => dt.targetType != null && dt.targetType.toLowerCase() == typeName.toLowerCase());
-
-    //    if (foundTemplate != null)
-    //        return foundTemplate;
-
-    //    return Enumerable.From(this.templates.elements).FirstOrDefault(null, dt => dt.targetType == null);
-    //}
 
     private setupItems() {
         
