@@ -132,7 +132,7 @@ Popup._init = Popup_1.initProperties();
 Popup.sizeToContentProperty = __1.DependencyObject.registerProperty(Popup_1, "SizeToContent", _1.SizeToContent.Both, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.SizeToContent[v]);
 Popup.positionProperty = __1.DependencyObject.registerProperty(Popup_1, "Position", _1.PopupPosition.Center, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.PopupPosition[v]);
 Popup = Popup_1 = __decorate([
-    __1.DependencyObjectId("ovuse.Controls.Popup"),
+    __1.TypeId("ovuse.Controls.Popup"),
     __metadata("design:paramtypes", [])
 ], Popup);
 exports.Popup = Popup;

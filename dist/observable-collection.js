@@ -64,5 +64,9 @@ class ObservableCollection {
             this.pcHandlers.splice(index, 1);
         }
     }
+    clear() {
+        while (this.count > 0)
+            this.remove(this.at(0));
+    }
 }
 exports.ObservableCollection = ObservableCollection;

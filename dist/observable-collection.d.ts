@@ -13,4 +13,5 @@ export declare class ObservableCollection<T> {
     private pcHandlers;
     onChangeNotify(handler: ISupportCollectionChanged): void;
     offChangeNotify(handler: ISupportCollectionChanged): void;
+    clear(): void;
 }

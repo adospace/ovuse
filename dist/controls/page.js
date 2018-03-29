@@ -65,12 +65,6 @@ let Page = Page_1 = class Page extends _1.FrameworkElement {
         }
         return finalSize;
     }
-    get child() {
-        return this.getValue(Page_1.childProperty);
-    }
-    set child(value) {
-        this.setValue(Page_1.childProperty, value);
-    }
     onDependencyPropertyChanged(property, value, oldValue) {
         if (property == Page_1.childProperty) {
             var oldChild = oldValue;
@@ -87,6 +81,12 @@ let Page = Page_1 = class Page extends _1.FrameworkElement {
         }
         super.onDependencyPropertyChanged(property, value, oldValue);
     }
+    get child() {
+        return this.getValue(Page_1.childProperty);
+    }
+    set child(value) {
+        this.setValue(Page_1.childProperty, value);
+    }
     get sizeToContent() {
         return this.getValue(Page_1.sizeToContentProperty);
     }
@@ -101,7 +101,7 @@ Page.childProperty = __1.DependencyObject.registerProperty(Page_1, "Child", null
 //SizeToContent property
 Page.sizeToContentProperty = __1.DependencyObject.registerProperty(Page_1, "SizeToContent", _1.SizeToContent.None, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => _1.SizeToContent[v]);
 Page = Page_1 = __decorate([
-    __1.DependencyObjectId("ovuse.controls.Page")
+    __1.TypeId("ovuse.controls.Page")
 ], Page);
 exports.Page = Page;
 var Page_1;

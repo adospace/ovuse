@@ -12,12 +12,12 @@ const lib_1 = require("../lib");
 let A = class A {
 };
 A = __decorate([
-    lib_1.DependencyObjectId("a-uniqueid")
+    lib_1.TypeId("a-uniqueid")
 ], A);
 let B = class B extends A {
 };
 B = __decorate([
-    lib_1.DependencyObjectId("b-uniqueid")
+    lib_1.TypeId("b-uniqueid")
 ], B);
 describe('getPrototypeOf', () => {
     it('it should return true', () => {

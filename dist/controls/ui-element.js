@@ -499,7 +499,7 @@ UIElement.autoClosePopupProperty = _1.DependencyObject.registerProperty(UIElemen
 });
 UIElement.layoutUpdatedProperty = _1.DependencyObject.registerProperty(UIElement_1, "LayoutUpdated", null, _2.FrameworkPropertyMetadataOptions.None);
 UIElement = UIElement_1 = __decorate([
-    _1.DependencyObjectId("ovuse.controls.UIElement")
+    _1.TypeId("ovuse.controls.UIElement")
 ], UIElement);
 exports.UIElement = UIElement;
 var UIElement_1;

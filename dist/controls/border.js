@@ -159,7 +159,7 @@ Border.backgroundProperty = _2.DependencyObject.registerProperty(Border_1, "Back
 Border.borderBrushProperty = _2.DependencyObject.registerProperty(Border_1, "BorderBrush", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
 Border.borderStyleProperty = _2.DependencyObject.registerProperty(Border_1, "BorderStyle", null, _1.FrameworkPropertyMetadataOptions.AffectsRender);
 Border = Border_1 = __decorate([
-    _2.DependencyObjectId("ovuse.controls.Border")
+    _2.TypeId("ovuse.controls.Border")
 ], Border);
 exports.Border = Border;
 var Border_1;

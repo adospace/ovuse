@@ -20,7 +20,7 @@ let A = A_1 = class A extends lib_2.DependencyObject {
 };
 A.myProperty = lib_2.DependencyObject.registerProperty(A_1, "MyProperty", 23);
 A = A_1 = __decorate([
-    lib_1.DependencyObjectId("ObjectTypeA")
+    lib_1.TypeId("ObjectTypeA")
 ], A);
 let B = B_1 = class B extends A {
     static initProperties() {
@@ -36,7 +36,7 @@ let B = B_1 = class B extends A {
 B._init = B_1.initProperties();
 B.myProperty = lib_2.DependencyObject.registerProperty(B_1, "MyProperty", 1);
 B = B_1 = __decorate([
-    lib_1.DependencyObjectId("ObjectTypeB")
+    lib_1.TypeId("ObjectTypeB")
 ], B);
 describe('dependency-property', () => {
     it('it should return initial value 23', () => {

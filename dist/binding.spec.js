@@ -13,13 +13,13 @@ let A = A_1 = class A extends lib_1.DependencyObject {
 };
 A.propertyOnSource = lib_1.DependencyObject.registerProperty(A_1, "PropertyOnSource");
 A = A_1 = __decorate([
-    lib_1.DependencyObjectId("TypeA")
+    lib_1.TypeId("TypeA")
 ], A);
 let B = B_1 = class B extends lib_1.DependencyObject {
 };
 B.propertyOnTarget = lib_1.DependencyObject.registerProperty(B_1, "PropertyOnTarget");
 B = B_1 = __decorate([
-    lib_1.DependencyObjectId("TypeB")
+    lib_1.TypeId("TypeB")
 ], B);
 describe('Source A -> Target B', () => {
     it('it should return true', () => {

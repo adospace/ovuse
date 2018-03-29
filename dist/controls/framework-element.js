@@ -304,7 +304,7 @@ FrameworkElement.overflowXProperty = __1.DependencyObject.registerProperty(Frame
 //by default content is clipped so overflowY is set to hidden
 FrameworkElement.overflowYProperty = __1.DependencyObject.registerProperty(FrameworkElement_1, "OverflowY", "hidden", _1.FrameworkPropertyMetadataOptions.AffectsRender);
 FrameworkElement = FrameworkElement_1 = __decorate([
-    __1.DependencyObjectId("ovuse.controls.FrameworkElement")
+    __1.TypeId("ovuse.controls.FrameworkElement")
 ], FrameworkElement);
 exports.FrameworkElement = FrameworkElement;
 class MinMax {

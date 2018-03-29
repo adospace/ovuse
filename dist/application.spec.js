@@ -23,17 +23,17 @@ App = __decorate([
 let HomePage = class HomePage extends controls_1.Page {
 };
 HomePage = __decorate([
-    _1.DependencyObjectId("tests.Home")
+    _1.TypeId("tests.Home")
 ], HomePage);
 let Page1 = class Page1 extends controls_1.Page {
 };
 Page1 = __decorate([
-    _1.DependencyObjectId("tests.Page1")
+    _1.TypeId("tests.Page1")
 ], Page1);
 let Page2 = class Page2 extends controls_1.Page {
 };
 Page2 = __decorate([
-    _1.DependencyObjectId("tests.Page2")
+    _1.TypeId("tests.Page2")
 ], Page2);
 describe('Application routing', () => {
     before(() => {

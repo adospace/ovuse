@@ -92,7 +92,7 @@ TextBlock.textProperty = _2.DependencyObject.registerProperty(TextBlock_1, "Text
 TextBlock.whiteSpaceProperty = _2.DependencyObject.registerProperty(TextBlock_1, "WhiteSpace", "pre", _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender);
 TextBlock.formatProperty = _2.DependencyObject.registerProperty(TextBlock_1, "Format", null, _1.FrameworkPropertyMetadataOptions.AffectsMeasure | _1.FrameworkPropertyMetadataOptions.AffectsRender, (v) => String(v));
 TextBlock = TextBlock_1 = __decorate([
-    __1.DependencyObjectId("ovuse.controls.TextBlock")
+    __1.TypeId("ovuse.controls.TextBlock")
 ], TextBlock);
 exports.TextBlock = TextBlock;
 var TextBlock_1;
